@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
-
+  
 <body>
   @include('dynamic/v_header');
   @include('dynamic/v_sidebar');
