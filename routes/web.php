@@ -16,3 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('admin/v_admin');
 });
+
+//siswa
+Route::get('/siswa', 'App\Http\Controllers\SiswaController@index');
