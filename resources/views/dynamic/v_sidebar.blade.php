@@ -10,8 +10,8 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " href="/siswa">
-          <i class="bi bi-grid"></i>
+        <a class="nav-link collapsed" href="/siswa">
+          <i class="bi bi-person"></i>
           <span>Siswa</span>
         </a>
       </li>
