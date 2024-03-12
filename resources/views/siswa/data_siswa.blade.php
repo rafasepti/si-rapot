@@ -7,13 +7,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>
+      <h1>Siswa</h1>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
@@ -21,18 +15,16 @@
         <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Datatables</h5>
+                <h5 class="card-title">Data Siswa</h5>
                 <!-- Table with stripped rows -->
                 <table class="table datatable">
                   <thead>
                     <tr>
-                      <th>
-                        <b>N</b>ame
-                      </th>
-                      <th>Ext.</th>
-                      <th>City</th>
-                      <th data-type="date" data-format="YYYY/DD/MM">Start Date</th>
-                      <th>Completion</th>
+                      <th>No.</th>
+                      <th>NISN</th>
+                      <th>Nama</th>
+                      <th>Kelas</th>
+                      <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -41,21 +33,17 @@
                       <td>9958</td>
                       <td>Curicó</td>
                       <td>2005/02/11</td>
-                      <td>37%</td>
-                    </tr>
-                    <tr>
-                      <td>Theodore Duran</td>
-                      <td>8971</td>
-                      <td>Dhanbad</td>
-                      <td>1999/04/07</td>
-                      <td>97%</td>
-                    </tr>
-                    <tr>
-                      <td>Kylie Bishop</td>
-                      <td>3147</td>
-                      <td>Norman</td>
-                      <td>2005/09/08</td>
-                      <td>63%</td>
+                      <td style="text-align: center">
+                        <a href="/siswa/detail/" class="btn btn-outline-info">
+                          <i class="bi bi-info-lg"></i>
+                        </a>
+                        <a href="/siswa/edit/" class="btn btn-outline-success">
+                          <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="/siswa/hapus/" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin?')">
+                          <i class="bi bi-trash-fill"></i>
+                        </a>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
