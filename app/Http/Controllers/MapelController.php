@@ -51,7 +51,7 @@ class MapelController extends Controller
      */
     public function create()
     {
-        //
+        return view('mapel/tambah_mapel');
     }
 
     /**
@@ -59,7 +59,11 @@ class MapelController extends Controller
      */
     public function store(StoreMapelRequest $request)
     {
-        //
+        DB::table('mapel')->insert([
+            'nama_mapel' => $request->nama_mapel,
+            'kkm' => $request->kkm,
+        ]);
+        return redirect('/mapel');
     }
 
     /**

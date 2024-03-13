@@ -37,19 +37,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    {{-- <tr>
-                      <td>Unity Pugh</td>
-                      <td>9958</td>
-                      <td>Curicó</td>
-                      <td style="text-align: center">
-                        <a href="/siswa/edit/" class="btn btn-outline-success">
-                          <i class="bi bi-pencil-square"></i>
-                        </a>
-                        <a href="/siswa/hapus/" class="btn btn-outline-danger" onclick="return confirm('Apakah anda yakin?')">
-                          <i class="bi bi-trash-fill"></i>
-                        </a>
-                      </td>
-                    </tr> --}}
+                   
                   </tbody>
                 </table>
                 <!-- End Table with stripped rows -->
