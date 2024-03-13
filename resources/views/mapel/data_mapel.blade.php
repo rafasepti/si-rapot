@@ -31,11 +31,7 @@
                       <td>Unity Pugh</td>
                       <td>9958</td>
                       <td>Curicó</td>
-                      <td>2005/02/11</td>
                       <td style="text-align: center">
-                        <a href="/siswa/detail/" class="btn btn-outline-info">
-                          <i class="bi bi-info-lg"></i>
-                        </a>
                         <a href="/siswa/edit/" class="btn btn-outline-success">
                           <i class="bi bi-pencil-square"></i>
                         </a>
