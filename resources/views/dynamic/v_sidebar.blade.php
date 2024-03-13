@@ -3,21 +3,21 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/">
+        <a class="nav-link {{ Request::is('/') ? '' : 'collapsed' }}" href="/">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/siswa">
+        <a class="nav-link {{ Request::is('siswa') ? '' : 'collapsed' }}" href="/siswa">
           <i class="bi bi-person"></i>
           <span>Siswa</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/mapel">
+        <a class="nav-link {{ Request::is('mapel') ? '' : 'collapsed' }}" href="/mapel">
           <i class="bi bi-book"></i>
           <span>Mata Pelajaran</span>
         </a>
