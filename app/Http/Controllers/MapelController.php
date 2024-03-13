@@ -32,10 +32,10 @@ class MapelController extends Controller
                 ->addColumn('action', function($b){
                     $actionBtn = 
                     '
-                        <a href="/siswa/edit/" class="btn btn-outline-success">
+                        <a href="/mapel/edit/'.$b->id.'" class="btn btn-outline-success">
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        <a href="/siswa/hapus/" class="btn btn-outline-danger" onclick="return confirm(`Apakah anda yakin?`)">
+                        <a href="/mapel/hapus/'.$b->id.'" class="btn btn-outline-danger" onclick="return confirm(`Apakah anda yakin?`)">
                             <i class="bi bi-trash-fill"></i>
                         </a>
                     ';
@@ -77,9 +77,13 @@ class MapelController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Mapel $mapel)
+    public function edit($id)
     {
-        //
+        $mapel = DB::table('mapel')->where('id',$id)->get();
+        return view('mapel/edit_mapel',
+        [
+            'mapel' => $mapel,
+        ]);
     }
 
     /**
@@ -87,14 +91,19 @@ class MapelController extends Controller
      */
     public function update(UpdateMapelRequest $request, Mapel $mapel)
     {
-        //
+        DB::table('mapel')->where('id',$request->id)->update([
+            'nama_mapel' => $request->nama_mapel,
+            'kkm' => $request->kkm,
+        ]);
+        return redirect('/mapel');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Mapel $mapel)
+    public function destroy($id)
     {
-        //
+        DB::table('mapel')->where('id',$id)->delete();
+        return redirect('/mapel');
     }
 }

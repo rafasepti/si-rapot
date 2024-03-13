@@ -25,3 +25,6 @@ Route::get('/mapel', 'App\Http\Controllers\MapelController@index');
 Route::get('/mapel/list', 'App\Http\Controllers\MapelController@mapelGet');
 Route::get('/mapel/tambah', 'App\Http\Controllers\MapelController@create');
 Route::post('/mapel/store', 'App\Http\Controllers\MapelController@store');
+Route::get('/mapel/edit/{id}','App\Http\Controllers\MapelController@edit');
+Route::post('/mapel/update','App\Http\Controllers\MapelController@update');
+Route::get('/mapel/hapus/{id}','App\Http\Controllers\MapelController@destroy');

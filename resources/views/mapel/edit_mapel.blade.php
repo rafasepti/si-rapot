@@ -17,19 +17,23 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-9">
-                    <h5 class="card-title">Tambah Mata Pelajaran</h5>
+                    <h5 class="card-title">Edit Mata Pelajaran</h5>
                   </div>
                 </div>
                 <!-- Vertical Form -->
-                <form class="row g-3" action="/mapel/store" method="post">
+                @foreach ($mapel as $m)
+                    
+                @endforeach
+                <form class="row g-3" action="/mapel/update" method="post">
                     {{ csrf_field() }}
+                    <input type="hidden" name="id" value="{{ $m->id }}">
                     <div class="col-12">
                         <label for="nama_mapel" class="form-label">Nama Mata Pelajaran</label>
-                        <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" required>
+                        <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" value="{{ $m->nama_mapel }}" required>
                     </div>
                     <div class="col-12">
                         <label for="kkm" class="form-label">KKM</label>
-                        <input type="number" class="form-control" id="kkm" name="kkm" required>
+                        <input type="number" class="form-control" id="kkm" name="kkm" value="{{ $m->kkm }}" required>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
