@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Mapel;
 use App\Http\Requests\StoreMapelRequest;
 use App\Http\Requests\UpdateMapelRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use DataTables;
 
 class MapelController extends Controller
 {
@@ -18,6 +21,29 @@ class MapelController extends Controller
                 
             ]
         );
+    }
+
+    public function mapelGet(Request $request)
+    {
+        if ($request->ajax()) {
+            $mapel = DB::table('mapel')->get();
+            return Datatables::of($mapel)
+                ->addIndexColumn()
+                ->addColumn('action', function($b){
+                    $actionBtn = 
+                    '
+                        <a href="/siswa/edit/" class="btn btn-outline-success">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="/siswa/hapus/" class="btn btn-outline-danger" onclick="return confirm(`Apakah anda yakin?`)">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    ';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     /**

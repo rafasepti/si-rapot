@@ -9,6 +9,9 @@
     <!-- Favicons -->
     <link href="{{asset('template')}}/assets/img/favicon.png" rel="icon">
     <link href="{{asset('template')}}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    {{-- datatables --}}
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
   
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">

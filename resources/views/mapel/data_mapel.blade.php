@@ -15,9 +15,19 @@
         <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Data Mata Pelajaran</h5>
+                <div class="row">
+                  <div class="col-md-9">
+                    <h5 class="card-title">Data Mata Pelajaran</h5>
+                  </div>
+                  <div class="col-md-3">
+                    <a href="{{ url('mapel/tambah/') }}" class="btn btn-primary float-right" style="
+                      margin-top: 15px; margin-left: 52px;">
+                      <i class="bi bi-plus"></i> Tambah Data
+                    </a>
+                  </div>
+                </div>
                 <!-- Table with stripped rows -->
-                <table class="table datatable">
+                <table class="table yajra-datatable">
                   <thead>
                     <tr>
                       <th>No.</th>
@@ -27,7 +37,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    {{-- <tr>
                       <td>Unity Pugh</td>
                       <td>9958</td>
                       <td>Curicó</td>
@@ -39,7 +49,7 @@
                           <i class="bi bi-trash-fill"></i>
                         </a>
                       </td>
-                    </tr>
+                    </tr> --}}
                   </tbody>
                 </table>
                 <!-- End Table with stripped rows -->
@@ -54,5 +64,26 @@
   @include('dynamic/v_footer');
 
 </body>
-
+<script type="text/javascript">
+  $(function () {
+    
+    var table = $('.yajra-datatable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ url('mapel/list') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'nama_mapel', name: 'nama_mapel'},
+            {data: 'kkm', name: 'kkm'},
+            {
+                data: 'action', 
+                name: 'action', 
+                orderable: true, 
+                searchable: true
+            },
+        ]
+    });
+    
+  });
+</script>
 </html>
