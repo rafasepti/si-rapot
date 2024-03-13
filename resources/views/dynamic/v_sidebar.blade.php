@@ -18,7 +18,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="/mapel">
-          <i class="bi bi-book-fill"></i>
+          <i class="bi bi-book"></i>
           <span>Mata Pelajaran</span>
         </a>
       </li>

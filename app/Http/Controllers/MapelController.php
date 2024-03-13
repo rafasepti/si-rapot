@@ -13,7 +13,11 @@ class MapelController extends Controller
      */
     public function index()
     {
-        //
+        return view('mapel/data_mapel',
+            [
+                
+            ]
+        );
     }
 
     /**

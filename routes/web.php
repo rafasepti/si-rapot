@@ -19,3 +19,6 @@ Route::get('/', function () {
 
 //siswa
 Route::get('/siswa', 'App\Http\Controllers\SiswaController@index');
+
+//mapel
+Route::get('/mapel', 'App\Http\Controllers\MapelController@index');
