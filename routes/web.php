@@ -38,3 +38,12 @@ Route::post('/guru/store', 'App\Http\Controllers\GuruController@store');
 Route::get('/guru/edit/{id}','App\Http\Controllers\GuruController@edit');
 Route::post('/guru/update','App\Http\Controllers\GuruController@update');
 Route::get('/guru/hapus/{id}','App\Http\Controllers\GuruController@destroy');
+
+//kelas
+Route::get('/kelas', 'App\Http\Controllers\KelasController@index');
+Route::get('/kelas/list', 'App\Http\Controllers\KelasController@kelasGet');
+Route::get('/kelas/tambah', 'App\Http\Controllers\KelasController@create');
+Route::post('/kelas/store', 'App\Http\Controllers\KelasController@store');
+Route::get('/kelas/edit/{id}','App\Http\Controllers\KelasController@edit');
+Route::post('/kelas/update','App\Http\Controllers\KelasController@update');
+Route::get('/kelas/hapus/{id}','App\Http\Controllers\KelasController@destroy');

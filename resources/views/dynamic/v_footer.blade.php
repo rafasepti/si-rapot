@@ -11,6 +11,7 @@
 
   <!-- Vendor JS Files -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  
   {{-- datatables --}}
   <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
   <script src="{{asset('template')}}/assets/vendor/apexcharts/apexcharts.min.js"></script>
