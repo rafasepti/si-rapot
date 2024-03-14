@@ -31,8 +31,9 @@ Route::get('/mapel/hapus/{id}','App\Http\Controllers\MapelController@destroy');
 
 //guru
 Route::get('/guru', 'App\Http\Controllers\GuruController@index');
-Route::get('/guru/list', 'App\Http\Controllers\GuruController@mapelGet');
+Route::get('/guru/list', 'App\Http\Controllers\GuruController@guruGet');
 Route::get('/guru/tambah', 'App\Http\Controllers\GuruController@create');
+Route::get('/guru/detail/{id}', 'App\Http\Controllers\GuruController@detail');
 Route::post('/guru/store', 'App\Http\Controllers\GuruController@store');
 Route::get('/guru/edit/{id}','App\Http\Controllers\GuruController@edit');
 Route::post('/guru/update','App\Http\Controllers\GuruController@update');

@@ -23,19 +23,20 @@ class GuruController extends Controller
 
     public function guruGet(Request $request)
     {
-        $guru = DB::table('guru')
-                ->join('mapel', 'mapel.id', '=', 'guru.id_mapel')->get();
         if ($request->ajax()) {
-            $guru = DB::table('guru')->get();
+            $guru = Guru::getJoinMapel();
             return Datatables::of($guru)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
                     $actionBtn = 
                     '
-                        <a href="/guru/edit/'.$b->id.'" class="btn btn-outline-success">
+                        <a href="/guru/detail/'.$b->id_guru.'" class="btn btn-outline-info">
+                            <i class="bi bi-info-lg"></i>
+                        </a>
+                        <a href="/guru/edit/'.$b->id_guru.'" class="btn btn-outline-success">
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        <a href="/guru/hapus/'.$b->id.'" class="btn btn-outline-danger" onclick="return confirm(`Apakah anda yakin?`)">
+                        <a href="/guru/hapus/'.$b->id_guru.'" class="btn btn-outline-danger" onclick="return confirm(`Apakah anda yakin?`)">
                             <i class="bi bi-trash-fill"></i>
                         </a>
                     ';
@@ -84,6 +85,15 @@ class GuruController extends Controller
         ]);
     }
 
+    public function detail($id)
+    {
+        $guru = Guru::getJoinMapelId($id);
+        return view('guru/detail_guru',
+        [
+            'guru' => $guru,
+        ]);
+    }
+    
     /**
      * Update the specified resource in storage.
      */
