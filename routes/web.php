@@ -19,6 +19,13 @@ Route::get('/', function () {
 
 //siswa
 Route::get('/siswa', 'App\Http\Controllers\SiswaController@index');
+Route::get('/siswa/list', 'App\Http\Controllers\SiswaController@siswaGet');
+Route::get('/siswa/tambah', 'App\Http\Controllers\SiswaController@create');
+Route::get('/siswa/detail/{id}', 'App\Http\Controllers\SiswaController@detail');
+Route::post('/siswa/store', 'App\Http\Controllers\SiswaController@store');
+Route::get('/siswa/edit/{id}','App\Http\Controllers\SiswaController@edit');
+Route::post('/siswa/update','App\Http\Controllers\SiswaController@update');
+Route::get('/siswa/hapus/{id}','App\Http\Controllers\SiswaController@destroy');
 
 //mapel
 Route::get('/mapel', 'App\Http\Controllers\MapelController@index');
