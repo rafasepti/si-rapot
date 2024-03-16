@@ -34,8 +34,9 @@
                   <div class="tab-content pt-2" id="myTabContent">
                     <!-- Data Siswa -->
                     <div class="tab-pane fade show active" id="pills-siswa" role="tabpanel" aria-labelledby="siswa-tab">
-                      <div class="row g-3">
+                      <form class="row g-3" action="#" method="post" id="form1">
                         {{-- {{ csrf_field() }} --}}
+                        {{-- @csrf --}}
                         <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                         <input type="hidden" class="form-control" id="kode_siswa" name="kode_siswa" value="{{ $kode_siswa }}" readonly required>
                         <div class="col-12">
@@ -99,11 +100,11 @@
                           <button type="submit" id="saveSiswa" class="btn btn-primary">Submit</button>
                           <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
-                      </div>
+                      </form>
                     </div><!-- Data Siswa -->
                     <!-- Data Wali -->
                     <div class="tab-pane fade" id="pills-wali" role="tabpanel" aria-labelledby="wali-tab">
-                      <form class="row g-3" action="/siswa/store" method="post">
+                      <form class="row g-3" action="#" method="post">
                         {{ csrf_field() }}
                         <input type="hidden" class="form-control" id="id_siswa" name="id_siswa" value="{{ $kode_siswa }}" readonly required>
                         <div class="col-12">
@@ -149,7 +150,8 @@
 
   <script>
     $(document).ready(function() {
-        $('#saveSiswa').on('click', function() {
+      $('#form1').on('submit', function(e) {
+          e.preventDefault();
           var kode_siswa = $('#kode_siswa').val();
           var nisn = $('#nisn').val();
           var id_kelas = $('#id_kelas').val();
@@ -162,10 +164,11 @@
           var alamat_siswa = $('#alamat_siswa').val();
           var thn_angkatan = $('#thn_angkatan').val();
           if(kode_siswa!="" && nisn!="" && id_kelas!="" && nama_siswa!=""){
-            /*  $("#butsave").attr("disabled", "disabled"); */
+            // $("#saveSiswa").attr("disabled", "disabled");
               $.ajax({
-                  url: "/siswa/store",
+                  url: "{{ url('siswa/tambah') }}",
                   type: "POST",
+                  //data: $('#form1').serialize(),
                   data: {
                       _token: $("#csrf").val(),
                       type: 1,
@@ -186,7 +189,7 @@
                       console.log(dataResult);
                       var dataResult = JSON.parse(dataResult);
                       if(dataResult.statusCode==200){
-                        window.location = "/siswa/store";				
+                        window.location = "{{ url('siswa/tambah') }}";				
                       }
                       else if(dataResult.statusCode==201){
                          alert("Error occured !");

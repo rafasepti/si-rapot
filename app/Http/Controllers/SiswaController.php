@@ -72,6 +72,7 @@ class SiswaController extends Controller
     {
         $siswa = DB::table('siswa')->insert([
             'kode_siswa' => $request->kode_siswa,
+            'nama_siswa' => $request->nama_siswa,
             'nisn' => $request->nisn,
             'id_kelas' => $request->id_kelas,
             'tempat_lahir' => $request->tempat_lahir,
@@ -88,7 +89,7 @@ class SiswaController extends Controller
             "statusCode"=>200
         ));
 
-        //return redirect('/siswa');
+        //return redirect('/siswa/tambah');
     }
 
     public function storeWali(StoreSiswaRequest $request)
