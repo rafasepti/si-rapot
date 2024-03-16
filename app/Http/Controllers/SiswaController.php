@@ -70,27 +70,46 @@ class SiswaController extends Controller
      */
     public function store(StoreSiswaRequest $request)
     {
-        $siswa = DB::table('siswa')->insert([
-            'kode_siswa' => $request->kode_siswa,
-            'nama_siswa' => $request->nama_siswa,
-            'nisn' => $request->nisn,
-            'id_kelas' => $request->id_kelas,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tgl_lahir' => date('y-m-d', strtotime($request->tgl_lahir)),
-            'jk' => $request->jk,
-            'agama' => $request->agama,
-            'pendidikan_sebelum' => $request->pendidikan_sebelum,
-            'alamat_siswa' => $request->alamat_siswa,
-            'thn_angkatan' => $request->thn_angkatan,
-        ]);
+        if($request->nisn != ''){
+            $siswa = DB::table('siswa')->insert([
+                'kode_siswa' => $request->kode_siswa,
+                'nama_siswa' => $request->nama_siswa,
+                'nisn' => $request->nisn,
+                'id_kelas' => $request->id_kelas,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tgl_lahir' => date('y-m-d', strtotime($request->tgl_lahir)),
+                'jk' => $request->jk,
+                'agama' => $request->agama,
+                'pendidikan_sebelum' => $request->pendidikan_sebelum,
+                'alamat_siswa' => $request->alamat_siswa,
+                'thn_angkatan' => $request->thn_angkatan,
+            ]);
 
-        //return response
-        return response()->json(
-            [
-                'status' => 200,
-                'message' => 'Sukses Input Data',
-            ]
-        );
+            //return response
+            return response()->json(
+                [
+                    'status' => 200,
+                    'message' => 'Sukses Input Data',
+                ]
+            );
+        } 
+        else{
+            DB::table('wali')->insert([
+                'id_siswa' => $request->id_siswa,
+                'nama_wali' => $request->nama_wali,
+                'pekerjaan_wali' => $request->pekerjaan_wali,
+                'alamat_wali' => $request->alamat_wali,
+                'no_telp' => $request->no_telp,
+                'sebagai' => $request->sebagai,
+            ]);
+
+            return response()->json(
+                [
+                    'status' => 200,
+                    'message' => 'Sukses Input Data',
+                ]
+            );
+        }
 
         //return redirect('/siswa/tambah');
     }
@@ -105,7 +124,13 @@ class SiswaController extends Controller
             'no_telp' => $request->no_telp,
             'sebagai' => $request->sebagai,
         ]);
-        return redirect('/siswa');
+        //return response
+        return response()->json(
+            [
+                'status' => 200,
+                'message' => 'Sukses Input Data',
+            ]
+        );
     }
 
     /**

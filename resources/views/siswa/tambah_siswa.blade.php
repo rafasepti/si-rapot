@@ -18,7 +18,6 @@
                   <div class="row">
                     <div class="col-md-9">
                       <div class="card-title">
-                        <div id="message"></div>
                         <!-- Pills Tabs -->
                         <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
                           <li class="nav-item" role="presentation">
@@ -35,6 +34,10 @@
                   <div class="tab-content pt-2" id="myTabContent">
                     <!-- Data Siswa -->
                     <div class="tab-pane fade show active" id="pills-siswa" role="tabpanel" aria-labelledby="siswa-tab">
+                      <div class="alert alert-info alert-dismissible fade show" id="message" role="alert">
+                      
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
                       <form class="row g-3" action="{{ url('siswa/tambah') }}" method="post" id="form1">
                         @csrf
                         <input type="hidden" class="form-control" id="kode_siswa" name="kode_siswa" value="{{ $kode_siswa }}" readonly required>
@@ -97,14 +100,18 @@
                         </div>    
                         <div class="text-center">
                           <button type="submit" id="saveSiswa" class="btn btn-primary">Submit</button>
-                          <button type="reset" class="btn btn-secondary">Reset</button>
+                          <button type="reset" id="resetSiswa" class="btn btn-secondary">Reset</button>
                         </div>
                       </form>
                     </div><!-- Data Siswa -->
                     <!-- Data Wali -->
                     <div class="tab-pane fade" id="pills-wali" role="tabpanel" aria-labelledby="wali-tab">
-                      <form class="row g-3" action="#" method="post">
-                        {{ csrf_field() }}
+                      <div class="alert alert-info alert-dismissible fade show" id="message2" role="alert">
+                      
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      <form class="row g-3" action="{{ url('siswa/tambah') }}" method="post" id="form2">
+                        @csrf
                         <input type="hidden" class="form-control" id="id_siswa" name="id_siswa" value="{{ $kode_siswa }}" readonly required>
                         <div class="col-12">
                           <label for="nama_wali" class="form-label">Nama Wali</label>
@@ -131,8 +138,8 @@
                           </select>
                         </div>
                         <div class="text-center">
-                          <button type="submit" class="btn btn-primary">Submit</button>
-                          <button type="reset" class="btn btn-secondary">Reset</button>
+                          <button type="submit" id="saveWali" class="btn btn-primary">Submit</button>
+                          <button type="reset" id="resetWali" class="btn btn-secondary">Reset</button>
                         </div>
                       </form>
                     </div><!-- Data Siswa -->
@@ -149,9 +156,15 @@
 
   <script type="text/javascript">
     $(document).ready(function(){
+      $('#message').hide();
+      $('#message2').hide();
+
+      //SISWA
       $('#form1').on('submit', function(event){
         event.preventDefault();
 
+        $("#saveSiswa").attr("disabled", "disabled");
+        $("#resetSiswa").attr("disabled", "disabled");
         jQuery.ajax({
           url:"{{ url('siswa/tambah') }}",
           data: jQuery('#form1').serialize(),
@@ -159,8 +172,29 @@
 
           success:function(result)
           {
+            $('#message').show();
             $('#message').css('display','block');
             jQuery('#message').html(result.message);
+          }
+        })
+      });
+
+      //WALI
+      $('#form2').on('submit', function(event){
+        event.preventDefault();
+
+        $("#saveWali").attr("disabled", "disabled");
+        $("#resetWali").attr("disabled", "disabled");
+        jQuery.ajax({
+          url:"{{ url('siswa/tambah') }}",
+          data: jQuery('#form2').serialize(),
+          type: 'post',
+
+          success:function(result)
+          {
+            $('#message2').show();
+            $('#message2').css('display','block');
+            jQuery('#message2').html(result.message);
           }
         })
       });
