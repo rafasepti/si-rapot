@@ -34,12 +34,13 @@
                   <div class="tab-content pt-2" id="myTabContent">
                     <!-- Data Siswa -->
                     <div class="tab-pane fade show active" id="pills-siswa" role="tabpanel" aria-labelledby="siswa-tab">
-                      <form class="row g-3" action="/siswa/store" method="post">
-                        {{ csrf_field() }}
+                      <div class="row g-3">
+                        {{-- {{ csrf_field() }} --}}
+                        <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
                         <input type="hidden" class="form-control" id="kode_siswa" name="kode_siswa" value="{{ $kode_siswa }}" readonly required>
                         <div class="col-12">
-                          <label for="nuptk" class="form-label">NISN</label>
-                          <input type="number" class="form-control" id="nuptk" name="nuptk" required>
+                          <label for="nisn" class="form-label">NISN</label>
+                          <input type="number" class="form-control" id="nisn" name="nisn" required>
                         </div>
                         <div class="col-12">
                             <label for="nama_siswa" class="form-label">Nama Siswa</label>
@@ -47,7 +48,7 @@
                         </div>
                         <div class="col-12">
                           <label for="id_kelas" class="form-label">Kelas</label>
-                          <select class="form-select" aria-label="Default select example" required name="id_kelas">
+                          <select class="form-select" aria-label="Default select example" required name="id_kelas" id="id_kelas">
                             <option value="" selected>Pilih Kelas</option>
                             @foreach ($kelas as $k)
                               <option value="{{ $k->id }}">{{ $k->tingkat }} - {{ $k->kelas }}</option>
@@ -64,7 +65,7 @@
                         </div>
                         <div class="col-12">
                           <label for="jk" class="form-label">Jenis Kelamin</label>
-                          <select class="form-select" aria-label="Default select example" required name="jk">
+                          <select class="form-select" aria-label="Default select example" required name="jk" id="jk">
                             <option value="" selected>Pilih Jenis Kelamin</option>
                             <option>Laki-Laki</option>
                             <option>Perempuan</option>
@@ -72,7 +73,7 @@
                         </div>
                         <div class="col-12">
                           <label for="agama" class="form-label">Agama</label>
-                          <select class="form-select" aria-label="Default select example" required name="agama">
+                          <select class="form-select" aria-label="Default select example" required name="agama" id="agama">
                             <option value="" selected>Pilih Agama</option>
                             <option>Islam</option>
                             <option>Kristen Protestan</option>
@@ -88,17 +89,17 @@
                         </div>
                         <div class="col-12">
                           <label for="alamat_siswa" class="form-label">Alamat</label>
-                          <textarea class="form-control" style="height: 100px" name="alamat_siswa" required></textarea>
+                          <textarea class="form-control" style="height: 100px" name="alamat_siswa" id="agama" required></textarea>
                         </div>
                         <div class="col-12">
                           <label for="thn_angkatan" class="form-label">Tahun angkatan</label>
                           <input type="number" class="form-control" id="thn_angkatan" name="thn_angkatan" required>
                         </div>    
                         <div class="text-center">
-                          <button type="submit" class="btn btn-primary">Submit</button>
+                          <button type="submit" id="saveSiswa" class="btn btn-primary">Submit</button>
                           <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
-                      </form>
+                      </div>
                     </div><!-- Data Siswa -->
                     <!-- Data Wali -->
                     <div class="tab-pane fade" id="pills-wali" role="tabpanel" aria-labelledby="wali-tab">
@@ -122,8 +123,8 @@
                           <input type="number" class="form-control" id="no_telp" name="no_telp" required>
                         </div>
                         <div class="col-12">
-                          <label for="jk" class="form-label">Sebagai</label>
-                          <select class="form-select" aria-label="Default select example" required name="jk">
+                          <label for="sebagai" class="form-label">Sebagai</label>
+                          <select class="form-select" aria-label="Default select example" required name="sebagai">
                             <option>Ayah</option>
                             <option>Ibu</option>
                             <option>Wali</option>
@@ -145,6 +146,61 @@
   </main><!-- End #main -->
 
   @include('dynamic/v_footer');
+
+  <script>
+    $(document).ready(function() {
+        $('#saveSiswa').on('click', function() {
+          var kode_siswa = $('#kode_siswa').val();
+          var nisn = $('#nisn').val();
+          var id_kelas = $('#id_kelas').val();
+          var nama_siswa = $('#nama_siswa').val();
+          var tempat_lahir = $('#tempat_lahir').val();
+          var tgl_lahir = $('#tgl_lahir').val();
+          var jk = $('#jk').val();
+          var agama = $('#agama').val();
+          var pendidikan_sebelum = $('#pendidikan_sebelum').val();
+          var alamat_siswa = $('#alamat_siswa').val();
+          var thn_angkatan = $('#thn_angkatan').val();
+          if(kode_siswa!="" && nisn!="" && id_kelas!="" && nama_siswa!=""){
+            /*  $("#butsave").attr("disabled", "disabled"); */
+              $.ajax({
+                  url: "/siswa/store",
+                  type: "POST",
+                  data: {
+                      _token: $("#csrf").val(),
+                      type: 1,
+                      "kode_siswa": kode_siswa,
+                      "nisn": nisn,
+                      "id_kelas": id_kelas,
+                      "nama_siswa": nama_siswa,
+                      "tempat_lahir": tempat_lahir,
+                      "tgl_lahir": tgl_lahir,
+                      "jk": jk,
+                      "agama": agama,
+                      "pendidikan_sebelum": pendidikan_sebelum,
+                      "alamat_siswa": alamat_siswa,
+                      "thn_angkatan": thn_angkatan
+                  },
+                  cache: false,
+                  success: function(dataResult){
+                      console.log(dataResult);
+                      var dataResult = JSON.parse(dataResult);
+                      if(dataResult.statusCode==200){
+                        window.location = "/siswa/store";				
+                      }
+                      else if(dataResult.statusCode==201){
+                         alert("Error occured !");
+                      }
+                      
+                  }
+              });
+          }
+          else{
+              alert('Please fill all the field !');
+          }
+      });
+    });
+    </script>
 
 </body>
 </html>
