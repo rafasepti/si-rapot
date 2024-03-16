@@ -18,6 +18,7 @@
                   <div class="row">
                     <div class="col-md-9">
                       <div class="card-title">
+                        <div id="message"></div>
                         <!-- Pills Tabs -->
                         <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
                           <li class="nav-item" role="presentation">
@@ -34,10 +35,8 @@
                   <div class="tab-content pt-2" id="myTabContent">
                     <!-- Data Siswa -->
                     <div class="tab-pane fade show active" id="pills-siswa" role="tabpanel" aria-labelledby="siswa-tab">
-                      <form class="row g-3" action="#" method="post" id="form1">
-                        {{-- {{ csrf_field() }} --}}
-                        {{-- @csrf --}}
-                        <input type="hidden" name="_token" id="csrf" value="{{Session::token()}}">
+                      <form class="row g-3" action="{{ url('siswa/tambah') }}" method="post" id="form1">
+                        @csrf
                         <input type="hidden" class="form-control" id="kode_siswa" name="kode_siswa" value="{{ $kode_siswa }}" readonly required>
                         <div class="col-12">
                           <label for="nisn" class="form-label">NISN</label>
@@ -148,62 +147,24 @@
 
   @include('dynamic/v_footer');
 
-  <script>
-    $(document).ready(function() {
-      $('#form1').on('submit', function(e) {
-          e.preventDefault();
-          var kode_siswa = $('#kode_siswa').val();
-          var nisn = $('#nisn').val();
-          var id_kelas = $('#id_kelas').val();
-          var nama_siswa = $('#nama_siswa').val();
-          var tempat_lahir = $('#tempat_lahir').val();
-          var tgl_lahir = $('#tgl_lahir').val();
-          var jk = $('#jk').val();
-          var agama = $('#agama').val();
-          var pendidikan_sebelum = $('#pendidikan_sebelum').val();
-          var alamat_siswa = $('#alamat_siswa').val();
-          var thn_angkatan = $('#thn_angkatan').val();
-          if(kode_siswa!="" && nisn!="" && id_kelas!="" && nama_siswa!=""){
-            // $("#saveSiswa").attr("disabled", "disabled");
-              $.ajax({
-                  url: "{{ url('siswa/tambah') }}",
-                  type: "POST",
-                  //data: $('#form1').serialize(),
-                  data: {
-                      _token: $("#csrf").val(),
-                      type: 1,
-                      "kode_siswa": kode_siswa,
-                      "nisn": nisn,
-                      "id_kelas": id_kelas,
-                      "nama_siswa": nama_siswa,
-                      "tempat_lahir": tempat_lahir,
-                      "tgl_lahir": tgl_lahir,
-                      "jk": jk,
-                      "agama": agama,
-                      "pendidikan_sebelum": pendidikan_sebelum,
-                      "alamat_siswa": alamat_siswa,
-                      "thn_angkatan": thn_angkatan
-                  },
-                  cache: false,
-                  success: function(dataResult){
-                      console.log(dataResult);
-                      var dataResult = JSON.parse(dataResult);
-                      if(dataResult.statusCode==200){
-                        window.location = "{{ url('siswa/tambah') }}";				
-                      }
-                      else if(dataResult.statusCode==201){
-                         alert("Error occured !");
-                      }
-                      
-                  }
-              });
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#form1').on('submit', function(event){
+        event.preventDefault();
+
+        jQuery.ajax({
+          url:"{{ url('siswa/tambah') }}",
+          data: jQuery('#form1').serialize(),
+          type: 'post',
+
+          success:function(result)
+          {
+            $('#message').css('display','block');
+            jQuery('#message').html(result.message);
           }
-          else{
-              alert('Please fill all the field !');
-          }
+        })
       });
     });
-    </script>
-
+  </script>
 </body>
 </html>

@@ -85,9 +85,12 @@ class SiswaController extends Controller
         ]);
 
         //return response
-        return json_encode(array(
-            "statusCode"=>200
-        ));
+        return response()->json(
+            [
+                'status' => 200,
+                'message' => 'Sukses Input Data',
+            ]
+        );
 
         //return redirect('/siswa/tambah');
     }
