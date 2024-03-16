@@ -114,25 +114,6 @@ class SiswaController extends Controller
         //return redirect('/siswa/tambah');
     }
 
-    public function storeWali(StoreSiswaRequest $request)
-    {
-        DB::table('wali')->insert([
-            'id_siswa' => $request->id_siswa,
-            'nama_wali' => $request->nama_wali,
-            'pekerjaan_wali' => $request->pekerjaan_wali,
-            'alamat_wali' => $request->alamat_wali,
-            'no_telp' => $request->no_telp,
-            'sebagai' => $request->sebagai,
-        ]);
-        //return response
-        return response()->json(
-            [
-                'status' => 200,
-                'message' => 'Sukses Input Data',
-            ]
-        );
-    }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -151,10 +132,14 @@ class SiswaController extends Controller
 
     public function detail($id)
     {
-        $siswa = siswa::getJoinMapelId($id);
+        $siswa = Siswa::getJoinKelasId($id);
+        $wali = DB::table('wali')
+                ->where('id_siswa', $id)
+                ->get();
         return view('siswa/detail_siswa',
         [
             'siswa' => $siswa,
+            'wali' => $wali,
         ]);
     }
 

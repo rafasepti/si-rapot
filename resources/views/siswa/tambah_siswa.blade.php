@@ -21,10 +21,10 @@
                         <!-- Pills Tabs -->
                         <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
                           <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="pills-siswa-tab" data-bs-toggle="pill" data-bs-target="#pills-siswa" type="button" role="tab" aria-controls="pills-siswa" aria-selected="true">Data Siswa</button>
+                            <button class="nav-link active" id="pills-siswa-tab" data-bs-toggle="pill" data-bs-target="#pills-siswa" type="button" role="tab" aria-controls="pills-siswa" aria-selected="true">Tambah Data Siswa</button>
                           </li>
                           <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="pills-wali-tab" data-bs-toggle="pill" data-bs-target="#pills-wali" type="button" role="tab" aria-controls="pills-wali" aria-selected="false">Data Wali</button>
+                            <button class="nav-link" id="pills-wali-tab" data-bs-toggle="pill" data-bs-target="#pills-wali" type="button" role="tab" aria-controls="pills-wali" aria-selected="false">Tambah Data Wali</button>
                           </li>
                         </ul>
                       </div>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="col-12">
                           <label for="alamat_siswa" class="form-label">Alamat</label>
-                          <textarea class="form-control" style="height: 100px" name="alamat_siswa" id="agama" required></textarea>
+                          <textarea class="form-control" style="height: 100px" name="alamat_siswa" id="alamat_siswa" required></textarea>
                         </div>
                         <div class="col-12">
                           <label for="thn_angkatan" class="form-label">Tahun angkatan</label>

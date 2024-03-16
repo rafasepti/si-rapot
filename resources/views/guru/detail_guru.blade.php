@@ -22,8 +22,6 @@
                 </div>
                 <!-- Vertical Form -->
                 @foreach ($guru as $m)
-                    
-                @endforeach
                 <form class="row g-3" action="/guru/update" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="{{ $m->id }}">
@@ -48,6 +46,7 @@
                       <input type="text" class="form-control" id="no_telp" name="no_telp" value="{{ $m->no_telp }}" required readonly>
                     </div>
                 </form><!-- Vertical Form -->
+                @endforeach
               </div>
             </div>
         </div><!-- End col-md -->
