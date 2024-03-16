@@ -57,7 +57,11 @@ class SiswaController extends Controller
     public function create()
     {
         $kelas = Kelas::all();
-        return view('siswa/tambah_siswa',['kelas' => $kelas]);
+        $kode_siswa = Siswa::getIdSiswa();
+        return view('siswa/tambah_siswa',[
+            'kelas' => $kelas,
+            'kode_siswa' => $kode_siswa
+        ]);
     }
 
     /**

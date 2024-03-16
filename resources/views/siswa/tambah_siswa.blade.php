@@ -36,6 +36,7 @@
                     <div class="tab-pane fade show active" id="pills-siswa" role="tabpanel" aria-labelledby="siswa-tab">
                       <form class="row g-3" action="/siswa/store" method="post">
                         {{ csrf_field() }}
+                        <input type="hidden" class="form-control" id="kode_siswa" name="kode_siswa" value="{{ $kode_siswa }}" readonly required>
                         <div class="col-12">
                           <label for="nuptk" class="form-label">NISN</label>
                           <input type="number" class="form-control" id="nuptk" name="nuptk" required>
@@ -103,6 +104,7 @@
                     <div class="tab-pane fade" id="pills-wali" role="tabpanel" aria-labelledby="wali-tab">
                       <form class="row g-3" action="/siswa/store" method="post">
                         {{ csrf_field() }}
+                        <input type="hidden" class="form-control" id="id_siswa" name="id_siswa" value="{{ $kode_siswa }}" readonly required>
                         <div class="col-12">
                           <label for="nama_wali" class="form-label">Nama Wali</label>
                           <input type="text" class="form-control" id="nama_wali" name="nama_wali" required>

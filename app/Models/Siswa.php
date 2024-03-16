@@ -23,6 +23,20 @@ class Siswa extends Model
         return $sql;
     }
 
+    public static function getIdSiswa(){
+        $sql = "SELECT IFNULL(MAX(kode_siswa), 'S00000')
+            AS id_siswa FROM siswa";
+            $id_siswa = DB::select($sql);
+
+            foreach ($id_siswa as $ids) {
+                $sis = $ids->id_siswa;
+            }
+            $noawal = substr($sis,5);
+            $noakhir = (int)$noawal + 1;
+            $noakhir = 'S'.str_pad($noakhir,6,"0",STR_PAD_LEFT);
+            return $noakhir;
+    }
+
     public static function getJoinKelasId($id){
         $sql = DB::table('guru as g')
                 ->join('mapel as m', 'm.id', '=', 'g.id_mapel')
