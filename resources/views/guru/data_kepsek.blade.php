@@ -46,6 +46,13 @@
                               <input type="text" class="form-control" id="nama_guru" name="nama_guru" readonly>
                           </div>
                         </div>
+
+                        <div class="row mb-3">
+                          <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input type="email" class="form-control" id="email" name="email" readonly>
+                          </div>
+                        </div>
     
                         <div class="row mb-3">
                           <label for="alamat_guru" class="col-md-4 col-lg-3 col-form-label">Alamat</label>
@@ -90,6 +97,13 @@
                                   <input type="text" class="form-control" id="nama_guru" name="nama_guru" required value="{{ $kp->nama_guru }}">
                               </div>
                             </div>
+
+                            <div class="row mb-3">
+                              <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                              <div class="col-md-8 col-lg-9">
+                                <input type="email" class="form-control" id="email" name="email" value="{{ $kp->email }}" required>
+                              </div>
+                            </div>
         
                             <div class="row mb-3">
                               <label for="alamat_guru" class="col-md-4 col-lg-3 col-form-label">Alamat</label>
@@ -118,6 +132,23 @@
                           <label for="nama_guru" class="col-md-4 col-lg-3 col-form-label">Nama Kepala Sekolah</label>
                           <div class="col-md-8 col-lg-9">
                               <input type="text" class="form-control" id="nama_guru" name="nama_guru" required>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                          <div class="col-md-8 col-lg-9">
+                            <input type="email" class="form-control" id="email" name="email" readonly>
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label for="password" class="col-md-4 col-lg-3 col-form-label">Password</label>
+                          <div class="col-md-8 col-lg-9">
+                            <div class="input-group has-validation">
+                              <input type="password" class="form-control" id="password" name="password" required>
+                              <button class="input-group-text" type="button" id="show-password"><i class="bi bi-eye-fill"></i></button>
+                            </div>
                           </div>
                         </div>
     
@@ -187,6 +218,7 @@
                 $('#nuptk').val(data[0].nuptk);
                 $('#nama_guru').val(data[0].nama_guru);
                 $('#alamat_guru').val(data[0].alamat_guru);
+                $('#email').val(data[0].email);
                 $('#no_telp').val(data[0].no_telp);
                 // Dan sebagainya
             },
@@ -197,6 +229,17 @@
       }
 
       reloadForm();
+
+      document.getElementById('show-password').addEventListener('click', function() {
+      var passwordInput = document.getElementById('password');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        this.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+      } else {
+        passwordInput.type = 'password';
+        this.innerHTML = '<i class="bi bi-eye-fill"></i>';
+      }
+    });
     });
   </script>
 

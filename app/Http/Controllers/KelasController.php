@@ -52,7 +52,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        $guru = Guru::all();
+        $guru = DB::table('guru')->where('jabatan', "Guru")->get();
         return view('kelas/tambah_kelas',['guru' => $guru]);
     }
 

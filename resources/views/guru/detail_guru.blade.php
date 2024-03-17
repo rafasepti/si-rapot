@@ -34,6 +34,10 @@
                         <input type="text" class="form-control" id="nama_guru" name="nama_guru" value="{{ $m->nama_guru }}" required readonly>
                     </div>
                     <div class="col-12">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" value="{{ $m->email }}" required readonly>
+                    </div>
+                    <div class="col-12">
                       <label for="id_mapel" class="form-label">Mata Pelajaran</label>
                       <input type="text" class="form-control" id="id_mapel" name="id_mapel" value="{{ $m->nama_mapel }}" required readonly>
                     </div>

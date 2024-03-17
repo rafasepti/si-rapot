@@ -32,6 +32,18 @@
                         <input type="text" class="form-control" id="nama_guru" name="nama_guru" required>
                     </div>
                     <div class="col-12">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="password" class="form-label">Password</label>
+                      <div class="input-group has-validation">
+                        <input type="password" class="form-control" id="password" name="password" required>
+                        <button class="input-group-text" type="button" id="show-password"><i class="bi bi-eye-fill"></i></button>
+                      </div>
+                      {{-- <button class="btn btn-outline-secondary" type="button" id="show-password">Lihat Password</button> --}}
+                    </div>
+                    <div class="col-12">
                       <label for="id_mapel" class="form-label">Mata Pelajaran</label>
                       <select class="form-select" aria-label="Default select example" required name="id_mapel">
                         <option value="" selected>Pilih Mata Pelajaran</option>
@@ -62,6 +74,19 @@
   </main><!-- End #main -->
 
   @include('dynamic/v_footer');
+
+  <script>
+    document.getElementById('show-password').addEventListener('click', function() {
+      var passwordInput = document.getElementById('password');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        this.innerHTML = '<i class="bi bi-eye-slash-fill"></i>';
+      } else {
+        passwordInput.type = 'password';
+        this.innerHTML = '<i class="bi bi-eye-fill"></i>';
+      }
+    });
+  </script>
 
 </body>
 </html>

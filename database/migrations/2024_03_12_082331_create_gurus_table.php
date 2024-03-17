@@ -16,6 +16,8 @@ return new class extends Migration
             $table->integer('nuptk');
             $table->integer('id_mapel');
             $table->string('nama_guru',100);
+            $table->string('email',100);
+            $table->string('password',255);
             $table->text('alamat_guru');
             $table->string('no_telp',20);
             $table->timestamps();

@@ -36,6 +36,10 @@
                         <input type="text" class="form-control" id="nama_guru" name="nama_guru" value="{{ $m->nama_guru }}" required>
                     </div>
                     <div class="col-12">
+                      <label for="email" class="form-label">Email</label>
+                      <input type="email" class="form-control" id="email" name="email" value="{{ $m->email }}" required>
+                    </div>
+                    <div class="col-12">
                       <label for="id_mapel" class="form-label">Mata Pelajaran</label>
                       <select class="form-select" aria-label="Default select example" required name="id_mapel">
                         <option value="" selected>Pilih Mata Pelajaran</option>

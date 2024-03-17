@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DataTables;
 use App\Models\Mapel;
+use Illuminate\Support\Facades\Hash;
 
 class GuruController extends Controller
 {
@@ -83,6 +84,8 @@ class GuruController extends Controller
             'nuptk' => $request->nuptk,
             'id_mapel' => $request->id_mapel,
             'nama_guru' => $request->nama_guru,
+            'email' => $request->email,
+            'password' => Hash::make($request->input('password')),
             'jabatan' => "Guru",
             'alamat_guru' => $request->alamat_guru,
             'no_telp' => $request->no_telp,
@@ -98,6 +101,7 @@ class GuruController extends Controller
                 'nuptk' => $request->nuptk,
                 'nama_guru' => $request->nama_guru,
                 'jabatan' => "Kepala Sekolah",
+                'email' => $request->email,
                 'alamat_guru' => $request->alamat_guru,
                 'no_telp' => $request->no_telp,
             ]);
@@ -106,6 +110,8 @@ class GuruController extends Controller
                 'nuptk' => $request->nuptk,
                 'nama_guru' => $request->nama_guru,
                 'jabatan' => "Kepala Sekolah",
+                'email' => $request->email,
+                'password' => Hash::make($request->input('password')),
                 'alamat_guru' => $request->alamat_guru,
                 'no_telp' => $request->no_telp,
             ]);
@@ -152,6 +158,7 @@ class GuruController extends Controller
             'nuptk' => $request->nuptk,
             'id_mapel' => $request->id_mapel,
             'nama_guru' => $request->nama_guru,
+            'email' => $request->email,
             'jabatan' => "Guru",
             'alamat_guru' => $request->alamat_guru,
             'no_telp' => $request->no_telp,
