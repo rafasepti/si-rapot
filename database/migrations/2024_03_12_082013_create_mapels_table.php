@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_mapel',100);
             $table->integer('kkm');
+            $table->text('ruang_lingkup');
+            $table->text('tujuan_pembelajaran');
             $table->timestamps();
         });
     }

@@ -32,6 +32,9 @@ class MapelController extends Controller
                 ->addColumn('action', function($b){
                     $actionBtn = 
                     '
+                        <a href="/mapel/detail/'.$b->id.'" class="btn btn-outline-info">
+                            <i class="bi bi-info-lg"></i>
+                        </a>
                         <a href="/mapel/edit/'.$b->id.'" class="btn btn-outline-success">
                             <i class="bi bi-pencil-square"></i>
                         </a>
@@ -62,6 +65,8 @@ class MapelController extends Controller
         DB::table('mapel')->insert([
             'nama_mapel' => $request->nama_mapel,
             'kkm' => $request->kkm,
+            'ruang_lingkup' => $request->ruang_lingkup,
+            'tujuan_pembelajaran' => $request->tujuan_pembelajaran,
         ]);
         return redirect('/mapel');
     }
@@ -94,8 +99,19 @@ class MapelController extends Controller
         DB::table('mapel')->where('id',$request->id)->update([
             'nama_mapel' => $request->nama_mapel,
             'kkm' => $request->kkm,
+            'ruang_lingkup' => $request->ruang_lingkup,
+            'tujuan_pembelajaran' => $request->tujuan_pembelajaran,
         ]);
         return redirect('/mapel');
+    }
+
+    public function detail($id)
+    {
+        $mapel = DB::table('mapel')->where('id',$id)->get();
+        return view('mapel/detail_mapel',
+        [
+            'mapel' => $mapel,
+        ]);
     }
 
     /**

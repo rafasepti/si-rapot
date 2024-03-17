@@ -35,6 +35,14 @@
                         <label for="kkm" class="form-label">KKM</label>
                         <input type="number" class="form-control" id="kkm" name="kkm" value="{{ $m->kkm }}" required>
                     </div>
+                    <div class="col-12">
+                      <label for="ruang_lingkup" class="form-label">Ruang Lingkup Pembelajaran</label>
+                      <textarea class="form-control" style="height: 100px" name="ruang_lingkup" required>{{ $m->ruang_lingkup }}</textarea>
+                    </div>
+                    <div class="col-12">
+                      <label for="tujuan_pembelajaran" class="form-label">Tujuan Pembelajaran</label>
+                      <textarea class="form-control" style="height: 100px" name="tujuan_pembelajaran" required>{{ $m->tujuan_pembelajaran }}</textarea>
+                    </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="reset" class="btn btn-secondary">Reset</button>
