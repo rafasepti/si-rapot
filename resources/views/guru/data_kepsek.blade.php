@@ -138,7 +138,7 @@
                         <div class="row mb-3">
                           <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                           <div class="col-md-8 col-lg-9">
-                            <input type="email" class="form-control" id="email" name="email" readonly>
+                            <input type="email" class="form-control" id="email" name="email" required>
                           </div>
                         </div>
 

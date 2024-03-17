@@ -19,12 +19,14 @@
                   <div class="col-md-9">
                     <h5 class="card-title">Data Kelas</h5>
                   </div>
+                  @if (Session::get('hak_akses')=='Admin')
                   <div class="col-md-3">
                     <a href="{{ url('kelas/tambah/') }}" class="btn btn-primary float-right" style="
                       margin-top: 15px; margin-left: 52px;">
                       <i class="bi bi-plus"></i> Tambah Data
                     </a>
                   </div>
+                  @endif
                 </div>
                 <!-- Table with stripped rows -->
                 <table class="table yajra-datatable">
@@ -34,7 +36,9 @@
                       <th>Tingkat</th>
                       <th>Kelas</th>
                       <th>Wali Kelas</th>
+                      @if (Session::get('hak_akses')=='Admin')
                       <th>Aksi</th>
+                      @endif
                     </tr>
                   </thead>
                   <tbody>
@@ -53,6 +57,7 @@
   @include('dynamic/v_footer');
 
 </body>
+@if (Session::get('hak_akses')=='Admin')
 <script type="text/javascript">
   $(function () {
     
@@ -76,4 +81,23 @@
     
   });
 </script>
+@else
+<script type="text/javascript">
+  $(function () {
+    
+    var table = $('.yajra-datatable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ url('kelas/list') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'tingkat', name: 'tingkat'},
+            {data: 'kelas', name: 'kelas'},
+            {data: 'nama_guru', name: 'nama_guru'},
+        ]
+    });
+    
+  });
+</script>
+@endif
 </html>

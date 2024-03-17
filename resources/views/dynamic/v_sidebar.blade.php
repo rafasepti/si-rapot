@@ -3,12 +3,13 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('/dashboard') ? '' : 'collapsed' }}" href="/dashboard">
+        <a class="nav-link {{ Request::is('dashboard') ? '' : 'collapsed' }}" href="/dashboard">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
+      <!-- Menu Admin -->
       @if (Session::get('hak_akses')=='Admin')
       <li class="nav-heading">Data Master</li>
 
@@ -54,6 +55,34 @@
         </a>
       </li>
       @endif
+      <!-- END Menu Admin -->
+
+      <!-- Menu Admin -->
+      @if (Session::get('hak_akses')=='Kepala Sekolah')
+      <li class="nav-heading">Data Master</li>
+
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('siswa') ? '' : 'collapsed' }}" href="/siswa">
+          <i class="bi bi-person"></i>
+          <span>Siswa</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('guru') ? '' : 'collapsed' }}" href="/guru">
+          <i class="bi bi-people"></i>
+          <span>Guru</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('kelas') ? '' : 'collapsed' }}" href="/kelas">
+          <i class="bi bi-award"></i>
+          <span>Kelas</span>
+        </a>
+      </li>
+      @endif
+      <!-- END Menu Admin -->
     </ul>
 </aside>
 <!-- End Sidebar-->
