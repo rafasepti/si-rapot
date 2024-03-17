@@ -23,8 +23,6 @@ Route::get('/siswa/list', 'App\Http\Controllers\SiswaController@siswaGet');
 Route::get('/siswa/tambah', 'App\Http\Controllers\SiswaController@create');
 Route::post('/siswa/tambah', 'App\Http\Controllers\SiswaController@store');
 Route::get('/siswa/detail/{id}', 'App\Http\Controllers\SiswaController@detail');
-// Route::post('/siswa/storeW', 'App\Http\Controllers\SiswaController@storeWali');
-// Route::get('/siswa/storeW', 'App\Http\Controllers\SiswaController@create');
 Route::get('/siswa/edit/{id}','App\Http\Controllers\SiswaController@edit');
 Route::post('/siswa/update','App\Http\Controllers\SiswaController@update');
 Route::get('/siswa/hapus/{id}','App\Http\Controllers\SiswaController@destroy');
@@ -37,6 +35,15 @@ Route::post('/mapel/store', 'App\Http\Controllers\MapelController@store');
 Route::get('/mapel/edit/{id}','App\Http\Controllers\MapelController@edit');
 Route::post('/mapel/update','App\Http\Controllers\MapelController@update');
 Route::get('/mapel/hapus/{id}','App\Http\Controllers\MapelController@destroy');
+
+//tahun ajaran
+Route::get('/tahunajaran', 'App\Http\Controllers\TahunAjaranController@index');
+Route::get('/tahunajaran/list', 'App\Http\Controllers\TahunAjaranController@tahunGet');
+Route::get('/tahunajaran/tambah', 'App\Http\Controllers\TahunAjaranController@create');
+Route::post('/tahunajaran/store', 'App\Http\Controllers\TahunAjaranController@store');
+Route::get('/tahunajaran/edit/{id}','App\Http\Controllers\TahunAjaranController@edit');
+Route::post('/tahunajaran/update','App\Http\Controllers\TahunAjaranController@update');
+Route::get('/tahunajaran/hapus/{id}','App\Http\Controllers\TahunAjaranController@destroy');
 
 //guru
 Route::get('/guru', 'App\Http\Controllers\GuruController@index');

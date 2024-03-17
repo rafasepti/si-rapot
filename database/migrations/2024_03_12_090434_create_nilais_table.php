@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('id_siswa');
             $table->integer('semester');
-            $table->integer('thn_ajaran');
+            $table->integer('id_thn_ajaran');
             $table->string('nilai_sikap',20);
             $table->string('nilai_kerajinan',20);
             $table->string('nilai_kebersihan',20);
