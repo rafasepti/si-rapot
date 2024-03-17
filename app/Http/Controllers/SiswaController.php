@@ -122,12 +122,72 @@ class SiswaController extends Controller
         $siswa = DB::table('siswa')->where('kode_siswa',$id)->get();
         $wali = DB::table('wali')->where('id_siswa',$id)->get();
         $kelas = Kelas::all();
+        $kode_siswa = $id;
+        $countWali = Wali::getCountWali($id);
+        //dd($countWali);
         return view('siswa/edit_siswa',
         [
             'siswa' => $siswa,
             'wali' => $wali,
             'kelas' => $kelas,
+            'kode_siswa' => $kode_siswa,
+            'countWali' => $countWali,
         ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateSiswaRequest $request, Siswa $siswa)
+    {
+        if($request->nisn != ''){
+            $siswa = DB::table('siswa')->where('kode_siswa',$request->kode_siswa)->update([
+                'nisn' => $request->nisn,
+                'id_kelas' => $request->id_kelas,
+                'tempat_lahir' => $request->tempat_lahir,
+                'tgl_lahir' => date('y-m-d', strtotime($request->tgl_lahir)),
+                'jk' => $request->jk,
+                'agama' => $request->agama,
+                'pendidikan_sebelum' => $request->pendidikan_sebelum,
+                'alamat_siswa' => $request->alamat_siswa,
+                'thn_angkatan' => $request->thn_angkatan,
+            ]);
+
+            //return response
+            return response()->json(
+                [
+                    'status' => 200,
+                    'message' => 'Sukses Update Data',
+                ]
+            );
+        } 
+        else{
+            if($request->tipe == "update"){
+                DB::table('wali')->where('id',$request->id_wali)->update([
+                    'nama_wali' => $request->nama_wali,
+                    'pekerjaan_wali' => $request->pekerjaan_wali,
+                    'alamat_wali' => $request->alamat_wali,
+                    'no_telp' => $request->no_telp,
+                    'sebagai' => $request->sebagai,
+                ]);
+            }elseif($request->tipe == "tambah"){
+                DB::table('wali')->insert([
+                    'id_siswa' => $request->id_siswa,
+                    'nama_wali' => $request->nama_wali,
+                    'pekerjaan_wali' => $request->pekerjaan_wali,
+                    'alamat_wali' => $request->alamat_wali,
+                    'no_telp' => $request->no_telp,
+                    'sebagai' => $request->sebagai,
+                ]);
+            }
+
+            return response()->json(
+                [
+                    'status' => 200,
+                    'message' => 'Sukses Update Data',
+                ]
+            );
+        }
     }
 
     public function detail($id)
@@ -141,33 +201,6 @@ class SiswaController extends Controller
             'siswa' => $siswa,
             'wali' => $wali,
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSiswaRequest $request, Siswa $siswa)
-    {
-        DB::table('siswa')->where('kode_siswa',$request->id)->update([
-            'nisn' => $request->nisn,
-            'id_kelas' => $request->id_kelas,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tgl_lahir' => date('y-m-d', strtotime($request->tgl_lahir)),
-            'jk' => $request->jk,
-            'agama' => $request->agama,
-            'pendidikan_sebelum' => $request->pendidikan_sebelum,
-            'alamat_siswa' => $request->alamat_siswa,
-            'thn_angkatan' => $request->thn_angkatan,
-        ]);
-
-        DB::table('wali')->where('id_siswa',$request->id)->update([
-            'nama_wali' => $request->nama_wali,
-            'pekerjaan_wali' => $request->pekerjaan_wali,
-            'alamat_wali' => $request->alamat_wali,
-            'no_telp' => $request->no_telp,
-            'sebagai' => $request->sebagai,
-        ]);
-        return redirect('/siswa');
     }
 
     /**
