@@ -7,7 +7,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Mata Pelajaran</h1>
+      <h1>Tahun Ajaran</h1>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
@@ -17,29 +17,32 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-9">
-                    <h5 class="card-title">Edit Mata Pelajaran</h5>
+                    <h5 class="card-title">Edit Tahun Ajaran</h5>
                   </div>
                 </div>
                 <!-- Vertical Form -->
-                @foreach ($mapel as $m)
-                    
-                @endforeach
-                <form class="row g-3" action="/mapel/update" method="post">
+                @foreach ($thn as $t)
+                <form class="row g-3" action="/tahunajaran/update" method="post">
                     {{ csrf_field() }}
-                    <input type="hidden" name="id" value="{{ $m->id }}">
+                    <input type="hidden" class="form-control" id="id" name="id" value="{{ $t->id }}">
                     <div class="col-12">
-                        <label for="nama_mapel" class="form-label">Nama Mata Pelajaran</label>
-                        <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" value="{{ $m->nama_mapel }}" required>
+                        <label for="nama_tahun" class="form-label">Nama Tahun</label>
+                        <input type="text" class="form-control" id="nama_tahun" name="nama_tahun" required value="{{ $t->nama_tahun }}" placeholder=" cth : 2020/2021">
                     </div>
                     <div class="col-12">
-                        <label for="kkm" class="form-label">KKM</label>
-                        <input type="number" class="form-control" id="kkm" name="kkm" value="{{ $m->kkm }}" required>
+                        <label for="mulai" class="form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-control" id="mulai" name="mulai" required value="{{ $t->mulai }}">
                     </div>
+                    <div class="col-12">
+                      <label for="selesai" class="form-label">Tanggal Selesai</label>
+                      <input type="date" class="form-control" id="selesai" name="selesai" required value="{{ $t->selesai }}">
+                  </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
                 </form><!-- Vertical Form -->
+                @endforeach
               </div>
             </div>
         </div><!-- End col-md -->

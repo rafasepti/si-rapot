@@ -63,8 +63,19 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'nama_tahun', name: 'nama_tahun'},
-            {data: 'mulai', name: 'mulai'},
-            {data: 'selesai', name: 'selesai'},
+            {
+              data: 'mulai', 
+              name: 'mulai',
+              render: function(data) {
+                  return moment(data).format('DD/M/YYYY'); // Mengubah format tanggal menggunakan moment.js
+              }
+            },
+            {
+              data: 'selesai', 
+              name: 'selesai',
+              render: function(data) {
+                  return moment(data).format('DD/M/YYYY'); // Mengubah format tanggal menggunakan moment.js
+              }},
             {
                 data: 'action', 
                 name: 'action', 
