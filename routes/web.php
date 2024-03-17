@@ -59,6 +59,7 @@ Route::get('/guru/hapus/{id}','App\Http\Controllers\GuruController@destroy');
 //Kepala Sekolah
 Route::get('/kepsek', 'App\Http\Controllers\GuruController@indexKS');
 Route::post('/kepsek', 'App\Http\Controllers\GuruController@storeKS');
+Route::get('/kepsek/loadKepsek', 'App\Http\Controllers\GuruController@loadKepsek');
 
 //kelas
 Route::get('/kelas', 'App\Http\Controllers\KelasController@index');

@@ -21,11 +21,21 @@ class GuruController extends Controller
     public function indexKS()
     {
         $count = Guru::getCountKepsek();
+        //dd($count);
+        $kepsek = DB::table('guru')->where('jabatan', "Kepala Sekolah")->get();
         return view('guru/data_kepsek',
             [
-                'count' => $count
+                'count' => $count,
+                'kepsek' => $kepsek
             ]
         );
+    }
+
+    public function loadKepsek()
+    {
+        $data = DB::table('guru')->where('jabatan', "Kepala Sekolah")->get(); // Ganti YourModel dengan model Anda
+
+        return response()->json($data);
     }
 
 
