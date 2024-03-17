@@ -56,6 +56,10 @@ Route::get('/guru/edit/{id}','App\Http\Controllers\GuruController@edit');
 Route::post('/guru/update','App\Http\Controllers\GuruController@update');
 Route::get('/guru/hapus/{id}','App\Http\Controllers\GuruController@destroy');
 
+//Kepala Sekolah
+Route::get('/kepsek', 'App\Http\Controllers\GuruController@indexKS');
+Route::post('/kepsek', 'App\Http\Controllers\GuruController@storeKS');
+
 //kelas
 Route::get('/kelas', 'App\Http\Controllers\KelasController@index');
 Route::get('/kelas/list', 'App\Http\Controllers\KelasController@kelasGet');

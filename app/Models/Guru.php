@@ -27,4 +27,11 @@ class Guru extends Model
                 ->get();
         return $sql;
     }
+
+    public static function getCountKepsek(){
+        $sql = DB::table('guru')
+                ->where('jabatan', "Kepala Sekolah")
+                ->count();
+        return $sql;
+    }
 }

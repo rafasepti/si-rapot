@@ -33,6 +33,13 @@
       </li>
 
       <li class="nav-item">
+        <a class="nav-link {{ Request::is('kepsek') ? '' : 'collapsed' }}" href="/kepsek">
+          <i class="bi bi-person-plus"></i>
+          <span>Kepala Sekolah</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
         <a class="nav-link {{ Request::is('kelas') ? '' : 'collapsed' }}" href="/kelas">
           <i class="bi bi-award"></i>
           <span>Kelas</span>

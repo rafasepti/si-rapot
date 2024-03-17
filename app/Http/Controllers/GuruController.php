@@ -15,11 +15,19 @@ class GuruController extends Controller
     public function index()
     {
         return view('guru/data_guru',
+        );
+    }
+
+    public function indexKS()
+    {
+        $count = Guru::getCountKepsek();
+        return view('guru/data_kepsek',
             [
-                
+                'count' => $count
             ]
         );
     }
+
 
     public function guruGet(Request $request)
     {
@@ -65,10 +73,41 @@ class GuruController extends Controller
             'nuptk' => $request->nuptk,
             'id_mapel' => $request->id_mapel,
             'nama_guru' => $request->nama_guru,
+            'jabatan' => "Guru",
             'alamat_guru' => $request->alamat_guru,
             'no_telp' => $request->no_telp,
         ]);
         return redirect('/guru');
+    }
+
+    public function storeKS(StoreGuruRequest $request)
+    {
+        $count = Guru::getCountKepsek();
+        if($count >= 1){
+            DB::table('guru')->where('id',$request->id)->update([
+                'nuptk' => $request->nuptk,
+                'nama_guru' => $request->nama_guru,
+                'jabatan' => "Kepala Sekolah",
+                'alamat_guru' => $request->alamat_guru,
+                'no_telp' => $request->no_telp,
+            ]);
+        }else{
+            DB::table('guru')->insert([
+                'nuptk' => $request->nuptk,
+                'nama_guru' => $request->nama_guru,
+                'jabatan' => "Kepala Sekolah",
+                'alamat_guru' => $request->alamat_guru,
+                'no_telp' => $request->no_telp,
+            ]);
+        }
+
+        //return response
+        return response()->json(
+            [
+                'status' => 200,
+                'message' => 'Sukses Input Data',
+            ]
+        );
     }
 
     /**
@@ -103,6 +142,7 @@ class GuruController extends Controller
             'nuptk' => $request->nuptk,
             'id_mapel' => $request->id_mapel,
             'nama_guru' => $request->nama_guru,
+            'jabatan' => "Guru",
             'alamat_guru' => $request->alamat_guru,
             'no_telp' => $request->no_telp,
         ]);
