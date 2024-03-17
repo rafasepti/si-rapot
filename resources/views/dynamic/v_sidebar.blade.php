@@ -57,7 +57,7 @@
       @endif
       <!-- END Menu Admin -->
 
-      <!-- Menu Admin -->
+      <!-- Menu Kepsek -->
       @if (Session::get('hak_akses')=='Kepala Sekolah')
       <li class="nav-heading">Data Master</li>
 
@@ -82,7 +82,25 @@
         </a>
       </li>
       @endif
-      <!-- END Menu Admin -->
+      <!-- END Menu Kepsek -->
+
+      <!-- Menu Guru -->
+      @if (Session::get('hak_akses')=='Guru')
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('nilai') ? '' : 'collapsed' }}" href="/nilai">
+          <i class="bi bi-award"></i>
+          <span>Nilai</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('kelaswali') ? '' : 'collapsed' }}" href="/kelaswali">
+          <i class="bi bi-person"></i>
+          <span>Kelas</span>
+        </a>
+      </li>
+      @endif
+      <!-- END Menu Guru -->
     </ul>
 </aside>
 <!-- End Sidebar-->
