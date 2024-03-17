@@ -9,6 +9,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
+      @if (Session::get('hak_akses')=='Admin')
       <li class="nav-heading">Data Master</li>
 
       <li class="nav-item">
@@ -52,6 +53,7 @@
           <span>Tahun Ajaran</span>
         </a>
       </li>
+      @endif
     </ul>
 </aside>
 <!-- End Sidebar-->
