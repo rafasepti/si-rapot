@@ -3,7 +3,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('/') ? '' : 'collapsed' }}" href="/">
+        <a class="nav-link {{ Request::is('/dashboard') ? '' : 'collapsed' }}" href="/dashboard">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>

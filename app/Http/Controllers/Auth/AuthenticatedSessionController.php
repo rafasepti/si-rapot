@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
+use App\Models\Guru;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,8 +29,22 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        $id_user = Auth::id();
+        $akses = Guru::getJabatan($id_user);
+        foreach($akses as $a):
+            $hak_akses = $a->jabatan;
+            $nama = $a->nama_guru;
+        endforeach;
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        session([
+            'hak_akses' => $hak_akses,
+            'id_user' => $id_user,
+            'nama' => $nama,
+        ]);
+
+
+        return redirect('/dashboard');
+        //return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

@@ -1,47 +1,123 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html lang="en">
 
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>SD Inpres Tasangka Kota Jayapura</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+  
+    <!-- Favicons -->
+    <link href="{{asset('template')}}/assets/img/favicon.png" rel="icon">
+    <link href="{{asset('template')}}/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    {{-- datatables --}}
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+  
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    <link href="{{asset('template')}}/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{asset('template')}}/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="{{asset('template')}}/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="{{asset('template')}}/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="{{asset('template')}}/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="{{asset('template')}}/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="{{asset('template')}}/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  
+    <!-- Template Main CSS File -->
+    <link href="{{asset('template')}}/assets/css/style.css" rel="stylesheet">
+  
+    <!-- =======================================================
+    * Template Name: NiceAdmin
+    * Updated: Jan 29 2024 with Bootstrap v5.3.2
+    * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+  </head>
+  
+<body>
+  <main>
+    <div class="container">
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+              <div class="d-flex justify-content-center py-4">
+                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                  <img src="assets/img/logo.png" alt="">
+                  <span class="d-none d-lg-block">SI Raport</span>
                 </a>
-            @endif
+              </div><!-- End Logo -->
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">Login</h5>
+                    <p class="text-center small">Masukan Email dan Password untuk Login</p>
+                  </div>
+
+                  <form class="row g-3 needs-validation" novalidate method="POST" action="{{ route('login') }}"> 
+                    @csrf
+                    <div class="col-12">
+                      <label for="email" class="form-label">Email</label>
+                      <div class="input-group has-validation">
+                        <input type="email" name="email" class="form-control" id="email" required>
+                        <div class="invalid-feedback">Masukan Email.</div>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="password" required>
+                      <div class="invalid-feedback">Masukan password!</div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
         </div>
-    </form>
-</x-guest-layout>
+
+      </section>
+
+    </div>
+  </main><!-- End #main -->
+
+  <!-- Vendor JS Files -->
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script> 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  
+  {{-- datatables --}}
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="{{asset('template')}}/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="{{asset('template')}}/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="{{asset('template')}}/assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="{{asset('template')}}/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="{{asset('template')}}/assets/vendor/quill/quill.min.js"></script>
+  <script src="{{asset('template')}}/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="{{asset('template')}}/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="{{asset('template')}}/assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+  <!-- Template Main JS File -->
+  <script src="{{asset('template')}}/assets/js/main.js"></script>
+
+</body>
+
+</html>
