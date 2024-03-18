@@ -150,10 +150,13 @@ class GuruController extends Controller
 
     public function detail($id)
     {
-        $guru = Guru::getJoinMapelId($id);
+        //$guru = Guru::getJoinMapelId($id);
+        $guru = Guru::where('kode_guru',$id)->get();
+        $gurum = GuruMapel::getJoinMapelId($id);
         return view('guru/detail_guru',
         [
             'guru' => $guru,
+            'gurum' => $gurum,
         ]);
     }
 
@@ -164,7 +167,7 @@ class GuruController extends Controller
     {
         $guru = DB::table('guru')->where('kode_guru',$id)->get();
         $mapel = Mapel::all();
-        $gurum = GuruMapel::where('id_guru',$id);
+        $gurum = GuruMapel::getJoinMapelId($id);
         return view('guru/edit_guru',
         [
             'guru' => $guru,

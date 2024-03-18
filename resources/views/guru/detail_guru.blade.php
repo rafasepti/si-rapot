@@ -37,10 +37,10 @@
                       <label for="email" class="form-label">Email</label>
                       <input type="email" class="form-control" id="email" name="email" value="{{ $m->email }}" required readonly>
                     </div>
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                       <label for="id_mapel" class="form-label">Mata Pelajaran</label>
                       <input type="text" class="form-control" id="id_mapel" name="id_mapel" value="{{ $m->nama_mapel }}" required readonly>
-                    </div>
+                    </div> --}}
                     <div class="col-12">
                       <label for="alamat_guru" class="form-label">Alamat</label>
                       <textarea class="form-control" style="height: 100px" name="alamat_guru" required readonly>{{ $m->alamat_guru }}</textarea>
@@ -54,6 +54,33 @@
               </div>
             </div>
         </div><!-- End col-md -->
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mata Pelajaran Yang Diajar</h5>
+  
+              <!-- Table with stripped rows -->
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">Name Mata Pelajaran</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach ($gurum as $index => $gm)
+                  <tr>
+                    <th scope="row">{{ $index+1 }}</th>
+                    <td>{{ $gm->nama_mapel }}</td>
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+  
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
