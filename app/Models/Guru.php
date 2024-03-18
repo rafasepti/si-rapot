@@ -60,4 +60,18 @@ class Guru extends Authenticatable
                 ->get();
         return $sql;
     }
+
+    public static function getIdGuru(){
+        $sql = "SELECT IFNULL(MAX(kode_guru), 'G00000')
+            AS id_guru FROM guru";
+            $id_guru = DB::select($sql);
+
+            foreach ($id_guru as $ids) {
+                $gr = $ids->id_guru;
+            }
+            $noawal = substr($gr,5);
+            $noakhir = (int)$noawal + 1;
+            $noakhir = 'G'.str_pad($noakhir,6,"0",STR_PAD_LEFT);
+            return $noakhir;
+    }
 }

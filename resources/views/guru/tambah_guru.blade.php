@@ -23,6 +23,7 @@
                 <!-- Vertical Form -->
                 <form class="row g-3" action="/guru/store" method="post">
                     {{ csrf_field() }}
+                    <input type="hidden" class="form-control" id="id_guru" name="id_guru" value="{{ $kode_guru }}" readonly required>
                     <div class="col-12">
                       <label for="nuptk" class="form-label">NUPTK</label>
                       <input type="number" class="form-control" id="nuptk" name="nuptk" required>
@@ -43,7 +44,7 @@
                       </div>
                       {{-- <button class="btn btn-outline-secondary" type="button" id="show-password">Lihat Password</button> --}}
                     </div>
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                       <label for="id_mapel" class="form-label">Mata Pelajaran</label>
                       <select class="form-select" aria-label="Default select example" required name="id_mapel">
                         <option value="" selected>Pilih Mata Pelajaran</option>
@@ -51,6 +52,17 @@
                           <option value="{{ $mp->id }}">{{ $mp->nama_mapel }}</option>
                         @endforeach
                       </select>
+                    </div> --}}
+                    <div class="col-12">
+                      <label for="id_mapel" class="form-label">Mata Pelajaran</label>
+                        @foreach ($mapel as $mp)
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="gridCheck1" name="options[]" value="{{ $mp->id }}">
+                          <label class="form-check-label" for="gridCheck1">
+                            {{ $mp->nama_mapel }}
+                          </label>
+                        </div>
+                        @endforeach
                     </div>
                     <div class="col-12">
                       <label for="alamat_guru" class="form-label">Alamat</label>

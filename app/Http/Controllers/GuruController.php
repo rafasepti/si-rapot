@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DataTables;
 use App\Models\Mapel;
+use App\Models\GuruMapel;
 use Illuminate\Support\Facades\Hash;
 
 class GuruController extends Controller
@@ -71,8 +72,12 @@ class GuruController extends Controller
      */
     public function create()
     {
+        $kode_guru = Guru::getIdGuru();
         $mapel = Mapel::all();
-        return view('guru/tambah_guru',['mapel' => $mapel]);
+        return view('guru/tambah_guru',[
+            'mapel' => $mapel,
+            'kode_guru' => $kode_guru,
+        ]);
     }
 
     /**
@@ -81,6 +86,7 @@ class GuruController extends Controller
     public function store(StoreGuruRequest $request)
     {
         DB::table('guru')->insert([
+            'kode_guru' => $request->id_guru,
             'nuptk' => $request->nuptk,
             'id_mapel' => $request->id_mapel,
             'nama_guru' => $request->nama_guru,
@@ -90,6 +96,21 @@ class GuruController extends Controller
             'alamat_guru' => $request->alamat_guru,
             'no_telp' => $request->no_telp,
         ]);
+
+         //Mapel Guru
+         $request->validate([
+            'options.*' => 'required', // Setidaknya satu opsi harus dipilih
+        ]);
+        // Proses menyimpan data
+        $options = $request->options ?? [];
+        // Simpan data ke dalam database atau lakukan sesuatu dengan data tersebut
+        foreach ($options as $option) {
+            GuruMapel::create([
+                'id_guru' => $request->id_guru,
+                'id_mapel' => $option,
+            ]);
+        }
+        
         return redirect('/guru');
     }
 

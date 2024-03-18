@@ -94,7 +94,7 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('kelaswali') ? '' : 'collapsed' }}" href="/kelaswali">
+        <a class="nav-link {{ Request::is('kelas') ? '' : 'collapsed' }}" href="/kelas">
           <i class="bi bi-person"></i>
           <span>Kelas</span>
         </a>
