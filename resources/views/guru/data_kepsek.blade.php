@@ -120,6 +120,7 @@
                             </div>
                           @endforeach
                       @else
+                      <input type="hidden" class="form-control" id="id_guru" name="id_guru" value="{{ $kode_guru }}" readonly required>
                         <input type="hidden" class="form-control" id="tipe" name="tipe" value="tambah">
                         <div class="row mb-3">
                           <label for="nuptk" class="col-md-4 col-lg-3 col-form-label">NUPTK</label>

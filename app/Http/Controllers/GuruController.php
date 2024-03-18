@@ -24,11 +24,13 @@ class GuruController extends Controller
     {
         $count = Guru::getCountKepsek();
         //dd($count);
+        $kode_guru = Guru::getIdGuru();
         $kepsek = DB::table('guru')->where('jabatan', "Kepala Sekolah")->get();
         return view('guru/data_kepsek',
             [
                 'count' => $count,
-                'kepsek' => $kepsek
+                'kepsek' => $kepsek,
+                'kode_guru' => $kode_guru,
             ]
         );
     }
@@ -129,6 +131,7 @@ class GuruController extends Controller
             ]);
         }else{
             DB::table('guru')->insert([
+                'kode_guru' => $request->id_guru,
                 'nuptk' => $request->nuptk,
                 'nama_guru' => $request->nama_guru,
                 'jabatan' => "Kepala Sekolah",
