@@ -33,7 +33,7 @@ class Guru extends Authenticatable
     public static function getJoinMapel(){
         $sql = DB::table('guru as g')
                 ->join('mapel as m', 'm.id', '=', 'g.id_mapel')
-                ->select('m.*', 'g.id as id_guru', 'g.nuptk' , 'g.nama_guru')
+                ->select('m.*', 'g.id as id_guru', 'g.*')
                 ->get();
         return $sql;
     }
@@ -42,7 +42,7 @@ class Guru extends Authenticatable
         $sql = DB::table('guru as g')
                 ->join('mapel as m', 'm.id', '=', 'g.id_mapel')
                 ->select('m.*', 'g.id as id_guru', 'g.*')
-                ->where('g.id', $id)
+                ->where('g.kode_guru', $id)
                 ->get();
         return $sql;
     }

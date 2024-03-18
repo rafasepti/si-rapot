@@ -27,6 +27,7 @@
                 <form class="row g-3" action="/guru/update" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="{{ $m->id }}">
+                    <input type="hidden" name="kode_guru" value="{{ $m->kode_guru }}">
                     <div class="col-12">
                       <label for="nuptk" class="form-label">NUPTK</label>
                       <input type="number" class="form-control" id="nuptk" name="nuptk" value="{{ $m->nuptk }}" required>
@@ -39,7 +40,7 @@
                       <label for="email" class="form-label">Email</label>
                       <input type="email" class="form-control" id="email" name="email" value="{{ $m->email }}" required>
                     </div>
-                    <div class="col-12">
+                    {{-- <div class="col-12">
                       <label for="id_mapel" class="form-label">Mata Pelajaran</label>
                       <select class="form-select" aria-label="Default select example" required name="id_mapel">
                         <option value="" selected>Pilih Mata Pelajaran</option>
@@ -47,6 +48,17 @@
                           <option value="{{ $mp->id }}" {{$mp->id == $m->id_mapel  ? 'selected' : ''}}>{{ $mp->nama_mapel }}</option>
                         @endforeach
                       </select>
+                    </div> --}}
+                    <div class="col-12">
+                      <label for="id_mapel" class="form-label">Mata Pelajaran</label>
+                        @foreach ($mapel as $mp)
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="gridCheck{{ $mp->id }}" name="options[]" value="{{ $mp->id }}" {{ in_array($mp->id, $gurum->pluck('id_mapel')->toArray()) ? 'checked' : '' }}>
+                          <label class="form-check-label" for="gridCheck{{ $mp->id }}">
+                            {{ $mp->nama_mapel }}
+                          </label>
+                        </div>
+                        @endforeach
                     </div>
                     <div class="col-12">
                       <label for="alamat_guru" class="form-label">Alamat</label>

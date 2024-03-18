@@ -44,19 +44,20 @@ class GuruController extends Controller
     public function guruGet(Request $request)
     {
         if ($request->ajax()) {
-            $guru = Guru::getJoinMapel();
+            $guru = DB::table('guru')->where('jabatan', "Guru")->get();
+           // $guru = Guru::getJoinMapel();
             return Datatables::of($guru)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
                     $actionBtn = 
                     '
-                        <a href="/guru/detail/'.$b->id_guru.'" class="btn btn-outline-info">
+                        <a href="/guru/detail/'.$b->kode_guru.'" class="btn btn-outline-info">
                             <i class="bi bi-info-lg"></i>
                         </a>
-                        <a href="/guru/edit/'.$b->id_guru.'" class="btn btn-outline-success">
+                        <a href="/guru/edit/'.$b->kode_guru.'" class="btn btn-outline-success">
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        <a href="/guru/hapus/'.$b->id_guru.'" class="btn btn-outline-danger" onclick="return confirm(`Apakah anda yakin?`)">
+                        <a href="/guru/hapus/'.$b->kode_guru.'" class="btn btn-outline-danger" onclick="return confirm(`Apakah anda yakin?`)">
                             <i class="bi bi-trash-fill"></i>
                         </a>
                     ';
@@ -147,26 +148,28 @@ class GuruController extends Controller
         );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $guru = DB::table('guru')->where('id',$id)->get();
-        $mapel = Mapel::all();
-        return view('guru/edit_guru',
-        [
-            'guru' => $guru,
-            'mapel' => $mapel,
-        ]);
-    }
-
     public function detail($id)
     {
         $guru = Guru::getJoinMapelId($id);
         return view('guru/detail_guru',
         [
             'guru' => $guru,
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit($id)
+    {
+        $guru = DB::table('guru')->where('kode_guru',$id)->get();
+        $mapel = Mapel::all();
+        $gurum = GuruMapel::where('id_guru',$id);
+        return view('guru/edit_guru',
+        [
+            'guru' => $guru,
+            'gurum' => $gurum,
+            'mapel' => $mapel,
         ]);
     }
     
@@ -184,6 +187,51 @@ class GuruController extends Controller
             'alamat_guru' => $request->alamat_guru,
             'no_telp' => $request->no_telp,
         ]);
+        
+        // Tabel GuruMapel
+        $request->validate([
+            'options.*' => 'nullable', // Karena tidak semua checkbox harus dipilih
+        ]);
+        // Dapatkan data yang akan diperbarui dari database
+        $gurum = GuruMapel::where('id_guru',$request->kode_guru)->firstOrFail();
+
+        $options = $request->options ?? [];
+
+        if ($options) {
+            foreach ($options as $option) {
+                $gm = GuruMapel::firstOrCreate([
+                    'id_guru' => $request->kode_guru,
+                    'id_mapel' => $option
+                ]);
+            }
+            GuruMapel::where('id_guru', $request->kode_guru)->whereNotIn('id_mapel', $options)->delete();
+        } else {
+            GuruMapel::where('id_guru', $request->kode_guru)->delete();
+        }
+        
+        // // Bandingkan checkbox yang di-submit dengan checkbox yang sudah ada di database
+        // $checkboxesFromForm = $request->options ?? [];
+        // $checkboxesFromDatabase = $gurum->id_mapel ?? [];
+        
+        // // Tentukan checkbox mana yang harus ditambahkan, dihapus, atau dibiarkan seperti itu
+        // $checkboxesToAdd = array_diff($checkboxesFromForm, $checkboxesFromDatabase);
+        // $checkboxesToRemove = array_diff($checkboxesFromDatabase, $checkboxesFromForm);
+        
+        // // Tambahkan checkbox yang baru ditambahkan
+        // foreach ($checkboxesToAdd as $option) {
+        //     $gurum->id_guru[] = $request->kode_guru;
+        //     $gurum->id_mapel[] = $option;
+        // }
+        // // Hapus checkbox yang dihapus
+        // foreach ($checkboxesToRemove as $option) {
+        //     $index = array_search($option, $gurum->id_mapel);
+        //     if ($index !== false) {
+        //         unset($gurum->id_mapel[$index]);
+        //     }
+        // }
+        // Simpan perubahan
+        $gurum->save();
+
         return redirect('/guru');
     }
 
@@ -192,7 +240,7 @@ class GuruController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('guru')->where('id',$id)->delete();
+        DB::table('guru')->where('kode_guru',$id)->delete();
         return redirect('/guru');
     }
 }
