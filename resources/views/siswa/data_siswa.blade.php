@@ -28,6 +28,17 @@
                   </div>
                   @endif
                 </div>
+                <form id="filterForm" class="row g-3 mb-3">
+                  <div class="col-12">
+                      <label for="kelas">Filter by Kelas:</label>
+                      <select name="id_kelas" id="id_kelas" class="form-select">
+                          <option value="">Semua Kelas</option>
+                          @foreach ($kelas as $item)
+                              <option value="{{ $item->id }}">{{ $item->tingkat }} - {{ $item->kelas }}</option>
+                          @endforeach
+                      </select>
+                  </div>
+                </form>
                 <!-- Table with stripped rows -->
                 <table class="table yajra-datatable">
                   <thead>
@@ -65,7 +76,12 @@
     var table = $('.yajra-datatable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ url('siswa/list') }}",
+        ajax: {
+          url: "{{ url('siswa/filter') }}",
+          data: function (d) {
+            d.id_kelas = $('#id_kelas').val();
+          }
+        },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'nisn', name: 'nisn'},
@@ -80,6 +96,10 @@
             },
         ]
     });
+
+    $('#id_kelas').change(function() {
+      table.draw();
+    });
     
   });
 </script>
@@ -90,7 +110,12 @@
     var table = $('.yajra-datatable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ url('siswa/list') }}",
+        ajax: {
+          url: "{{ url('siswa/filter') }}",
+          data: function (d) {
+            d.id_kelas = $('#id_kelas').val();
+          }
+        },
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'nisn', name: 'nisn'},
@@ -98,6 +123,10 @@
             {data: 'kel', name: 'kel'},
             {data: 'thn_angkatan', name: 'thn_angkatan'},
         ]
+    });
+
+    $('#id_kelas').change(function() {
+      table.draw();
     });
     
   });

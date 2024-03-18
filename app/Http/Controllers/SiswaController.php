@@ -19,9 +19,10 @@ class SiswaController extends Controller
      */
     public function index()
     {
+        $kelas= Kelas::all();
         return view('siswa/data_siswa',
             [
-                
+                'kelas' => $kelas,
             ]
         );
     }
@@ -50,6 +51,37 @@ class SiswaController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+    }
+
+    public function filter(Request $request)
+    {
+        $siswa = Siswa::getJoinKelas();
+
+        if ($request->id_kelas) {
+            $siswa->where('s.id_kelas', $request->id_kelas);
+        }
+
+        $siswa = $siswa->get();
+
+        return Datatables::of($siswa)
+                ->addIndexColumn()
+                ->addColumn('action', function($b){
+                    $actionBtn = 
+                    '
+                        <a href="/siswa/detail/'.$b->kode_siswa.'" class="btn btn-outline-info">
+                            <i class="bi bi-info-lg"></i>
+                        </a>
+                        <a href="/siswa/edit/'.$b->kode_siswa.'" class="btn btn-outline-success">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="/siswa/hapus/'.$b->kode_siswa.'" class="btn btn-outline-danger" onclick="return confirm(`Apakah anda yakin?`)">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    ';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
     }
 
     /**

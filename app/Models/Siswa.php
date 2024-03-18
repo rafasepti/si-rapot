@@ -11,6 +11,11 @@ class Siswa extends Model
     use HasFactory;
     protected $table = "siswa";
 
+    public function kelas()
+    {
+        return $this->belongsTo(Kelas::class, 'id_kelas');
+    }
+
     public static function getJoinKelas(){
         $sql = DB::table('siswa as s')
                 ->join('kelas as k', 'k.id', '=', 's.id_kelas')
@@ -18,8 +23,7 @@ class Siswa extends Model
                     's.id as id_siswa',
                     's.*',
                     DB::raw("CONCAT(k.tingkat, ' - ', k.kelas) as kel"),
-                ])
-                ->get();
+                ]);
         return $sql;
     }
 

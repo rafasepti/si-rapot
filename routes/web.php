@@ -35,6 +35,7 @@ Route::get('/dashboard', function () {
 //siswa
 Route::get('/siswa', 'App\Http\Controllers\SiswaController@index');
 Route::get('/siswa/list', 'App\Http\Controllers\SiswaController@siswaGet');
+Route::get('/siswa/filter', 'App\Http\Controllers\SiswaController@filter');
 Route::get('/siswa/tambah', 'App\Http\Controllers\SiswaController@create');
 Route::post('/siswa/tambah', 'App\Http\Controllers\SiswaController@store');
 Route::get('/siswa/detail/{id}', 'App\Http\Controllers\SiswaController@detail');
