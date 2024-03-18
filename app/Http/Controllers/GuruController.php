@@ -192,8 +192,6 @@ class GuruController extends Controller
         $request->validate([
             'options.*' => 'nullable', // Karena tidak semua checkbox harus dipilih
         ]);
-        // Dapatkan data yang akan diperbarui dari database
-        $gurum = GuruMapel::where('id_guru',$request->kode_guru)->firstOrFail();
 
         $options = $request->options ?? [];
 
@@ -208,29 +206,6 @@ class GuruController extends Controller
         } else {
             GuruMapel::where('id_guru', $request->kode_guru)->delete();
         }
-        
-        // // Bandingkan checkbox yang di-submit dengan checkbox yang sudah ada di database
-        // $checkboxesFromForm = $request->options ?? [];
-        // $checkboxesFromDatabase = $gurum->id_mapel ?? [];
-        
-        // // Tentukan checkbox mana yang harus ditambahkan, dihapus, atau dibiarkan seperti itu
-        // $checkboxesToAdd = array_diff($checkboxesFromForm, $checkboxesFromDatabase);
-        // $checkboxesToRemove = array_diff($checkboxesFromDatabase, $checkboxesFromForm);
-        
-        // // Tambahkan checkbox yang baru ditambahkan
-        // foreach ($checkboxesToAdd as $option) {
-        //     $gurum->id_guru[] = $request->kode_guru;
-        //     $gurum->id_mapel[] = $option;
-        // }
-        // // Hapus checkbox yang dihapus
-        // foreach ($checkboxesToRemove as $option) {
-        //     $index = array_search($option, $gurum->id_mapel);
-        //     if ($index !== false) {
-        //         unset($gurum->id_mapel[$index]);
-        //     }
-        // }
-        // Simpan perubahan
-        $gurum->save();
 
         return redirect('/guru');
     }
@@ -241,6 +216,7 @@ class GuruController extends Controller
     public function destroy($id)
     {
         DB::table('guru')->where('kode_guru',$id)->delete();
+        DB::table('guru_mapel')->where('id_guru',$id)->delete();
         return redirect('/guru');
     }
 }
