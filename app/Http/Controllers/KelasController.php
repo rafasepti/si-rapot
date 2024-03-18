@@ -52,8 +52,14 @@ class KelasController extends Controller
      */
     public function create()
     {
+        $guruBelumWaliKelas = Guru::whereDoesntHave('kelas')
+            ->where('jabatan', "Guru")
+            ->get();
         $guru = DB::table('guru')->where('jabatan', "Guru")->get();
-        return view('kelas/tambah_kelas',['guru' => $guru]);
+        return view('kelas/tambah_kelas',[
+            'guru' => $guru,
+            'guruBelumWaliKelas' => $guruBelumWaliKelas,
+        ]);
     }
 
     /**
@@ -82,12 +88,17 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
+
+        $waliKelasSaatIni = Kelas::findOrFail($id)->waliKelas;
         $kelas = DB::table('kelas')->where('id',$id)->get();
-        $guru = Guru::all();
+        $guru = Guru::
+            where('jabatan', "Guru")
+            ->get();
         return view('kelas/edit_kelas',
         [
             'kelas' => $kelas,
             'guru' => $guru,
+            'waliKelasSaatIni' => $waliKelasSaatIni,
         ]);
     }
 

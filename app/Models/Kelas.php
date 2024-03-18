@@ -10,6 +10,11 @@ class Kelas extends Model
 {
     use HasFactory;
 
+    public function waliKelas()
+    {
+        return $this->belongsTo(Guru::class, 'id_walikelas');
+    }
+
     public static function getJoinGuru(){
         $sql = DB::table('kelas as k')
                 ->join('guru as g', 'g.id', '=', 'k.id_walikelas')

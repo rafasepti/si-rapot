@@ -39,9 +39,16 @@
                       <label for="id_walikelas" class="form-label">Wali Kelas</label>
                       <select class="form-select" aria-label="Default select example" required name="id_walikelas">
                         <option value="" selected>Pilih Wali kelas</option>
-                        @foreach ($guru as $mp)
-                          <option value="{{ $mp->id }}" {{$mp->id == $m->id_walikelas  ? 'selected' : ''}}>{{ $mp->nuptk }} || {{ $mp->nama_guru }}</option>
+                        @foreach ($guru as $g)
+                            @if (optional($waliKelasSaatIni)->is($g))
+                            <option value="{{ $g->id }}" {{$g->id == $m->id_walikelas  ? 'selected' : ''}}>
+                              {{ $g->nuptk }} || {{ $g->nama_guru }}
+                            </option>
+                            @endif
                         @endforeach
+                        {{-- @foreach ($guru as $g)
+                          <option value="{{ $g->id }}" {{$g->id == $m->id_walikelas  ? 'selected' : ''}}>{{ $g->nuptk }} || {{ $g->nama_guru }}</option>
+                        @endforeach --}}
                       </select>
                     </div>
                     <div class="text-center">

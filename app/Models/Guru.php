@@ -25,6 +25,11 @@ class Guru extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function kelas()
+    {
+        return $this->hasOne(Kelas::class, 'id_walikelas');
+    }
+
     public static function getJoinMapel(){
         $sql = DB::table('guru as g')
                 ->join('mapel as m', 'm.id', '=', 'g.id_mapel')

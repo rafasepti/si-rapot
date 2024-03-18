@@ -35,9 +35,12 @@
                       <label for="id_walikelas" class="form-label">Wali Kelas</label>
                       <select class="form-select" aria-label="Default select example" required name="id_walikelas">
                         <option value="" selected>Pilih Wali Kelas</option>
-                        @foreach ($guru as $mp)
-                          <option value="{{ $mp->id }}">{{ $mp->nuptk }} || {{ $mp->nama_guru }}</option>
+                        @foreach ($guruBelumWaliKelas as $g)
+                        <option value="{{ $g->id }}">{{ $g->nuptk }} || {{ $g->nama_guru }}</option>
                         @endforeach
+                        {{-- @foreach ($guru as $mp)
+                          <option value="{{ $mp->id }}">{{ $mp->nuptk }} || {{ $mp->nama_guru }}</option>
+                        @endforeach --}}
                       </select>
                     </div>
                     <div class="text-center">
