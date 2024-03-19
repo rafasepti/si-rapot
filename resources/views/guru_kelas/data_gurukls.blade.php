@@ -85,7 +85,7 @@
             {data: 'tingkat', name: 'tingkat'},
             {data: 'kelas', name: 'kelas'},
             {data: 'nama_guru', name: 'nama_guru'},
-        ]
+        ],
     });
     
   });
