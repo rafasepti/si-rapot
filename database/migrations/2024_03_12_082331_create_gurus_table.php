@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('nuptk');
             $table->string('kode_guru',20);
             $table->integer('id_mapel');
+            $table->string('walikelas',5);
             $table->string('nama_guru',100);
             $table->string('email',100);
             $table->string('password',255);

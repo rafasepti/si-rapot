@@ -76,7 +76,7 @@ class GuruController extends Controller
     public function create()
     {
         $kode_guru = Guru::getIdGuru();
-        $mapel = Mapel::all();
+        $mapel = Mapel::where('kategori', 2)->get();
         return view('guru/tambah_guru',[
             'mapel' => $mapel,
             'kode_guru' => $kode_guru,
@@ -88,10 +88,16 @@ class GuruController extends Controller
      */
     public function store(StoreGuruRequest $request)
     {
+        if($request->walikelas == 1){
+            $wali = "Ya";
+        }else{
+            $wali = "Tidak";
+        }
         DB::table('guru')->insert([
             'kode_guru' => $request->id_guru,
             'nuptk' => $request->nuptk,
             'id_mapel' => $request->id_mapel,
+            'walikelas' => $wali,
             'nama_guru' => $request->nama_guru,
             'email' => $request->email,
             'password' => Hash::make($request->input('password')),
@@ -184,9 +190,15 @@ class GuruController extends Controller
      */
     public function update(UpdateGuruRequest $request, Guru $guru)
     {
+        if($request->walikelas == 1){
+            $wali = "Ya";
+        }else{
+            $wali = "Tidak";
+        }
         DB::table('guru')->where('id',$request->id)->update([
             'nuptk' => $request->nuptk,
             'id_mapel' => $request->id_mapel,
+            'walikelas' => $wali,
             'nama_guru' => $request->nama_guru,
             'email' => $request->email,
             'jabatan' => "Guru",

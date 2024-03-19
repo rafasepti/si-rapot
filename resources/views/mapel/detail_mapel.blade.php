@@ -30,6 +30,10 @@
                         <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" value="{{ $m->nama_mapel }}" required readonly>
                     </div>
                     <div class="col-12">
+                      <label for="tingkat" class="form-label">Tingkat</label>
+                      <input type="number" class="form-control" id="tingkat" name="tingkat" value="{{ $m->tingkat }}" required readonly>
+                    </div>
+                    <div class="col-12">
                         <label for="kkm" class="form-label">KKM</label>
                         <input type="number" class="form-control" id="kkm" name="kkm" value="{{ $m->kkm }}" required readonly>
                     </div>

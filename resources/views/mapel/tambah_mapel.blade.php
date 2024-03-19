@@ -28,6 +28,14 @@
                         <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" required>
                     </div>
                     <div class="col-12">
+                      <label for="kategori" class="form-label">Kategori</label>
+                      <select class="form-select" aria-label="Default select example" required name="kategori" id="kategori">
+                        <option value="" selected>Pilih Kategori</option>
+                        <option>1</option>
+                        <option>2</option>
+                      </select>
+                    </div>
+                    <div class="col-12">
                         <label for="kkm" class="form-label">KKM</label>
                         <input type="number" class="form-control" id="kkm" name="kkm" required>
                     </div>

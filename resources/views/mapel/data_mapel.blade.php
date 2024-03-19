@@ -32,6 +32,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Nama Mapel</th>
+                      <th>Kategori</th>
                       <th>KKM</th>
                       <th>Aksi</th>
                     </tr>
@@ -62,6 +63,7 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'nama_mapel', name: 'nama_mapel'},
+            {data: 'kategori', name: 'kategori'},
             {data: 'kkm', name: 'kkm'},
             {
                 data: 'action', 

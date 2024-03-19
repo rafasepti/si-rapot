@@ -64,6 +64,7 @@ class MapelController extends Controller
     {
         DB::table('mapel')->insert([
             'nama_mapel' => $request->nama_mapel,
+            'kategori' => $request->kategori,
             'kkm' => $request->kkm,
             'ruang_lingkup' => $request->ruang_lingkup,
             'tujuan_pembelajaran' => $request->tujuan_pembelajaran,
@@ -98,6 +99,7 @@ class MapelController extends Controller
     {
         DB::table('mapel')->where('id',$request->id)->update([
             'nama_mapel' => $request->nama_mapel,
+            'kategori' => $request->kategori,
             'kkm' => $request->kkm,
             'ruang_lingkup' => $request->ruang_lingkup,
             'tujuan_pembelajaran' => $request->tujuan_pembelajaran,

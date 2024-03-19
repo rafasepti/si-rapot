@@ -27,19 +27,19 @@
         </a>
       </li>
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link {{ Request::is('guru') ? '' : 'collapsed' }}" href="/guru">
           <i class="bi bi-people"></i>
           <span>Data Guru</span>
         </a>
-      </li>
+      </li> --}}
 
-{{-- 
+
       <li class="nav-item">
         <a class="nav-link {{ Request::is('guru') ||  Request::is('guru_kelas')  ? '' : 'collapsed' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Guru</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="tables-nav" class="nav-content collapse {{ Request::is('guru') ||  Request::is('guru/kelas')  ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
+        <ul id="tables-nav" class="nav-content collapse {{ Request::is('guru') ||  Request::is('guru_kelas')  ? 'show' : '' }}" data-bs-parent="#sidebar-nav">
           <li>
             <a class="nav-link {{ Request::is('guru') ? 'active' : '' }}" href="/guru">
               <i class="bi bi-circle"></i>
@@ -47,12 +47,12 @@
             </a>
           </li>
           <li>
-            <a class="nav-link {{ Request::is('guru_kelass') ? 'active' : '' }}" href="/guru_kelas">
+            <a class="nav-link {{ Request::is('guru_kelas') ? 'active' : '' }}" href="/guru_kelas">
               <i class="bi bi-circle"></i><span>Data Guru Mengajar</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Tables Nav --> --}}
+      </li><!-- End Tables Nav -->
 
       <li class="nav-item">
         <a class="nav-link {{ Request::is('kepsek') ? '' : 'collapsed' }}" href="/kepsek">

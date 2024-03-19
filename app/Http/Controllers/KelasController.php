@@ -49,34 +49,6 @@ class KelasController extends Controller
         }
     }
 
-    public function mapelGet(Request $request)
-    {
-        // Mengambil semua mata pelajaran
-        $mapels = Mapel::all();
-
-        // Mengambil semua guru dan mengelompokkannya berdasarkan mata pelajaran yang diajarkannya
-        $gurus =  Guru::getGroupSelect();
-        if ($request->ajax()) {
-            return DataTables::of($mapels)
-            ->addColumn('select', function($mapel) {
-                $selectOptions = '<select name="guru_id">';
-                $selectOptions .= '<option value="">Pilih guru</option>';
-                
-                if (isset($gurus[$mapel->id])) {
-                    foreach ($gurus[$mapel->id] as $guru) {
-                        $selectOptions .= '<option value="' . $guru->id . '">' . $guru->nama_guru . '</option>';
-                    }
-                }
-    
-                $selectOptions .= '</select>';
-    
-                return $selectOptions;
-            })
-            ->rawColumns(['select'])
-            ->make(true);
-        }
-    }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -87,18 +59,10 @@ class KelasController extends Controller
             ->get();
         $guru = DB::table('guru')->where('jabatan', "Guru")->get();
 
-        // Mengambil semua mata pelajaran
-        $mapels = Mapel::all();
-
-        // Mengambil semua guru dan mengelompokkannya berdasarkan mata pelajaran yang diajarkannya
-        $gurus =  Guru::getGroupSelect();
-
         //dd($gurus);
 
         return view('kelas/tambah_kelas',[
             'guru' => $guru,
-            'mapels' => $mapels,
-            'gurus' => $gurus,
             'guruBelumWaliKelas' => $guruBelumWaliKelas,
         ]);
     }

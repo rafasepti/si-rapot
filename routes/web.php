@@ -80,8 +80,8 @@ Route::get('/guru/hapus/{id}', [GuruController::class, 'destroy']);
 
 //guru kelas
 Route::get('/guru_kelas', [GuruKelasController::class, 'index']);
-Route::get('/guru_kelas/list', [GuruKelasController::class, 'guruGet']);
-Route::get('/guru_kelas/tambah', [GuruKelasController::class, 'create']);
+Route::get('/guru_kelas/list', [GuruKelasController::class, 'kelasGet']);
+Route::get('/guru_kelas/tambah/{id}', [GuruKelasController::class, 'create']);
 Route::get('/guru_kelas/detail/{id}', [GuruKelasController::class, 'detail']);
 Route::post('/guru_kelas/store', [GuruKelasController::class, 'store']);
 Route::get('/guru_kelas/edit/{id}', [GuruKelasController::class, 'edit']);

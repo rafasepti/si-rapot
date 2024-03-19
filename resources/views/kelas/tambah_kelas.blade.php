@@ -44,36 +44,6 @@
                       </select>
                     </div>
 
-                    <table class="table table-striped">
-                      <thead>
-                        <tr>
-                          <th scope="col">Pilih</th>
-                          <th scope="col">Mata Pelajaran</th>
-                          <th scope="col">Guru Pengajar</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @foreach($mapels as $mapel)
-                          <tr>
-                              <td scope="row">
-                                <input class="form-check-input checkbox" type="checkbox" data-select="selectBox{{ $mapel->id }}" id="gridCheck{{ $mapel->id }}" name="options[]" value="{{ $mapel->id }}">
-                              </td>
-                              <td scope="row">{{ $mapel->nama_mapel }}</td>
-                              <td scope="row">
-                                  <select class="form-select" aria-label="Default select example" required name="id_guru[]" id="selectBox{{ $mapel->id }}" disabled>
-                                    <option value="">pilih guru</option>
-                                    @if(isset($gurus[$mapel->id]))
-                                        @foreach($gurus[$mapel->id] as $guru)
-                                            <option value="{{ $guru->id }}">{{ $guru->nama_guru }}</option>
-                                        @endforeach
-                                    @endif
-                                  </select>
-                              </td>
-                          </tr>
-                          @endforeach
-                      </tbody>
-                    </table>
-
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="reset" class="btn btn-secondary">Reset</button>
@@ -88,30 +58,6 @@
   </main><!-- End #main -->
 
   @include('dynamic/v_footer');
-
-  <script>
-    // Temukan semua elemen checkbox dengan kelas 'checkbox'
-    var checkboxes = document.querySelectorAll('.checkbox');
-
-    // Loop melalui setiap checkbox
-    checkboxes.forEach(function(checkbox) {
-        // Tambahkan event listener untuk setiap checkbox
-        checkbox.addEventListener('change', function() {
-            // Temukan elemen select yang terkait
-            var selectId = this.getAttribute('data-select');
-            var selectBox = document.getElementById(selectId);
-
-            // Jika checkbox dicentang, aktifkan select box
-            if (this.checked) {
-                selectBox.disabled = false;
-            } else {
-                // Jika checkbox tidak dicentang, nonaktifkan select box
-                selectBox.disabled = true;
-                selectBox.value = '';
-            }
-        });
-    });
-</script>
 
 </body>
 </html>
