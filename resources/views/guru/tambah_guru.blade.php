@@ -54,10 +54,18 @@
                       </select>
                     </div> --}}
                     <div class="col-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="gridCheckW" name="walikelas" value="1">
+                          <label class="form-check-label" for="gridCheckW">
+                            Wali Kelas
+                          </label>
+                        </div>
+                    </div>
+                    <div class="col-12">
                       <label for="id_mapel" class="form-label">Mata Pelajaran</label>
                         @foreach ($mapel as $mp)
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="gridCheck{{ $mp->id }}" name="options[]" value="{{ $mp->id }}">
+                          <input class="form-check-input" type="checkbox" id="gridCheck{{ $mp->id }}" name="options[]" value="{{ $mp->id }}" data-mapel-checkbox>
                           <label class="form-check-label" for="gridCheck{{ $mp->id }}">
                             {{ $mp->nama_mapel }}
                           </label>
@@ -97,6 +105,30 @@
         passwordInput.type = 'password';
         this.innerHTML = '<i class="bi bi-eye-fill"></i>';
       }
+    });
+
+     // Temukan checkbox "Wali Kelas"
+     var waliKelasCheckbox = document.getElementById('gridCheckW');
+
+    // Tambahkan event listener untuk checkbox "Wali Kelas"
+    waliKelasCheckbox.addEventListener('change', function() {
+        // Dapatkan semua checkbox "Mapel"
+        var mapelCheckboxes = document.querySelectorAll('[data-mapel-checkbox]');
+
+        // Jika checkbox "Wali Kelas" dicentang
+        if (this.checked) {
+            // Nonaktifkan semua checkbox "Mapel"
+            mapelCheckboxes.forEach(function(checkbox) {
+                checkbox.disabled = true;
+                checkbox.checked = false;
+                checkbox.value = "";
+            });
+        } else {
+            // Aktifkan kembali semua checkbox "Mapel"
+            mapelCheckboxes.forEach(function(checkbox) {
+                checkbox.disabled = false;
+            });
+        }
     });
   </script>
 
