@@ -43,6 +43,32 @@
                         @endforeach --}}
                       </select>
                     </div>
+
+                    <table>
+                      <thead>
+                          <tr>
+                              <th>Mata Pelajaran</th>
+                              <th>Guru Pengajar</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @foreach($mapels as $mapel)
+                          <tr>
+                              <td>{{ $mapel->nama_mapel }}</td>
+                              <td>
+                                  <select>
+                                    @if(isset($gurus[$mapel->id]))
+                                        @foreach($gurus[$mapel->id] as $guru)
+                                            <option value="{{ $guru->id }}">{{ $guru->nama_guru }}</option>
+                                        @endforeach
+                                    @endif
+                                  </select>
+                              </td>
+                          </tr>
+                          @endforeach
+                      </tbody>
+                  </table>
+
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="reset" class="btn btn-secondary">Reset</button>

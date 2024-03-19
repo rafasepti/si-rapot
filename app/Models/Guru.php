@@ -25,6 +25,11 @@ class Guru extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function mapel()
+    {
+        return $this->belongsToMany(Mapel::class, 'guru_mapel', 'id_guru', 'id_mapel');
+    }
+
     public function kelas()
     {
         return $this->hasOne(Kelas::class, 'id_walikelas');

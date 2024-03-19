@@ -23,4 +23,27 @@ class GuruMapel extends Model
                 ->get();
         return $sql;
     }
+
+    public static function getJoinMapelGuru(){
+        $sql = DB::table('guru_mapel as gm')
+                ->join('mapel as m', 'm.id', '=', 'gm.id_mapel')
+                ->join('guru as g', 'g.kode_guru', '=', 'gm.id_guru')
+                ->select('m.*', 'gm.*', 'g.*')
+                ->get();
+        return $sql;
+    }
+
+    public static function getGroupMapel(){
+        $sql = Mapel::select('mapel.id', 'mapel.nama_mapel')
+        ->with(['guru' => function ($query) {
+            $query->select('guru.nama_guru');
+        }])
+        ->leftJoin('guru_mapel', 'mapel.id', '=', 'guru_mapel.id_mapel')
+        ->leftJoin('guru', 'guru_mapel.id_guru', '=', 'guru.kode_guru')
+        ->groupBy('mapel.id', 'mapel.nama_mapel')
+        ->selectRaw('GROUP_CONCAT(guru.nama_guru) AS nm_g')
+        ->get();
+    
+        return $sql;
+    }
 }

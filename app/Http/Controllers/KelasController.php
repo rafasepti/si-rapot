@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DataTables;
 use App\Models\Guru;
+use App\Models\GuruMapel;
+use App\Models\Mapel;
 
 class KelasController extends Controller
 {
@@ -47,6 +49,24 @@ class KelasController extends Controller
         }
     }
 
+    public function mapelGet(Request $request)
+    {
+        // if ($request->ajax()) {
+        //     $mapel = GuruMapel::getJoinMapelGuru();
+        //     return Datatables::of($mapel)
+        //         ->addIndexColumn()
+        //         ->addColumn('action', function($b){
+        //             $actionBtn = 
+        //             '
+        //             <input class="form-check-input" type="checkbox" id="gridCheck'.$b->id.'" name="options[]" value="'.$b->id.'">
+        //             ';
+        //             return $actionBtn;
+        //         })
+        //         ->rawColumns(['action'])
+        //         ->make(true);
+        // }
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -56,8 +76,24 @@ class KelasController extends Controller
             ->where('jabatan', "Guru")
             ->get();
         $guru = DB::table('guru')->where('jabatan', "Guru")->get();
+
+        // Mengambil semua mata pelajaran
+        $mapels = Mapel::all();
+
+        // Mengambil semua guru dan mengelompokkannya berdasarkan mata pelajaran yang diajarkannya
+        $gurus =  DB::table('guru')
+            ->join('guru_mapel', 'guru.kode_guru', '=', 'guru_mapel.id_guru')
+            ->join('mapel', 'guru_mapel.id_mapel', '=', 'mapel.id')
+            ->select('guru.*', 'mapel.id as mapel_id')
+            ->get()
+            ->groupBy('mapel_id');
+
+        //dd($gurus);
+
         return view('kelas/tambah_kelas',[
             'guru' => $guru,
+            'mapels' => $mapels,
+            'gurus' => $gurus,
             'guruBelumWaliKelas' => $guruBelumWaliKelas,
         ]);
     }
@@ -75,17 +111,6 @@ class KelasController extends Controller
         return redirect('/kelas');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Kelas $kelas)
-    {
-        
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit($id)
     {
 

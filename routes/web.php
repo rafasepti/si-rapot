@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\GuruController;
+use App\Http\Controllers\GuruKelasController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\MapelController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\TahunAjaranController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,57 +39,67 @@ Route::get('/dashboard', function () {
 });
 
 //siswa
-Route::get('/siswa', 'App\Http\Controllers\SiswaController@index');
-Route::get('/siswa/list', 'App\Http\Controllers\SiswaController@siswaGet');
-Route::get('/siswa/filter', 'App\Http\Controllers\SiswaController@filter');
-Route::get('/siswa/tambah', 'App\Http\Controllers\SiswaController@create');
-Route::post('/siswa/tambah', 'App\Http\Controllers\SiswaController@store');
-Route::get('/siswa/detail/{id}', 'App\Http\Controllers\SiswaController@detail');
-Route::get('/siswa/edit/{id}','App\Http\Controllers\SiswaController@edit');
-Route::post('/siswa/update','App\Http\Controllers\SiswaController@update');
-Route::get('/siswa/hapus/{id}','App\Http\Controllers\SiswaController@destroy');
+Route::get('/siswa', [SiswaController::class, 'index']);
+Route::get('/siswa/list', [SiswaController::class, 'siswaGet']);
+Route::get('/siswa/filter', [SiswaController::class, 'filter']);
+Route::get('/siswa/tambah', [SiswaController::class, 'create']);
+Route::post('/siswa/tambah', [SiswaController::class, 'store']);
+Route::get('/siswa/detail/{id}', [SiswaController::class, 'detail']);
+Route::get('/siswa/edit/{id}', [SiswaController::class, 'edit']);
+Route::post('/siswa/update', [SiswaController::class, 'update']);
+Route::get('/siswa/hapus/{id}',[SiswaController::class, 'destroy']);
 
 //mapel
-Route::get('/mapel', 'App\Http\Controllers\MapelController@index');
-Route::get('/mapel/list', 'App\Http\Controllers\MapelController@mapelGet');
-Route::get('/mapel/detail/{id}', 'App\Http\Controllers\MapelController@detail');
-Route::get('/mapel/tambah', 'App\Http\Controllers\MapelController@create');
-Route::post('/mapel/store', 'App\Http\Controllers\MapelController@store');
-Route::get('/mapel/edit/{id}','App\Http\Controllers\MapelController@edit');
-Route::post('/mapel/update','App\Http\Controllers\MapelController@update');
-Route::get('/mapel/hapus/{id}','App\Http\Controllers\MapelController@destroy');
+Route::get('/mapel', [MapelController::class, 'index']);
+Route::get('/mapel/list', [MapelController::class, 'mapelGet']);
+Route::get('/mapel/detail/{id}', [MapelController::class, 'detail']);
+Route::get('/mapel/tambah', [MapelController::class, 'create']);
+Route::post('/mapel/store', [MapelController::class, 'store']);
+Route::get('/mapel/edit/{id}', [MapelController::class, 'edit']);
+Route::post('/mapel/update', [MapelController::class, 'update']);
+Route::get('/mapel/hapus/{id}', [MapelController::class, 'destroy']);
 
 //tahun ajaran
-Route::get('/tahunajaran', 'App\Http\Controllers\TahunAjaranController@index');
-Route::get('/tahunajaran/list', 'App\Http\Controllers\TahunAjaranController@tahunGet');
-Route::get('/tahunajaran/tambah', 'App\Http\Controllers\TahunAjaranController@create');
-Route::post('/tahunajaran/store', 'App\Http\Controllers\TahunAjaranController@store');
-Route::get('/tahunajaran/edit/{id}','App\Http\Controllers\TahunAjaranController@edit');
-Route::post('/tahunajaran/update','App\Http\Controllers\TahunAjaranController@update');
-Route::get('/tahunajaran/hapus/{id}','App\Http\Controllers\TahunAjaranController@destroy');
+Route::get('/tahunajaran', [TahunAjaranController::class, 'index']);
+Route::get('/tahunajaran/list', [TahunAjaranController::class, 'tahunGet']);
+Route::get('/tahunajaran/tambah', [TahunAjaranController::class, 'create']);
+Route::post('/tahunajaran/store', [TahunAjaranController::class, 'store']);
+Route::get('/tahunajaran/edit/{id}', [TahunAjaranController::class, 'edit']);
+Route::post('/tahunajaran/update', [TahunAjaranController::class, 'update']);
+Route::get('/tahunajaran/hapus/{id}', [TahunAjaranController::class, 'destroy']);
 
 //guru
-Route::get('/guru', 'App\Http\Controllers\GuruController@index');
-Route::get('/guru/list', 'App\Http\Controllers\GuruController@guruGet');
-Route::get('/guru/tambah', 'App\Http\Controllers\GuruController@create');
-Route::get('/guru/detail/{id}', 'App\Http\Controllers\GuruController@detail');
-Route::post('/guru/store', 'App\Http\Controllers\GuruController@store');
-Route::get('/guru/edit/{id}','App\Http\Controllers\GuruController@edit');
-Route::post('/guru/update','App\Http\Controllers\GuruController@update');
-Route::get('/guru/hapus/{id}','App\Http\Controllers\GuruController@destroy');
+Route::get('/guru', [GuruController::class, 'index']);
+Route::get('/guru/list', [GuruController::class, 'guruGet']);
+Route::get('/guru/tambah', [GuruController::class, 'create']);
+Route::get('/guru/detail/{id}', [GuruController::class, 'detail']);
+Route::post('/guru/store', [GuruController::class, 'store']);
+Route::get('/guru/edit/{id}', [GuruController::class, 'edit']);
+Route::post('/guru/update', [GuruController::class, 'update']);
+Route::get('/guru/hapus/{id}', [GuruController::class, 'destroy']);
+
+//guru kelas
+Route::get('/guru_kelas', [GuruKelasController::class, 'index']);
+Route::get('/guru_kelas/list', [GuruKelasController::class, 'guruGet']);
+Route::get('/guru_kelas/tambah', [GuruKelasController::class, 'create']);
+Route::get('/guru_kelas/detail/{id}', [GuruKelasController::class, 'detail']);
+Route::post('/guru_kelas/store', [GuruKelasController::class, 'store']);
+Route::get('/guru_kelas/edit/{id}', [GuruKelasController::class, 'edit']);
+Route::post('/guru_kelas/update', [GuruKelasController::class, 'update']);
+Route::get('/guru_kelas/hapus/{id}', [GuruKelasController::class, 'destroy']);
 
 //Kepala Sekolah
-Route::get('/kepsek', 'App\Http\Controllers\GuruController@indexKS');
-Route::post('/kepsek', 'App\Http\Controllers\GuruController@storeKS');
-Route::get('/kepsek/loadKepsek', 'App\Http\Controllers\GuruController@loadKepsek');
+Route::get('/kepsek', [GuruController::class, 'indexKS']);
+Route::post('/kepsek', [GuruController::class, 'storeKS']);
+Route::get('/kepsek/loadKepsek', [GuruController::class, 'loadKepsek']);
 
 //kelas
-Route::get('/kelas', 'App\Http\Controllers\KelasController@index');
-Route::get('/kelas/list', 'App\Http\Controllers\KelasController@kelasGet');
-Route::get('/kelas/tambah', 'App\Http\Controllers\KelasController@create');
-Route::post('/kelas/store', 'App\Http\Controllers\KelasController@store');
-Route::get('/kelas/edit/{id}','App\Http\Controllers\KelasController@edit');
-Route::post('/kelas/update','App\Http\Controllers\KelasController@update');
-Route::get('/kelas/hapus/{id}','App\Http\Controllers\KelasController@destroy');
+Route::get('/kelas', [KelasController::class, 'index']);
+Route::get('/kelas/list', [KelasController::class, 'kelasGet']);
+Route::get('/kelas/tambah', [KelasController::class, 'create']);
+Route::post('/kelas/store', [KelasController::class, 'store']);
+Route::get('/kelas/edit/{id}', [KelasController::class, 'edit']);
+Route::post('/kelas/update', [KelasController::class, 'update']);
+Route::get('/kelas/hapus/{id}', [KelasController::class, 'destroy']);
 
 require __DIR__.'/auth.php';
