@@ -23,6 +23,17 @@
                 <!-- Vertical Form -->
                 <form class="row g-3" action="/guru/store" method="post">
                     {{ csrf_field() }}
+                    <div class="col-12">
+                      <label for="id_mapel" class="form-label">Mata Pelajaran Umum</label>
+                        @foreach ($mapel as $mp)
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="gridCheck{{ $mp->id }}" name="options[]" value="{{ $mp->id }}" data-mapel-checkbox>
+                          <label class="form-check-label" for="gridCheck{{ $mp->id }}">
+                            {{ $mp->nama_mapel }}
+                          </label>
+                        </div>
+                        @endforeach
+                    </div>
                     <table class="table table-striped">
                       <thead>
                         <tr>
@@ -43,7 +54,7 @@
                                     <option value="">pilih guru</option>
                                     @if(isset($gurus[$mapel->id]))
                                         @foreach($gurus[$mapel->id] as $guru)
-                                            <option value="{{ $guru->id }}">{{ $guru->nama_guru }}</option>
+                                            <option value="{{ $guru->kode_guru }}">{{ $guru->nama_guru }}</option>
                                         @endforeach
                                     @endif
                                   </select>

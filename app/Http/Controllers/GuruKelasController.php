@@ -50,6 +50,7 @@ class GuruKelasController extends Controller
     {
         // Mengambil semua mata pelajaran
         $mapels = Mapel::where('kategori', 2)->get();
+        $mapel = Mapel::where('kategori', 1)->get();
 
         // Mengambil semua guru dan mengelompokkannya berdasarkan mata pelajaran yang diajarkannya
         $gurus =  Guru::getGroupSelect();
@@ -57,6 +58,7 @@ class GuruKelasController extends Controller
         return view('guru_kelas/tambah_gurukls',[
             'id' => $id,
             'mapels' => $mapels,
+            'mapel' => $mapel,
             'gurus' => $gurus,
         ]);
     }
