@@ -56,6 +56,7 @@ class KelasController extends Controller
     {
         $guruBelumWaliKelas = Guru::whereDoesntHave('kelas')
             ->where('jabatan', "Guru")
+            ->where('walikelas', "Ya")
             ->get();
         $guru = DB::table('guru')->where('jabatan', "Guru")->get();
 
@@ -87,6 +88,7 @@ class KelasController extends Controller
         $kelas = DB::table('kelas')->where('id',$id)->get();
         $guru = Guru::
             where('jabatan', "Guru")
+            ->where('walikelas', "Ya")
             ->get();
         return view('kelas/edit_kelas',
         [

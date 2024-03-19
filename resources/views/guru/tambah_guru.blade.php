@@ -107,8 +107,8 @@
       }
     });
 
-     // Temukan checkbox "Wali Kelas"
-     var waliKelasCheckbox = document.getElementById('gridCheckW');
+    // Temukan checkbox "Wali Kelas"
+    var waliKelasCheckbox = document.getElementById('gridCheckW');
 
     // Tambahkan event listener untuk checkbox "Wali Kelas"
     waliKelasCheckbox.addEventListener('change', function() {

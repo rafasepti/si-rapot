@@ -175,7 +175,7 @@ class GuruController extends Controller
     public function edit($id)
     {
         $guru = DB::table('guru')->where('kode_guru',$id)->get();
-        $mapel = Mapel::all();
+        $mapel = Mapel::where('kategori', 2)->get();
         $gurum = GuruMapel::getJoinMapelId($id);
         return view('guru/edit_guru',
         [
@@ -213,8 +213,9 @@ class GuruController extends Controller
 
         $options = $request->options ?? [];
 
-        if ($options) {
+        if ($options != "") {
             foreach ($options as $option) {
+                //dd($option);
                 $gm = GuruMapel::firstOrCreate([
                     'id_guru' => $request->kode_guru,
                     'id_mapel' => $option
