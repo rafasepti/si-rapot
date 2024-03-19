@@ -52,6 +52,16 @@ class Guru extends Authenticatable
         return $sql;
     }
 
+    public static function getGroupSelect(){
+        $sql = DB::table('guru')
+            ->join('guru_mapel', 'guru.kode_guru', '=', 'guru_mapel.id_guru')
+            ->join('mapel', 'guru_mapel.id_mapel', '=', 'mapel.id')
+            ->select('guru.*', 'mapel.id as mapel_id')
+            ->get()
+            ->groupBy('mapel_id');
+        return $sql;
+    }
+
     public static function getCountKepsek(){
         $sql = DB::table('guru')
                 ->where('jabatan', "Kepala Sekolah")

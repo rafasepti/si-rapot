@@ -96,6 +96,7 @@ Route::get('/kepsek/loadKepsek', [GuruController::class, 'loadKepsek']);
 //kelas
 Route::get('/kelas', [KelasController::class, 'index']);
 Route::get('/kelas/list', [KelasController::class, 'kelasGet']);
+Route::get('/kelas/mapel', [KelasController::class, 'mapelGet']);
 Route::get('/kelas/tambah', [KelasController::class, 'create']);
 Route::post('/kelas/store', [KelasController::class, 'store']);
 Route::get('/kelas/edit/{id}', [KelasController::class, 'edit']);

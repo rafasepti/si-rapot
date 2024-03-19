@@ -51,20 +51,30 @@ class KelasController extends Controller
 
     public function mapelGet(Request $request)
     {
-        // if ($request->ajax()) {
-        //     $mapel = GuruMapel::getJoinMapelGuru();
-        //     return Datatables::of($mapel)
-        //         ->addIndexColumn()
-        //         ->addColumn('action', function($b){
-        //             $actionBtn = 
-        //             '
-        //             <input class="form-check-input" type="checkbox" id="gridCheck'.$b->id.'" name="options[]" value="'.$b->id.'">
-        //             ';
-        //             return $actionBtn;
-        //         })
-        //         ->rawColumns(['action'])
-        //         ->make(true);
-        // }
+        // Mengambil semua mata pelajaran
+        $mapels = Mapel::all();
+
+        // Mengambil semua guru dan mengelompokkannya berdasarkan mata pelajaran yang diajarkannya
+        $gurus =  Guru::getGroupSelect();
+        if ($request->ajax()) {
+            return DataTables::of($mapels)
+            ->addColumn('select', function($mapel) {
+                $selectOptions = '<select name="guru_id">';
+                $selectOptions .= '<option value="">Pilih guru</option>';
+                
+                if (isset($gurus[$mapel->id])) {
+                    foreach ($gurus[$mapel->id] as $guru) {
+                        $selectOptions .= '<option value="' . $guru->id . '">' . $guru->nama_guru . '</option>';
+                    }
+                }
+    
+                $selectOptions .= '</select>';
+    
+                return $selectOptions;
+            })
+            ->rawColumns(['select'])
+            ->make(true);
+        }
     }
 
     /**
@@ -81,12 +91,7 @@ class KelasController extends Controller
         $mapels = Mapel::all();
 
         // Mengambil semua guru dan mengelompokkannya berdasarkan mata pelajaran yang diajarkannya
-        $gurus =  DB::table('guru')
-            ->join('guru_mapel', 'guru.kode_guru', '=', 'guru_mapel.id_guru')
-            ->join('mapel', 'guru_mapel.id_mapel', '=', 'mapel.id')
-            ->select('guru.*', 'mapel.id as mapel_id')
-            ->get()
-            ->groupBy('mapel_id');
+        $gurus =  Guru::getGroupSelect();
 
         //dd($gurus);
 
