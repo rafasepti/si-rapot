@@ -23,7 +23,7 @@ class WaliController extends Controller
         if($siswa_kel == ""){
             $siswa_kel = "";
         }
-        return view('siswa/data_sw',
+        return view('wali_kelas/data_sw',
             compact('siswa_kel')
             );
     }
@@ -38,8 +38,8 @@ class WaliController extends Controller
                 ->addColumn('action', function($b){
                     $actionBtn = 
                     '
-                        <a href="/siswa/detail/'.$b->id_siswa.'" class="btn btn-outline-info">
-                            <i class="bi bi-info-lg"></i>
+                        <a href="/siswa/nilai/'.$b->id_siswa.'" class="btn btn-success">
+                            Nilai
                         </a>
                     ';
                     return $actionBtn;
@@ -54,7 +54,7 @@ class WaliController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

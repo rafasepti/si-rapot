@@ -49,6 +49,7 @@ Route::get('/siswa/detail/{id}', [SiswaController::class, 'detail']);
 Route::get('/siswa/edit/{id}', [SiswaController::class, 'edit']);
 Route::post('/siswa/update', [SiswaController::class, 'update']);
 Route::get('/siswa/hapus/{id}',[SiswaController::class, 'destroy']);
+Route::get('/siswa/nilai/{id}',[SiswaController::class, 'nilai']);
 
 //mapel
 Route::get('/mapel', [MapelController::class, 'index']);

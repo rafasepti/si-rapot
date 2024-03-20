@@ -244,4 +244,14 @@ class SiswaController extends Controller
         DB::table('wali')->where('id_siswa',$id)->delete();
         return redirect('/siswa');
     }
+
+    public function nilai()
+    {
+        $kelas= Kelas::all();
+        return view('wali_kelas/tambah_nilai',
+            [
+                'kelas' => $kelas,
+            ]
+        );
+    }
 }
