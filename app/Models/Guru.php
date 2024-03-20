@@ -56,9 +56,9 @@ class Guru extends Authenticatable
         $sql = DB::table('guru')
             ->join('guru_mapel', 'guru.kode_guru', '=', 'guru_mapel.id_guru')
             ->join('mapel', 'guru_mapel.id_mapel', '=', 'mapel.id')
-            ->select('guru.*', 'mapel.id as mapel_id')
+            ->select('guru.kode_guru', 'guru.nama_guru', 'guru.nuptk', 'mapel.id as mapel_id', 'guru_mapel.id as id_gm')
             ->get()
-            ->groupBy('mapel_id');
+            ->groupBy('mapel_id', 'id_gm');
         return $sql;
     }
 

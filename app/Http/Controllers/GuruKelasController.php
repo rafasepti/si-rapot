@@ -111,6 +111,7 @@ class GuruKelasController extends Controller
     {
         // Mengambil semua mata pelajaran
         $gk = GuruKelas::getJoinId($id);
+        //$mapels = GuruMapel::getJoinMapelKat();
         $mapels = Mapel::where('kategori', 2)->get();
         $kelas = Kelas::where('id', $id)->get();
         $gurus =  Guru::getGroupSelect();
@@ -131,21 +132,18 @@ class GuruKelasController extends Controller
     {
         $request->validate([
             'id_mapel.*' => 'required|exists:mapel,id', // Validasi untuk id_mapel
-            'id_guru.*' => 'required|exists:guru,kode_guru', // Validasi untuk id_guru
+            'id_guru.*' => 'required|exists:guru_mapel,id', // Validasi untuk id_guru
         ]);
+
+        GuruKelas::where('id_kelas', $request->id_kelas)->delete();
     
         // Simpan data ke dalam database
-        // foreach ($request->id_mapel as $key => $id_mapel) {
-        //     $gm = GuruMapel::where('id_mapel',$id_mapel)
-        //         ->where('id_guru',$request->id_guru[$key])
-        //         ->first();
-
-        //         if ($guruKelas) {
-        //             $guruKelas->id_kelas = $request->id_kelas;
-        //             $guruKelas->id_gm = $gm->id; // Gunakan ID dari hasil kueri
-        //             $guruKelas->save();
-        //         }
-        // }
+        foreach ($request->id_mapel as $key => $id_mapel) {
+            $guruKelas = new GuruKelas();
+            $guruKelas->id_kelas = $request->id_kelas;
+            $guruKelas->id_gm = $request->id_guru[$key]; // Gunakan ID dari hasil kueri
+            $guruKelas->save();
+        }
 
         return redirect('/guru_kelas');
     }

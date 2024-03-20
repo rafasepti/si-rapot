@@ -40,11 +40,11 @@
                             <td scope="row">{{ $mapel->nama_mapel }}</td>
                             <td scope="row">
                               <input type="hidden" value="{{ $mapel->id }}" name="id_mapel[]">
-                                <select class="form-select" aria-label="Default select example" required name="id_guru[]" id="selectBox{{ $mapel->id }}" disabled>
+                                <select class="form-select" aria-label="Default select example" required name="id_guru[]" id="selectBox{{ $mapel->id }}">
                                   <option value="">pilih guru</option>
                                   @if(isset($gurus[$mapel->id]))
                                       @foreach($gurus[$mapel->id] as $guru)
-                                        <option value="{{ $guru->kode_guru }}"
+                                        <option value="{{ $guru->id_gm }}"
                                           @foreach($gk as $gks)
                                               {{ $guru->kode_guru == $gks->kode_guru ? 'selected' : '' }}
                                           @endforeach
@@ -58,7 +58,7 @@
                       </tbody>
                     </table>
                     <div class="text-center">
-                      {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
+                      <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </form><!-- Vertical Form -->
               </div>

@@ -24,6 +24,16 @@ class GuruMapel extends Model
         return $sql;
     }
 
+    public static function getJoinMapelKat(){
+        $sql = DB::table('guru_mapel as g')
+                ->join('mapel as m', 'm.id', '=', 'g.id_mapel')
+                ->select('m.*', DB::raw('MAX(g.id) AS id_gm'))
+                ->where('m.kategori', 2)
+                ->groupBy('m.id')
+                ->get();
+        return $sql;
+    }
+
     public static function getJoinMapelGuru(){
         $sql = DB::table('guru_mapel as gm')
                 ->join('mapel as m', 'm.id', '=', 'gm.id_mapel')
