@@ -27,6 +27,19 @@ class Siswa extends Model
         return $sql;
     }
 
+    public static function getJoinKId($id_user){
+        $sql = DB::table('siswa as s')
+                ->join('kelas as k', 'k.id', '=', 's.id_kelas')
+                ->select([
+                    's.id as id_siswa',
+                    's.*',
+                    'k.*',
+                    'k.id as id_kelas'
+                ])
+                ->where('k.id_walikelas', $id_user);
+        return $sql;
+    }
+
     public static function getIdSiswa(){
         $sql = "SELECT IFNULL(MAX(kode_siswa), 'S00000')
             AS id_siswa FROM siswa";

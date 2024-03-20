@@ -34,12 +34,14 @@ class AuthenticatedSessionController extends Controller
         foreach($akses as $a):
             $hak_akses = $a->jabatan;
             $nama = $a->nama_guru;
+            $walikelas = $a->walikelas;
         endforeach;
 
         session([
             'hak_akses' => $hak_akses,
             'id_user' => $id_user,
             'nama' => $nama,
+            'walikelas' => $walikelas,
         ]);
 
 

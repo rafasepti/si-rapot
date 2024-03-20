@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Wali;
 use App\Http\Requests\StoreWaliRequest;
 use App\Http\Requests\UpdateWaliRequest;
+use Illuminate\Http\Request;
+//use DataTables;
+use App\Models\Siswa;
+use Illuminate\Contracts\Session\Session;
+use Yajra\DataTables\DataTables as DataTables;
 
 class WaliController extends Controller
 {
@@ -13,7 +18,35 @@ class WaliController extends Controller
      */
     public function index()
     {
-        //
+        $id_user = session('id_user');
+        $siswa_kel = Siswa::getJoinKId($id_user)->first();
+        if($siswa_kel == ""){
+            $siswa_kel = "";
+        }
+        return view('siswa/data_sw',
+            compact('siswa_kel')
+            );
+    }
+
+    public function siswaGet(Request $request)
+    {
+        if ($request->ajax()) {
+            $id_user = session('id_user');
+            $siswa = Siswa::getJoinKId($id_user)->get();
+            return DataTables::of($siswa)
+                ->addIndexColumn()
+                ->addColumn('action', function($b){
+                    $actionBtn = 
+                    '
+                        <a href="/siswa/detail/'.$b->id_siswa.'" class="btn btn-outline-info">
+                            <i class="bi bi-info-lg"></i>
+                        </a>
+                    ';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
     }
 
     /**

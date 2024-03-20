@@ -7,6 +7,7 @@ use App\Http\Controllers\MapelController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\TahunAjaranController;
+use App\Http\Controllers\WaliController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -102,5 +103,13 @@ Route::post('/kelas/store', [KelasController::class, 'store']);
 Route::get('/kelas/edit/{id}', [KelasController::class, 'edit']);
 Route::post('/kelas/update', [KelasController::class, 'update']);
 Route::get('/kelas/hapus/{id}', [KelasController::class, 'destroy']);
+
+//kelas
+Route::get('/kelaswali', [WaliController::class, 'index']);
+Route::get('/kelaswali/list', [WaliController::class, 'siswaGet']);
+Route::get('/kelaswali/tambah', [WaliController::class, 'create']);
+Route::post('/kelaswali/store', [WaliController::class, 'store']);
+Route::get('/kelaswali/edit/{id}', [WaliController::class, 'edit']);
+Route::post('/kelaswali/update', [WaliController::class, 'update']);
 
 require __DIR__.'/auth.php';
