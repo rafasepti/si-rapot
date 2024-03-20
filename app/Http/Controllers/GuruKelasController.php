@@ -31,12 +31,22 @@ class GuruKelasController extends Controller
             return Datatables::of($kelas)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
-                    $actionBtn = 
-                    '
-                    <a href="/guru_kelas/tambah/'.$b->id_kelas.'" class="btn btn-outline-primary">
-                        <i class="bi bi-pencil-square"></i>
-                    </a>
-                    ';
+                    $exists = GuruKelas::where('id_kelas', $b->id_kelas)->exists();
+                    if ($exists) {
+                        $actionBtn = 
+                        '
+                        <a href="/guru_kelas/edit/'.$b->id_kelas.'" class="btn btn-outline-success">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        ';
+                    } else {
+                        $actionBtn = 
+                        '
+                        <a href="/guru_kelas/tambah/'.$b->id_kelas.'" class="btn btn-outline-primary">
+                            <i class="bi bi-plus"></i>
+                        </a>
+                        ';
+                    }
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -51,25 +61,18 @@ class GuruKelasController extends Controller
     {
         // Mengambil semua mata pelajaran
         $mapels = Mapel::where('kategori', 2)->get();
-        $mapel = Mapel::where('kategori', 1)->get();
+        //$mapel = Mapel::where('kategori', 1)->get();
+        
+        $mapel = GuruKelas::getJoinId($id);
 
         $kelas = Kelas::where('id', $id)->get();
 
         // Mengambil semua guru dan mengelompokkannya berdasarkan mata pelajaran yang diajarkannya
         $gurus =  Guru::getGroupSelect();
 
-        $exists = GuruKelas::where('id_kelas', $id)->exists();
-        if ($exists) {
-            $ex = "ada";
-        } else {
-            // Jika tidak ada baris dengan id_kelas yang sesuai
-            $ex = "";
-        }
-
         return view('guru_kelas/tambah_gurukls',[
             'id_kelas' => $id,
             'kelas' => $kelas,
-            'ex' => $ex,
             'mapels' => $mapels,
             'mapel' => $mapel,
             'gurus' => $gurus,
@@ -104,20 +107,21 @@ class GuruKelasController extends Controller
         return redirect('/guru_kelas');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(GuruKelas $guruKelas)
+    public function edit($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(GuruKelas $guruKelas)
-    {
-        //
+        // Mengambil semua mata pelajaran
+        $gk = GuruKelas::getJoinId($id);
+        $mapels = Mapel::where('kategori', 2)->get();
+        $kelas = Kelas::where('id', $id)->get();
+        $gurus =  Guru::getGroupSelect();
+        
+        return view('guru_kelas/edit_gurukls',[
+            'id_kelas' => $id,
+            'kelas' => $kelas,
+            'gk' => $gk,
+            'mapels' => $mapels,
+            'gurus' => $gurus,
+        ]);
     }
 
     /**
@@ -125,7 +129,25 @@ class GuruKelasController extends Controller
      */
     public function update(UpdateGuruKelasRequest $request, GuruKelas $guruKelas)
     {
-        //
+        $request->validate([
+            'id_mapel.*' => 'required|exists:mapel,id', // Validasi untuk id_mapel
+            'id_guru.*' => 'required|exists:guru,kode_guru', // Validasi untuk id_guru
+        ]);
+    
+        // Simpan data ke dalam database
+        // foreach ($request->id_mapel as $key => $id_mapel) {
+        //     $gm = GuruMapel::where('id_mapel',$id_mapel)
+        //         ->where('id_guru',$request->id_guru[$key])
+        //         ->first();
+
+        //         if ($guruKelas) {
+        //             $guruKelas->id_kelas = $request->id_kelas;
+        //             $guruKelas->id_gm = $gm->id; // Gunakan ID dari hasil kueri
+        //             $guruKelas->save();
+        //         }
+        // }
+
+        return redirect('/guru_kelas');
     }
 
     /**

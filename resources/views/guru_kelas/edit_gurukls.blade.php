@@ -7,7 +7,9 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Guru</h1>
+      @foreach ($kelas as $k)
+        <h1>Kelas {{ $k->tingkat }}-{{ $k->kelas }}</h1>
+      @endforeach
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
@@ -17,61 +19,47 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-9">
-                    <h5 class="card-title">Edit Guru</h5>
+                    <h5 class="card-title">Data Guru Mengajar</h5>
                   </div>
                 </div>
                 <!-- Vertical Form -->
-                @foreach ($guru as $m)
-                    
-                @endforeach
-                <form class="row g-3" action="/guru/update" method="post">
+                <form class="row g-3" action="/guru_kelas/update" method="post">
                     {{ csrf_field() }}
-                    <input type="hidden" name="id" value="{{ $m->id }}">
-                    <input type="hidden" name="kode_guru" value="{{ $m->kode_guru }}">
-                    <div class="col-12">
-                      <label for="nuptk" class="form-label">NUPTK</label>
-                      <input type="number" class="form-control" id="nuptk" name="nuptk" value="{{ $m->nuptk }}" required>
-                    </div>
-                    <div class="col-12">
-                        <label for="nama_guru" class="form-label">Nama Guru</label>
-                        <input type="text" class="form-control" id="nama_guru" name="nama_guru" value="{{ $m->nama_guru }}" required>
-                    </div>
-                    <div class="col-12">
-                      <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email" name="email" value="{{ $m->email }}" required>
-                    </div>
-                    {{-- <div class="col-12">
-                      <label for="id_mapel" class="form-label">Mata Pelajaran</label>
-                      <select class="form-select" aria-label="Default select example" required name="id_mapel">
-                        <option value="" selected>Pilih Mata Pelajaran</option>
-                        @foreach ($mapel as $mp)
-                          <option value="{{ $mp->id }}" {{$mp->id == $m->id_mapel  ? 'selected' : ''}}>{{ $mp->nama_mapel }}</option>
+                    <input type="hidden" name="id_kelas" value="{{ $id_kelas }}">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          {{-- <th scope="col">Pilih</th> --}}
+                          <th scope="col">Mata Pelajaran</th>
+                          <th scope="col">Guru Pengajar</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @foreach($mapels as $mapel)
+                        <tr>
+                            <td scope="row">{{ $mapel->nama_mapel }}</td>
+                            <td scope="row">
+                              <input type="hidden" value="{{ $mapel->id }}" name="id_mapel[]">
+                                <select class="form-select" aria-label="Default select example" required name="id_guru[]" id="selectBox{{ $mapel->id }}" disabled>
+                                  <option value="">pilih guru</option>
+                                  @if(isset($gurus[$mapel->id]))
+                                      @foreach($gurus[$mapel->id] as $guru)
+                                        <option value="{{ $guru->kode_guru }}"
+                                          @foreach($gk as $gks)
+                                              {{ $guru->kode_guru == $gks->kode_guru ? 'selected' : '' }}
+                                          @endforeach
+                                          >{{ $guru->nama_guru }}</option>
+                                      @endforeach
+                                  @endif
+                                </select>
+                            </td>
+                        </tr>
                         @endforeach
-                      </select>
-                    </div> --}}
-                    <div class="col-12">
-                      <label for="id_mapel" class="form-label">Mata Pelajaran</label>
-                        @foreach ($mapel as $mp)
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="gridCheck{{ $mp->id }}" name="options[]" value="{{ $mp->id }}" {{ in_array($mp->id, $gurum->pluck('id_mapel')->toArray()) ? 'checked' : '' }}>
-                          <label class="form-check-label" for="gridCheck{{ $mp->id }}">
-                            {{ $mp->nama_mapel }}
-                          </label>
-                        </div>
-                        @endforeach
-                    </div>
-                    <div class="col-12">
-                      <label for="alamat_guru" class="form-label">Alamat</label>
-                      <textarea class="form-control" style="height: 100px" name="alamat_guru" required>{{ $m->alamat_guru }}</textarea>
-                    </div>
-                    <div class="col-12">
-                      <label for="no_telp" class="form-label">No. Telpon</label>
-                      <input type="text" class="form-control" id="no_telp" name="no_telp" value="{{ $m->no_telp }}" required>
-                    </div>
+                      </tbody>
+                    </table>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="reset" class="btn btn-secondary">Reset</button>
-                    </div>
+                      {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
+                  </div>
                 </form><!-- Vertical Form -->
               </div>
             </div>
@@ -82,6 +70,24 @@
   </main><!-- End #main -->
 
   @include('dynamic/v_footer');
+
+  <script>
+    // var checkboxes = document.querySelectorAll('.checkbox');
+
+    // checkboxes.forEach(function(checkbox) {
+    //     checkbox.addEventListener('change', function() {
+    //         var selectId = this.getAttribute('data-select');
+    //         var selectBox = document.getElementById(selectId);
+
+    //         if (this.checked) {
+    //             selectBox.disabled = false;
+    //         } else {
+    //             selectBox.disabled = true;
+    //             selectBox.value = '';
+    //         }
+    //     });
+    // });
+</script>
 
 </body>
 </html>
