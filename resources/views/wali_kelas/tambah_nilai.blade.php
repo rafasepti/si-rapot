@@ -1,5 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<style>
+@media (max-width: 768px) { /* use the max to specify at each container level */
+    .specifictd {    
+        width:360px;  /* adjust to desired wrapping */
+        display:table;
+        white-space: pre-wrap; /* css-3 */
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+    }
+}
+</style>
   
 <body>
   @include('dynamic/v_header');
@@ -49,38 +63,45 @@
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="semester" value="1" disabled>
+                              <select class="form-select" aria-label="Default select example" required name="semester">
+                                <option>1</option>
+                                <option>2</option>
+                              </select>
                             </div>
                         </div>
+                        @endforeach
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Thn Ajaran</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="id_thn_ajaran" value="" disabled>
+                                <input type="text" class="form-control" name="id_thn_ajaran" value="{{ $thn_ajaran->nama_tahun }}" disabled>
                             </div>
                         </div>
                       </div>
-                      @endforeach
                     </div>
-                    <table class="table table-bordered border-dark">
+                    <div class="row">
+                      <table class="table table-bordered border-dark">
                         <thead>
                           <tr>
-                            <th scope="col">No.</th>
-                            <th scope="col">Mata Pelajaran</th>
-                            <th scope="col">KKM</th>
-                            <th scope="col">Nilai</th>
-                            <th scope="col">Huruf</th>
+                            <th class="col-sm-1 text-center">No.</th>
+                            <th class="col-sm-5 text-center">Mata Pelajaran</th>
+                            <th class="col-sm-2 text-center">Nilai Ruang Lingkup</th>
+                            <th class="col-sm-2 text-center">Nilai Tujuan Pembelajaran</th>
+                            <th class="col-sm-2 text-center">Nilai Akhir Semester</th>
                           </tr>
                         </thead>
                         <tbody>
+                          @foreach ($mapel as $index => $m)
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Brandon Jacob</td>
-                            <td>Designer</td>
-                            <td>28</td>
-                            <td>2016-05-25</td>
+                            <th scope="row">{{ $index+1 }}</th>
+                            <td>{{ $m->nama_mapel }}</td>
+                            <td><input type="text" class="form-control" name="nilai_rl[]" required></td>
+                            <td><input type="text" class="form-control" name="nilai_tp[]" required></td>
+                            <td><input type="text" class="form-control" name="nilai_as[]" required></td>
                           </tr>
+                          @endforeach
                         </tbody>
                       </table>
+                    </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="reset" class="btn btn-secondary">Reset</button>
