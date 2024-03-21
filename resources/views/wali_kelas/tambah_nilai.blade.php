@@ -21,43 +21,45 @@
                   </div>
                 </div>
                 <!-- Vertical Form -->
-                <form class="row g-3" action="/mapel/store" method="post">
+                <form class="row g-3" action="/nilai/store" method="post">
                     {{ csrf_field() }}
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="row mb-3">
-                                <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Nama Siswa</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="nama_siswa" value="" disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">NISN</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="nisn" value="" disabled>
-                                </div>
+                      @foreach ($siswa as $s)
+                      <div class="col-md-6">
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Nama Siswa</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="nama_siswa" value="{{ $s->nama_siswa }}" disabled>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="row mb-3">
-                                <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Kelas</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="id_kelas" value="" disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="semester" value="" disabled>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Thn Ajaran</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="id_thn_ajaran" value="" disabled>
-                                </div>
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">NISN</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="nisn" value="{{ $s->nisn }}" disabled>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Kelas</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="id_kelas" value="{{ $s->kel }}" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="semester" value="1" disabled>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Thn Ajaran</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="id_thn_ajaran" value="" disabled>
+                            </div>
+                        </div>
+                      </div>
+                      @endforeach
                     </div>
                     <table class="table table-bordered border-dark">
                         <thead>

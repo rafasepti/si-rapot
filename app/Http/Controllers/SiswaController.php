@@ -245,12 +245,22 @@ class SiswaController extends Controller
         return redirect('/siswa');
     }
 
-    public function nilai()
+    public function nilai($id)
     {
         $kelas= Kelas::all();
+        $siswa = DB::table('siswa as s')
+            ->join('kelas as k', 'k.id', '=', 's.id_kelas')
+            ->select([
+                's.id as id_siswa',
+                's.*',
+                DB::raw("CONCAT(k.tingkat, ' - ', k.kelas) as kel"),
+            ])
+            ->where('s.id', $id)
+            ->get();
         return view('wali_kelas/tambah_nilai',
             [
                 'kelas' => $kelas,
+                'siswa' => $siswa,
             ]
         );
     }
