@@ -16,10 +16,9 @@ class TahunAjaranController extends Controller
      */
     public function index()
     {
+        $thn_aktif = TahunAjaran::where('aktif','Ya')->first();
         return view('tahun_ajaran/data_tahunajaran',
-            [
-                
-            ]
+            compact('thn_aktif')
         );
     }
 
@@ -32,7 +31,10 @@ class TahunAjaranController extends Controller
                 ->addColumn('action', function($b){
                     $actionBtn = 
                     '
-                        <a href="/tahunajaran/edit/'.$b->id.'" class="btn btn-outline-success">
+                        <a href="/tahunajaran/aktif/'.$b->id.'" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="pilih">
+                            <i class="bi bi-check"></i>
+                        </a>
+                        <a href="/tahunajaran/edit/'.$b->id.'" class="btn btn-outline-success" data-bs-toggle="tooltip" title="Edit">
                             <i class="bi bi-pencil-square"></i>
                         </a>
                         <a href="/tahunajaran/hapus/'.$b->id.'" class="btn btn-outline-danger" onclick="return confirm(`Apakah anda yakin?`)">
@@ -88,6 +90,17 @@ class TahunAjaranController extends Controller
             'nama_tahun' => $request->nama_tahun,
             'mulai' => $request->mulai,
             'selesai' => $request->selesai,
+        ]);
+        return redirect('/tahunajaran');
+    }
+
+    public function aktif($id)
+    {
+        DB::table('tahun_ajaran')->update([
+            'aktif' => "tidak",
+        ]);
+        DB::table('tahun_ajaran')->where('id',$id)->update([
+            'aktif' => "Ya",
         ]);
         return redirect('/tahunajaran');
     }

@@ -7,7 +7,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Tahun Ajaran</h1>
+      <h1>Data Tahun Ajaran</h1>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
@@ -17,7 +17,11 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-9">
-                    <h5 class="card-title">Data Tahun Ajaran</h5>
+                    @if($thn_aktif != "")
+                      <h5 class="card-title">Tahun Ajaran Aktif : {{ $thn_aktif->nama_tahun }}</h5>
+                    @else
+                      <h5 class="card-title">Tahun Ajaran Aktif : </h5>
+                    @endif
                   </div>
                   <div class="col-md-3">
                     <a href="{{ url('tahunajaran/tambah/') }}" class="btn btn-primary float-right" style="

@@ -67,6 +67,7 @@ Route::get('/tahunajaran/list', [TahunAjaranController::class, 'tahunGet']);
 Route::get('/tahunajaran/tambah', [TahunAjaranController::class, 'create']);
 Route::post('/tahunajaran/store', [TahunAjaranController::class, 'store']);
 Route::get('/tahunajaran/edit/{id}', [TahunAjaranController::class, 'edit']);
+Route::get('/tahunajaran/aktif/{id}', [TahunAjaranController::class, 'aktif']);
 Route::post('/tahunajaran/update', [TahunAjaranController::class, 'update']);
 Route::get('/tahunajaran/hapus/{id}', [TahunAjaranController::class, 'destroy']);
 
