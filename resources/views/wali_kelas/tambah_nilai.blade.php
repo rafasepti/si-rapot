@@ -38,67 +38,139 @@
                 <form class="row g-3" action="/nilai/store" method="post">
                     {{ csrf_field() }}
                     <div class="row">
-                      @foreach ($siswa as $s)
-                      <div class="col-md-6">
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Nama Siswa</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="nama_siswa" value="{{ $s->nama_siswa }}" disabled>
-                            </div>
+                        <input type="hidden" class="form-control" name="id_siswa" id="id_siswa" value="{{ $siswa->id }}">
+                        <div class="col-md-6">
+                          <div class="row mb-3">
+                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Nama Siswa</label>
+                              <div class="col-sm-9">
+                                  <input type="hidden" class="form-control" name="id_nilai" value="{{ $kd_nilai }}">
+                                  <input type="text" class="form-control" name="nama_siswa" value="{{ $siswa->nama_siswa }}" disabled>
+                              </div>
+                          </div>
+                          <div class="row mb-3">
+                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">NISN</label>
+                              <div class="col-sm-9">
+                                  <input type="text" class="form-control" name="nisn" value="{{ $siswa->nisn }}" disabled>
+                              </div>
+                          </div>
                         </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">NISN</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="nisn" value="{{ $s->nisn }}" disabled>
-                            </div>
+                        <div class="col-md-6">
+                          <div class="row mb-3">
+                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Kelas</label>
+                              <div class="col-sm-9">
+                                  <input type="text" class="form-control" name="id_kelas" value="{{ $siswa->kel }}" disabled>
+                              </div>
+                          </div>
+                          <div class="row mb-3">
+                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
+                              <div class="col-sm-9">
+                                <select class="form-select" aria-label="Default select example" required name="semester">
+                                  <option>1</option>
+                                  <option>2</option>
+                                </select>
+                              </div>
+                          </div>
+                          <div class="row mb-3">
+                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Thn Ajaran</label>
+                              <div class="col-sm-9">
+                                <input type="hidden" class="form-control" name="id_thn_ajaran" value="{{ $thn_ajaran->id }}">
+                                  <input type="text" class="form-control" name="thn_ajaran" value="{{ $thn_ajaran->nama_tahun }}" disabled>
+                              </div>
+                          </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Kelas</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="id_kelas" value="{{ $s->kel }}" disabled>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
-                            <div class="col-sm-9">
-                              <select class="form-select" aria-label="Default select example" required name="semester">
-                                <option>1</option>
-                                <option>2</option>
-                              </select>
-                            </div>
-                        </div>
-                        @endforeach
-                        <div class="row mb-3">
-                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Thn Ajaran</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="id_thn_ajaran" value="{{ $thn_ajaran->nama_tahun }}" disabled>
-                            </div>
-                        </div>
-                      </div>
                     </div>
                     <div class="row">
-                      <table class="table table-bordered border-dark">
+                      <table class="table table-striped table-bordered">
                         <thead>
                           <tr>
                             <th class="col-sm-1 text-center">No.</th>
                             <th class="col-sm-5 text-center">Mata Pelajaran</th>
                             <th class="col-sm-2 text-center">Nilai Ruang Lingkup</th>
                             <th class="col-sm-2 text-center">Nilai Tujuan Pembelajaran</th>
-                            <th class="col-sm-2 text-center">Nilai Akhir Semester</th>
                           </tr>
                         </thead>
                         <tbody>
+                          <tr>
+                            <th colspan="4">Kelompok A</th>
+                          </tr>
                           @foreach ($mapel as $index => $m)
                           <tr>
                             <th scope="row">{{ $index+1 }}</th>
                             <td>{{ $m->nama_mapel }}</td>
-                            <td><input type="text" class="form-control" name="nilai_rl[]" required></td>
-                            <td><input type="text" class="form-control" name="nilai_tp[]" required></td>
-                            <td><input type="text" class="form-control" name="nilai_as[]" required></td>
+                            <td>
+                              <input type="hidden" class="form-control" name="id_mapel[]" value="{{ $m->id }}" required>
+                              <input type="number" class="form-control" name="nilai_rl[]" required>
+                            </td>
+                            <td><input type="number" class="form-control" name="nilai_tp[]" required></td>
                           </tr>
                           @endforeach
+                        </tbody>
+                      </table>
+
+                      <table class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="col-sm-5" colspan="3">Catatan Guru</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <textarea class="form-control" style="height: 100px" name="catatan" required></textarea>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                      <table class="table table-striped table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="col-sm-5" colspan="3">Ketidakhadiran</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Sakit</td>
+                            <td>:</td>
+                            <td class="text-center">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <input type="text" class="form-control" name="kehadiran_sakit" required>
+                                </div>
+                                <div class="col-md-2">
+                                  Hari
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Izin</td>
+                            <td>:</td>
+                            <td class="text-center">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <input type="text" class="form-control" name="kehadiran_izin" required>
+                                  </div>
+                                  <div class="col-md-2">
+                                    Hari
+                                  </div>
+                                </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Tanpa Keterangan</td>
+                            <td>:</td>
+                            <td class="text-center">
+                              <div class="row">
+                                <div class="col-md-4">
+                                  <input type="text" class="form-control" name="kehadiran_tanpa_ket" required>
+                                </div>
+                                <div class="col-md-2">
+                                  Hari
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>

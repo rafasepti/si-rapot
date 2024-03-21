@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use DataTables;
 use App\Models\Kelas;
 use App\Models\Mapel;
+use App\Models\Nilai;
 use App\Models\TahunAjaran;
 use App\Models\Wali;
 use Illuminate\Support\Facades\Validator;
@@ -258,15 +259,20 @@ class SiswaController extends Controller
                 DB::raw("CONCAT(k.tingkat, ' - ', k.kelas) as kel"),
             ])
             ->where('s.id', $id)
-            ->get();
+            ->first();
         $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
         $mapel = Mapel::where('kategori', '1')->get();
+        $mapel2 = Mapel::where('kategori', '2')->get();
+        $kd_nilai = Nilai::getkdNilai();
+
         return view('wali_kelas/tambah_nilai',
             [
                 'kelas' => $kelas,
                 'siswa' => $siswa,
                 'thn_ajaran' => $thn_ajaran,
                 'mapel' => $mapel,
+                'mapel2' => $mapel2,
+                'kd_nilai' => $kd_nilai,
             ]
         );
     }

@@ -16,9 +16,6 @@ return new class extends Migration
             $table->integer('id_siswa');
             $table->integer('semester');
             $table->integer('id_thn_ajaran');
-            $table->string('nilai_sikap',20);
-            $table->string('nilai_kerajinan',20);
-            $table->string('nilai_kebersihan',20);
             $table->integer('kehadiran_izin');
             $table->integer('kehadiran_sakit');
             $table->integer('kehadiran_tanpa_ket');

@@ -25,6 +25,6 @@ class CheckRole
             }
         }
 
-        return redirect('/');
+        return abort(403, 'Anda tidak diizinkan mengakses halaman ini.');
     }
 }

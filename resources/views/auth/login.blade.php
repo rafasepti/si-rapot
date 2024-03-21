@@ -73,6 +73,9 @@
                       <div class="input-group has-validation">
                         <input type="email" name="email" class="form-control" id="email" required>
                         <div class="invalid-feedback">Masukan Email.</div>
+                        @error('email')
+                            <p>{{ $message }}</p>
+                        @enderror
                       </div>
                     </div>
 
@@ -80,6 +83,9 @@
                       <label for="password" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="password" required>
                       <div class="invalid-feedback">Masukan password!</div>
+                      @error('password')
+                            <p>{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
