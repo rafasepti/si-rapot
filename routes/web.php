@@ -120,6 +120,7 @@ Route::middleware(['checkRole:Guru'])->group(function () {
         Route::get('/kelaswali', [WaliController::class, 'indexGuru']);
     }
     Route::get('/kelaswali/list', [WaliController::class, 'siswaGet']);
+    Route::get('/kelaswali/list_kelas', [WaliController::class, 'kelasGet']);
     Route::get('/kelaswali/tambah', [WaliController::class, 'create']);
     Route::post('/kelaswali/store', [WaliController::class, 'store']);
     Route::get('/kelaswali/edit/{id}', [WaliController::class, 'edit']);

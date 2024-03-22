@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Wali;
 use App\Http\Requests\StoreWaliRequest;
 use App\Http\Requests\UpdateWaliRequest;
+use App\Models\GuruKelas;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 //use DataTables;
 use App\Models\Siswa;
@@ -25,7 +27,13 @@ class WaliController extends Controller
         }
         return view('wali_kelas/data_sw',
             compact('siswa_kel')
-            );
+        );
+    }
+
+    public function indexGuru()
+    {
+        return view('wali_kelas/data_kls'
+        );
     }
 
     public function siswaGet(Request $request)
@@ -38,9 +46,35 @@ class WaliController extends Controller
                 ->addColumn('action', function($b){
                     $actionBtn = 
                     '
-                        <a href="/siswa/nilai/'.$b->id_siswa.'" class="btn btn-success">
-                            Nilai
+                        <a href="/nilai/tambah/'.$b->id_siswa.'" class="btn btn-success">
+                            <i class="bi bi-plus"></i>
                         </a>
+                        <a href="/nilai/detail/'.$b->id_siswa.'" class="btn btn-primary">
+                            <i class="bi bi-info-lg"></i>
+                        </a>
+                    ';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+
+    public function kelasGet(Request $request)
+    {
+        if ($request->ajax()) {
+            $kelas = GuruKelas::getKelasDiajar(session('id_user'));
+            return Datatables::of($kelas)
+                ->addIndexColumn()
+                ->addColumn('action', function($b){
+                    $actionBtn = 
+                    '
+                    <a href="/nilai/tambah/'.$b->ids_kelas.'" class="btn btn-success">
+                        <i class="bi bi-plus"></i>
+                    </a>
+                    <a href="/nilai/detail/'.$b->ids_kelas.'" class="btn btn-primary">
+                        <i class="bi bi-info-lg"></i>
+                    </a>
                     ';
                     return $actionBtn;
                 })

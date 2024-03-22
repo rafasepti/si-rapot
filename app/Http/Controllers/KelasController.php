@@ -7,10 +7,10 @@ use App\Http\Requests\StoreKelasRequest;
 use App\Http\Requests\UpdateKelasRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use DataTables;
 use App\Models\Guru;
 use App\Models\GuruMapel;
 use App\Models\Mapel;
+use Yajra\DataTables\DataTables;
 
 class KelasController extends Controller
 {
@@ -30,7 +30,7 @@ class KelasController extends Controller
     {
         if ($request->ajax()) {
             $kelas = Kelas::getJoinGuru();
-            return Datatables::of($kelas)
+            return DataTables::of($kelas)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
                     $actionBtn = 

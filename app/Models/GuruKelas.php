@@ -19,4 +19,15 @@ class GuruKelas extends Model
             ->get();
         return $sql;
     }
+
+    public static function getKelasDiajar($id){
+        $sql = GuruKelas::join('kelas', 'guru_kelas.id_kelas', '=', 'kelas.id')
+        ->join('guru_mapel', 'guru_kelas.id_gm', '=', 'guru_mapel.id')
+        ->join('guru', 'guru_mapel.id_guru', '=', 'guru.kode_guru')
+        ->join('mapel', 'guru_mapel.id_mapel', '=', 'mapel.id')
+        ->where('guru.id', $id)
+        ->select('guru.nama_guru', 'mapel.nama_mapel', 'guru.kode_guru', 'guru_kelas.id', 'kelas.id as ids_kelas','kelas.tingkat', 'kelas.kelas')
+        ->get();
+        return $sql;
+    }
 }

@@ -29,7 +29,7 @@
     <!-- Template Main CSS File -->
     <link href="{{asset('template')}}/assets/css/style.css" rel="stylesheet">
   
-  </head>
+</head>
 
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">

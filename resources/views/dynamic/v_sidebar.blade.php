@@ -112,22 +112,12 @@
           <span>Nilai</span>
         </a>
       </li>
-
-      @if (Session::get('walikelas') =='Ya')
       <li class="nav-item">
         <a class="nav-link {{ Request::is('kelaswali') ? '' : 'collapsed' }}" href="/kelaswali">
           <i class="bi bi-people"></i>
           <span>Kelas</span>
         </a>
       </li>
-      @else
-      <li class="nav-item">
-        <a class="nav-link {{ Request::is('kelas') ? '' : 'collapsed' }}" href="/kelas">
-          <i class="bi bi-person"></i>
-          <span>Kelas</span>
-        </a>
-      </li>
-      @endif
       @endif
       <!-- END Menu Guru -->
     </ul>

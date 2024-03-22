@@ -33,6 +33,7 @@ class AuthenticatedSessionController extends Controller
         $akses = Guru::getJabatan($id_user);
         foreach($akses as $a):
             $hak_akses = $a->jabatan;
+            $kode_guru = $a->kode_guru;
             $nama = $a->nama_guru;
             $walikelas = $a->walikelas;
         endforeach;
@@ -40,6 +41,7 @@ class AuthenticatedSessionController extends Controller
         session([
             'hak_akses' => $hak_akses,
             'id_user' => $id_user,
+            'kode_guru' => $kode_guru,
             'nama' => $nama,
             'walikelas' => $walikelas,
         ]);
