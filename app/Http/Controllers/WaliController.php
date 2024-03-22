@@ -20,20 +20,26 @@ class WaliController extends Controller
      */
     public function index()
     {
-        $id_user = session('id_user');
-        $siswa_kel = Siswa::getJoinKId($id_user)->first();
-        if($siswa_kel == ""){
-            $siswa_kel = "";
+        // Route::get('/kelaswali', [WaliController::class, 'indexGuru']);
+        // Route::get('/nilai/tambah/{id}',[SiswaController::class, 'nilaiGuru']);
+        // Route::post('/nilai/store',[NilaiController::class, 'storeSiswa']);
+        if(session('walikelas')=="Ya"){
+            $id_user = session('id_user');
+            $siswa_kel = Siswa::getJoinKId($id_user)->first();
+            if($siswa_kel == ""){
+                $siswa_kel = "";
+            }
+            return view('wali_kelas/data_sw',
+                compact('siswa_kel')
+            );
+        }else{
+            return view('wali_kelas/data_kls');
         }
-        return view('wali_kelas/data_sw',
-            compact('siswa_kel')
-        );
     }
 
     public function indexGuru()
     {
-        return view('wali_kelas/data_kls'
-        );
+        
     }
 
     public function siswaGet(Request $request)

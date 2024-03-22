@@ -114,18 +114,10 @@ Route::middleware(['checkRole:Admin'])->group(function () {
 
 Route::middleware(['checkRole:Guru'])->group(function () {
      //kelas wali
-    if(session('walikelas')=="Ya"){
-        Route::get('/kelaswali', [WaliController::class, 'index']);
-        Route::get('/nilai/tambah/{id}',[SiswaController::class, 'nilai']);
-        Route::post('/nilai/store',[NilaiController::class, 'store']);
-
-
-    }else{
-        Route::get('/kelaswali', [WaliController::class, 'indexGuru']);
-        Route::get('/nilai/tambah/{id}',[SiswaController::class, 'nilaiGuru']);
-        Route::post('/nilai/store',[NilaiController::class, 'storeSiswa']);
-
-    }
+    Route::get('/kelaswali', [WaliController::class, 'index']);
+    Route::get('/nilai/tambah/{id}',[SiswaController::class, 'nilai']);
+    Route::post('/nilai/store',[NilaiController::class, 'store']);
+    
     Route::get('/kelaswali/list', [WaliController::class, 'siswaGet']);
     Route::get('/kelaswali/list_kelas', [WaliController::class, 'kelasGet']);
     Route::get('/kelaswali/tambah', [WaliController::class, 'create']);

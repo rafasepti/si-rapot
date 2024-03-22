@@ -59,7 +59,7 @@
                               <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Kelas</label>
                               <div class="col-sm-9">
                                   <input type="text" class="form-control" name="nama_kelas" value="{{ $siswa->kel }}" disabled>
-                                  <input type="hidden" class="form-control" name="id_kelas" value="{{ $siswa->id }}" disabled>
+                                  <input type="hidden" class="form-control" name="id_kelas" id="id_kelas" value="{{ $siswa->id_kelas }}">
                               </div>
                           </div>
                           <div class="row mb-3">
