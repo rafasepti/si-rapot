@@ -7,7 +7,7 @@ use App\Http\Requests\StoreTahunAjaranRequest;
 use App\Http\Requests\UpdateTahunAjaranRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class TahunAjaranController extends Controller
 {
@@ -26,7 +26,7 @@ class TahunAjaranController extends Controller
     {
         if ($request->ajax()) {
             $thn = DB::table('tahun_ajaran')->get();
-            return Datatables::of($thn)
+            return DataTables::of($thn)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
                     $actionBtn = 

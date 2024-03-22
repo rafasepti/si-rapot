@@ -7,7 +7,7 @@ use App\Http\Requests\StoreMapelRequest;
 use App\Http\Requests\UpdateMapelRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class MapelController extends Controller
 {
@@ -27,7 +27,7 @@ class MapelController extends Controller
     {
         if ($request->ajax()) {
             $mapel = DB::table('mapel')->get();
-            return Datatables::of($mapel)
+            return DataTables::of($mapel)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
                     $actionBtn = 

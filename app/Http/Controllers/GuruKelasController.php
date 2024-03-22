@@ -11,7 +11,7 @@ use App\Http\Requests\UpdateGuruKelasRequest;
 use App\Models\GuruMapel;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use DataTables;
+use Yajra\DataTables\DataTables;
 
 class GuruKelasController extends Controller
 {
@@ -28,7 +28,7 @@ class GuruKelasController extends Controller
     {
         if ($request->ajax()) {
             $kelas = Kelas::getJoinGuru();
-            return Datatables::of($kelas)
+            return DataTables::of($kelas)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
                     $exists = GuruKelas::where('id_kelas', $b->id_kelas)->exists();

@@ -7,10 +7,10 @@ use App\Http\Requests\StoreGuruRequest;
 use App\Http\Requests\UpdateGuruRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use DataTables;
 use App\Models\Mapel;
 use App\Models\GuruMapel;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\DataTables;
 
 class GuruController extends Controller
 {
@@ -48,7 +48,7 @@ class GuruController extends Controller
         if ($request->ajax()) {
             $guru = DB::table('guru')->where('jabatan', "Guru")->get();
            // $guru = Guru::getJoinMapel();
-            return Datatables::of($guru)
+            return DataTables::of($guru)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
                     $actionBtn = 
