@@ -36,7 +36,8 @@ class Siswa extends Model
                     'k.*',
                     'k.id as id_kelas'
                 ])
-                ->where('k.id_walikelas', $id_user);
+                ->where('k.id_walikelas', $id_user)
+                ->orderBy('nama_siswa', 'asc');
         return $sql;
     }
 

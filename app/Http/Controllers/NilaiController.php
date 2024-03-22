@@ -6,6 +6,11 @@ use App\Models\Nilai;
 use App\Http\Requests\StoreNilaiRequest;
 use App\Http\Requests\UpdateNilaiRequest;
 use App\Models\DetailNilai;
+use App\Models\GuruMapel;
+use App\Models\Kelas;
+use App\Models\Mapel;
+use App\Models\Siswa;
+use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\DB;
 
 class NilaiController extends Controller
@@ -137,9 +142,56 @@ class NilaiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Nilai $nilai)
+    public function show($id)
     {
-        //
+        if(session('walikelas')=="Ya"){
+            $kelas= Kelas::all();
+            $siswa = DB::table('siswa as s')
+            ->join('kelas as k', 'k.id', '=', 's.id_kelas')
+            ->select([
+                's.id as id_siswa',
+                's.*',
+                'k.id as id_k',
+                DB::raw("CONCAT(k.tingkat, ' - ', k.kelas) as kel"),
+            ])
+            ->where('s.id', $id)
+            ->first();
+            $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
+            $mapel = Mapel::where('kategori', '1')->get();
+            $mapel2 = Mapel::where('kategori', '2')->get();
+            $kd_nilai = Nilai::getkdNilai();
+
+            return view('wali_kelas/tambah_nilai',
+                [
+                    'kelas' => $kelas,
+                    'siswa' => $siswa,
+                    'thn_ajaran' => $thn_ajaran,
+                    'mapel' => $mapel,
+                    'mapel2' => $mapel2,
+                    'kd_nilai' => $kd_nilai,
+                ]
+            );
+        }else{
+            $kelas= Kelas::where('id', $id)->first();
+            $siswa = Siswa::where('id_kelas',$id)
+                ->orderBy('nama_siswa', 'asc')
+                ->get();
+            $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
+            $mapel2 = GuruMapel::getJoinMapelId(session('kode_guru'));
+            $kd_nilai = Nilai::getkdNilai();
+
+            return view('wali_kelas/tambah_nilai_sw',
+                [
+                    'kelas' => $kelas,
+                    'siswa' => $siswa,
+                    'thn_ajaran' => $thn_ajaran,
+                    'mapel2' => $mapel2,
+                    'kd_nilai' => $kd_nilai,
+                ]
+            );
+        }
+        return view('wali_kelas/detail_nilai'
+        );
     }
 
     /**

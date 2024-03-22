@@ -20,9 +20,6 @@ class WaliController extends Controller
      */
     public function index()
     {
-        // Route::get('/kelaswali', [WaliController::class, 'indexGuru']);
-        // Route::get('/nilai/tambah/{id}',[SiswaController::class, 'nilaiGuru']);
-        // Route::post('/nilai/store',[NilaiController::class, 'storeSiswa']);
         if(session('walikelas')=="Ya"){
             $id_user = session('id_user');
             $siswa_kel = Siswa::getJoinKId($id_user)->first();

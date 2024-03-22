@@ -114,10 +114,7 @@ Route::middleware(['checkRole:Admin'])->group(function () {
 
 Route::middleware(['checkRole:Guru'])->group(function () {
      //kelas wali
-    Route::get('/kelaswali', [WaliController::class, 'index']);
-    Route::get('/nilai/tambah/{id}',[SiswaController::class, 'nilai']);
-    Route::post('/nilai/store',[NilaiController::class, 'store']);
-    
+    Route::get('/kelaswali', [WaliController::class, 'index']);    
     Route::get('/kelaswali/list', [WaliController::class, 'siswaGet']);
     Route::get('/kelaswali/list_kelas', [WaliController::class, 'kelasGet']);
     Route::get('/kelaswali/tambah', [WaliController::class, 'create']);
@@ -125,7 +122,9 @@ Route::middleware(['checkRole:Guru'])->group(function () {
     Route::get('/kelaswali/edit/{id}', [WaliController::class, 'edit']);
     Route::post('/kelaswali/update', [WaliController::class, 'update']);
 
-    Route::get('/nilai/detail/{id}',[SiswaController::class, 'show']);
+    Route::get('/nilai/tambah/{id}',[SiswaController::class, 'nilai']);
+    Route::post('/nilai/store',[NilaiController::class, 'store']);
+    Route::get('/nilai/detail/{id}',[NilaiController::class, 'show']);
 });
 
 require __DIR__.'/auth.php';
