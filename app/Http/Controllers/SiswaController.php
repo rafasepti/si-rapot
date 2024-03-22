@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Siswa;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
+use App\Models\GuruMapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Kelas;
@@ -256,6 +257,7 @@ class SiswaController extends Controller
             ->select([
                 's.id as id_siswa',
                 's.*',
+                'k.id as id_k',
                 DB::raw("CONCAT(k.tingkat, ' - ', k.kelas) as kel"),
             ])
             ->where('s.id', $id)
@@ -271,6 +273,27 @@ class SiswaController extends Controller
                 'siswa' => $siswa,
                 'thn_ajaran' => $thn_ajaran,
                 'mapel' => $mapel,
+                'mapel2' => $mapel2,
+                'kd_nilai' => $kd_nilai,
+            ]
+        );
+    }
+
+    public function nilaiGuru($id)
+    {
+        $kelas= Kelas::where('id', $id)->first();
+        $siswa = Siswa::where('id_kelas',$id)
+            ->orderBy('nama_siswa', 'asc')
+            ->get();
+        $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
+        $mapel2 = GuruMapel::getJoinMapelId(session('kode_guru'));
+        $kd_nilai = Nilai::getkdNilai();
+
+        return view('wali_kelas/tambah_nilai_sw',
+            [
+                'kelas' => $kelas,
+                'siswa' => $siswa,
+                'thn_ajaran' => $thn_ajaran,
                 'mapel2' => $mapel2,
                 'kd_nilai' => $kd_nilai,
             ]

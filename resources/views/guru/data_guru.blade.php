@@ -93,7 +93,7 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'nuptk', name: 'nuptk'},
             {data: 'nama_guru', name: 'nama_guru'},
-            {data: 'nama_mapel', name: 'nama_mapel'},
+            //{data: 'nama_mapel', name: 'nama_mapel'},
         ]
     });
     

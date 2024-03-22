@@ -38,38 +38,25 @@
                 <form class="row g-3" action="/nilai/store" method="post">
                     {{ csrf_field() }}
                     <div class="row">
-                        <input type="hidden" class="form-control" name="id_siswa" id="id_siswa" value="{{ $siswa->id }}">
                         <div class="col-md-6">
                           <div class="row mb-3">
-                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Nama Siswa</label>
-                              <div class="col-sm-9">
-                                  <input type="hidden" class="form-control" name="id_nilai" value="{{ $kd_nilai }}">
-                                  <input type="text" class="form-control" name="nama_siswa" value="{{ $siswa->nama_siswa }}" disabled>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">NISN</label>
-                              <div class="col-sm-9">
-                                  <input type="text" class="form-control" name="nisn" value="{{ $siswa->nisn }}" disabled>
-                              </div>
-                          </div>
+                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Kelas</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="nama_kelas" value="{{ $kelas->tingkat }}-{{ $kelas->kelas }}" disabled>
+                                <input type="hidden" class="form-control" name="id_kelas" value="{{ $kelas->id }}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
+                            <div class="col-sm-9">
+                              <select class="form-select" aria-label="Default select example" required name="semester">
+                                <option>1</option>
+                                <option>2</option>
+                              </select>
+                            </div>
+                        </div>
                         </div>
                         <div class="col-md-6">
-                          <div class="row mb-3">
-                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Kelas</label>
-                              <div class="col-sm-9">
-                                  <input type="text" class="form-control" name="id_kelas" value="{{ $siswa->kel }}" disabled>
-                              </div>
-                          </div>
-                          <div class="row mb-3">
-                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
-                              <div class="col-sm-9">
-                                <select class="form-select" aria-label="Default select example" required name="semester">
-                                  <option>1</option>
-                                  <option>2</option>
-                                </select>
-                              </div>
-                          </div>
                           <div class="row mb-3">
                               <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Thn Ajaran</label>
                               <div class="col-sm-9">
@@ -77,14 +64,23 @@
                                   <input type="text" class="form-control" name="thn_ajaran" value="{{ $thn_ajaran->nama_tahun }}" disabled>
                               </div>
                           </div>
-                        </div>
+                            <div class="row mb-3">
+                              <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Mata Pelajaran</label>
+                              <div class="col-sm-9">
+                                <select class="form-select" aria-label="Default select example" required name="id_mapel">
+                                  @foreach ($mapel2 as $m)
+                                    <option value="{{ $m->id_mp }}">{{ $m->nama_mapel }}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+                          </div>
                     </div>
                     <div class="row">
                       <table class="table table-striped table-bordered">
                         <thead>
                           <tr>
                             <th class="col-sm-1 text-center">No.</th>
-                            <th class="col-sm-3 text-center">Mata Pelajaran</th>
+                            <th class="col-sm-3 text-center">Nama Siswa</th>
                             <th class="col-sm-1 text-center">NRL</th>
                             <th class="col-sm-1 text-center">NTP</th>
                             <th class="col-sm-1 text-center">NAS</th>
@@ -92,15 +88,12 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <th colspan="6">Kelompok A</th>
-                          </tr>
-                          @foreach ($mapel as $index => $m)
+                          @foreach ($siswa as $index => $s)
                           <tr>
                             <th scope="row">{{ $index+1 }}</th>
-                            <td>{{ $m->nama_mapel }}</td>
+                            <td>{{ $s->nama_siswa }}</td>
                             <td>
-                              <input type="hidden" class="form-control" name="id_mapel[]" value="{{ $m->id }}" required>
+                              <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id_siswa }}" required>
                               <input type="number" class="form-control nilai_rl" name="nilai_rl[]" required>
                             </td>
                             <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" required></td>

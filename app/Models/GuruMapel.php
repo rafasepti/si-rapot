@@ -18,7 +18,7 @@ class GuruMapel extends Model
     public static function getJoinMapelId($id){
         $sql = DB::table('guru_mapel as g')
                 ->join('mapel as m', 'm.id', '=', 'g.id_mapel')
-                ->select('m.*', 'g.*')
+                ->select('m.id as id_mp','m.*', 'g.*')
                 ->where('g.id_guru', $id)
                 ->get();
         return $sql;
