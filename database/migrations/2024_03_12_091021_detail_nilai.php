@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('detail_nilai', function (Blueprint $table) {
             $table->id();
             $table->integer('id_nilai');
-            $table->integer('id_gm');
+            $table->integer('id_mapel');
             $table->integer('nilai_rl');
             $table->integer('nilai_tp');
             $table->integer('nilai_as');
+            $table->text('ket');
             $table->timestamps();
         });
     }

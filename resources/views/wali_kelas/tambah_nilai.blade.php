@@ -84,14 +84,16 @@
                         <thead>
                           <tr>
                             <th class="col-sm-1 text-center">No.</th>
-                            <th class="col-sm-5 text-center">Mata Pelajaran</th>
-                            <th class="col-sm-2 text-center">Nilai Ruang Lingkup</th>
-                            <th class="col-sm-2 text-center">Nilai Tujuan Pembelajaran</th>
+                            <th class="col-sm-3 text-center">Mata Pelajaran</th>
+                            <th class="col-sm-1 text-center">NRL</th>
+                            <th class="col-sm-1 text-center">NTP</th>
+                            <th class="col-sm-1 text-center">NAS</th>
+                            <th class="col-sm-3 text-center">Keterangan</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <th colspan="4">Kelompok A</th>
+                            <th colspan="6">Kelompok A</th>
                           </tr>
                           @foreach ($mapel as $index => $m)
                           <tr>
@@ -99,9 +101,15 @@
                             <td>{{ $m->nama_mapel }}</td>
                             <td>
                               <input type="hidden" class="form-control" name="id_mapel[]" value="{{ $m->id }}" required>
-                              <input type="number" class="form-control" name="nilai_rl[]" required>
+                              <input type="number" class="form-control nilai_rl" name="nilai_rl[]" required>
                             </td>
-                            <td><input type="number" class="form-control" name="nilai_tp[]" required></td>
+                            <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" required></td>
+                            <td>
+                              <input type="number" class="form-control nilai_as" name="nilai_as[]" disabled>
+                            </td>
+                            <td>
+                              <textarea name="ket[]" class="form-control" required></textarea>
+                            </td>
                           </tr>
                           @endforeach
                         </tbody>
@@ -188,6 +196,38 @@
   </main><!-- End #main -->
 
   @include('dynamic/v_footer');
+
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const nilaiRlInputs = document.querySelectorAll(".nilai_rl");
+        const nilaiTpInputs = document.querySelectorAll(".nilai_tp");
+        const nilaiAsInputs = document.querySelectorAll(".nilai_as");
+
+        // Fungsi untuk menghitung nilai AS
+        function hitungNilaiAs(rl, tp) {
+            return (parseInt(rl) + parseInt(tp)) / 2;
+        }
+
+        // Tambahkan event listener untuk setiap input nilai RL dan TP
+        nilaiRlInputs.forEach(function(input, index) {
+            input.addEventListener("input", function() {
+                const rlValue = this.value;
+                const tpValue = nilaiTpInputs[index].value;
+                nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
+            });
+        });
+
+        nilaiTpInputs.forEach(function(input, index) {
+            input.addEventListener("input", function() {
+                const tpValue = this.value;
+                const rlValue = nilaiRlInputs[index].value;
+                nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
+            });
+        });
+    });
+</script>
+    
 
 </body>
 </html>

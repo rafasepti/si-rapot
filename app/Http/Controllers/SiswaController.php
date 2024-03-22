@@ -7,13 +7,13 @@ use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use DataTables;
 use App\Models\Kelas;
 use App\Models\Mapel;
 use App\Models\Nilai;
 use App\Models\TahunAjaran;
 use App\Models\Wali;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class SiswaController extends Controller
 {
@@ -34,7 +34,7 @@ class SiswaController extends Controller
     {
         if ($request->ajax()) {
             $siswa = Siswa::getJoinKelas();
-            return Datatables::of($siswa)
+            return DataTables::of($siswa)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
                     $actionBtn = 
