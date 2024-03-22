@@ -79,11 +79,11 @@
                       <table class="table table-striped table-bordered">
                         <thead>
                           <tr>
-                            <th class="col-sm-1 text-center">No.</th>
+                            <th class=" text-center">No.</th>
                             <th class="col-sm-3 text-center">Nama Siswa</th>
-                            <th class="col-sm-1 text-center">NRL</th>
-                            <th class="col-sm-1 text-center">NTP</th>
-                            <th class="col-sm-1 text-center">NAS</th>
+                            <th class="col-sm-2 text-center">NRL</th>
+                            <th class="col-sm-2 text-center">NTP</th>
+                            <th class="col-sm-2 text-center">NAS</th>
                             <th class="col-sm-3 text-center">Keterangan</th>
                           </tr>
                         </thead>
@@ -93,7 +93,7 @@
                             <th scope="row">{{ $index+1 }}</th>
                             <td>{{ $s->nama_siswa }}</td>
                             <td>
-                              <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id_siswa }}" required>
+                              <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
                               <input type="number" class="form-control nilai_rl" name="nilai_rl[]" required>
                             </td>
                             <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" required></td>

@@ -144,7 +144,7 @@
                             <td class="text-center">
                               <div class="row">
                                 <div class="col-md-4">
-                                  <input type="text" class="form-control" name="kehadiran_sakit" required>
+                                  <input type="number" class="form-control" name="kehadiran_sakit" required>
                                 </div>
                                 <div class="col-md-2">
                                   Hari
@@ -158,7 +158,7 @@
                             <td class="text-center">
                                 <div class="row">
                                   <div class="col-md-4">
-                                    <input type="text" class="form-control" name="kehadiran_izin" required>
+                                    <input type="number" class="form-control" name="kehadiran_izin" required>
                                   </div>
                                   <div class="col-md-2">
                                     Hari
@@ -172,7 +172,7 @@
                             <td class="text-center">
                               <div class="row">
                                 <div class="col-md-4">
-                                  <input type="text" class="form-control" name="kehadiran_tanpa_ket" required>
+                                  <input type="number" class="form-control" name="kehadiran_tanpa_ket" required>
                                 </div>
                                 <div class="col-md-2">
                                   Hari

@@ -78,15 +78,6 @@ class NilaiController extends Controller
                 $guruKelas->ket = $request->ket[$key]; 
                 $guruKelas->save();
             }else{
-                DB::table('nilai')->insert([
-                    'id_siswa' => $request->id_siswa,
-                    'id_kelas' => $request->id_kelas,
-                    'kode_nilai' => Nilai::getkdNilai(),
-                    'id_thn_ajaran' => $request->id_thn_ajaran,
-                    'semester' => $request->semester,
-                    'tgl_penilaian' => date('y-m-d'),
-                ]);
-
                 $nilai_as = ($request->nilai_rl[$key]+$request->nilai_tp[$key])/2;
                 $guruKelas = new DetailNilai();
                 $guruKelas->id_nilai = Nilai::getkdNilai();
@@ -96,6 +87,15 @@ class NilaiController extends Controller
                 $guruKelas->nilai_as = $nilai_as; 
                 $guruKelas->ket = $request->ket[$key]; 
                 $guruKelas->save();
+
+                DB::table('nilai')->insert([
+                    'id_siswa' => $request->id_siswa[$key],
+                    'id_kelas' => $request->id_kelas,
+                    'kode_nilai' => Nilai::getkdNilai(),
+                    'id_thn_ajaran' => $request->id_thn_ajaran,
+                    'semester' => $request->semester,
+                    'tgl_penilaian' => date('y-m-d'),
+                ]);
             }
         }
 
