@@ -37,6 +37,16 @@
                 <!-- Vertical Form -->
                 <form class="row g-3" action="/nilai/store" method="post">
                     {{ csrf_field() }}
+                    @if($errors->any())
+                      <div class="alert alert-danger">
+                          <ul>
+                              @foreach($errors->all() as $error)
+                                  <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  @endif
+
                     <div class="row">
                         <input type="hidden" class="form-control" name="id_siswa" id="id_siswa" value="{{ $siswa->id }}">
                         <div class="col-md-6">
@@ -102,14 +112,14 @@
                             <td>{{ $m->nama_mapel }}</td>
                             <td>
                               <input type="hidden" class="form-control" name="id_mapel[]" value="{{ $m->id }}" required>
-                              <input type="number" class="form-control nilai_rl" name="nilai_rl[]" required>
+                              <input type="number" class="form-control nilai_rl" name="nilai_rl[]" value="{{ old('nilai_rl.'.$index) }}" required>
                             </td>
-                            <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" required></td>
+                            <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" value="{{  old('nilai_tp.'.$index) }}"  required></td>
                             <td>
-                              <input type="number" class="form-control nilai_as" name="nilai_as[]" required>
+                              <input type="number" class="form-control nilai_as" name="nilai_as[]" value="{{ old('nilai_as.'.$index) }}" required>
                             </td>
                             <td>
-                              <textarea name="ket[]" class="form-control" required></textarea>
+                              <textarea name="ket[]" class="form-control" required>{{ old('ket.'.$index) }}</textarea>
                             </td>
                           </tr>
                           @endforeach
@@ -125,7 +135,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <textarea class="form-control" style="height: 100px" name="catatan" required></textarea>
+                              <textarea class="form-control" style="height: 100px" name="catatan" required>{{ old('catatan') }}</textarea>
                             </td>
                           </tr>
                         </tbody>
@@ -144,7 +154,7 @@
                             <td class="text-center">
                               <div class="row">
                                 <div class="col-md-4">
-                                  <input type="number" class="form-control" name="kehadiran_sakit" required>
+                                  <input type="number" class="form-control" name="kehadiran_sakit" value="{{ old('kehadiran_sakit') }}" required>
                                 </div>
                                 <div class="col-md-2">
                                   Hari
@@ -158,7 +168,7 @@
                             <td class="text-center">
                                 <div class="row">
                                   <div class="col-md-4">
-                                    <input type="number" class="form-control" name="kehadiran_izin" required>
+                                    <input type="number" class="form-control" name="kehadiran_izin" value="{{ old('kehadiran_izin') }}" required>
                                   </div>
                                   <div class="col-md-2">
                                     Hari
@@ -172,7 +182,7 @@
                             <td class="text-center">
                               <div class="row">
                                 <div class="col-md-4">
-                                  <input type="number" class="form-control" name="kehadiran_tanpa_ket" required>
+                                  <input type="number" class="form-control" name="kehadiran_tanpa_ket" value="{{ old('kehadiran_tanpa_ket') }}" required>
                                 </div>
                                 <div class="col-md-2">
                                   Hari

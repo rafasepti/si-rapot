@@ -14,22 +14,28 @@
         <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
-                <ul class="nav nav-tabs nav-tabs-bordered">
-                  <li class="nav-item">
-                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#smt1">Semester 1</button>
-                  </li>
-  
-                  <li class="nav-item">
-                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#smt">Semester 2</button>
-                  </li>
-                </ul>
+                <div class="row">
+                  <div class="col-md-9">
+                    <div class="card-title">
+                      <!-- Pills Tabs -->
+                      <ul class="nav nav-tabs nav-tabs-bordered" id="borderedTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link active" id="pills-smt1-tab" data-bs-toggle="pill" data-bs-target="#pills-smt1" type="button" role="tab" aria-controls="pills-smt1" aria-selected="true">Semester 1</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="pills-smt2-tab" data-bs-toggle="pill" data-bs-target="#pills-smt2" type="button" role="tab" aria-controls="pills-smt12" aria-selected="false">Semester 2</button>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
                 <div class="row">
                   <div class="col-md-9">
                     <h5 class="card-title">Nilai Siswa</h5>
                   </div>
                 </div>
-                <div class="tab-content pt-2">
-                  <div class="tab-pane fade show active smt1" id="smt1">
+                <div class="tab-content pt-2" id="myTabContent">
+                  <div class="tab-pane fade show active" id="pills-smt1" role="tabpanel" aria-labelledby="smt1-tab">
                     <!-- Vertical Form -->
                     <form class="row g-3" action="/nilai/store" method="post">
                       {{ csrf_field() }}
@@ -194,10 +200,8 @@
                       </div>
                     </form><!-- Vertical Form -->
                   </div>
-                </div>
 
-                <div class="tab-content pt-2">
-                  <div class="tab-pane fade show active smt2" id="smt2">
+                  <div class="tab-pane fade" id="pills-smt2" role="tabpanel" aria-labelledby="smt2-tab">
                     <!-- Vertical Form -->
                     @if (!is_null($nilai2))
                     <form class="row g-3" action="/nilai/store" method="post">
@@ -256,15 +260,15 @@
                                 <th scope="row">{{ $index+1 }}</th>
                                 <td>{{ $m->nama_mapel }}</td>
                                 <td>
-                                  <input type="hidden" class="form-control" name="id_mapel[]" value="{{ $m->id }}" disabled>
-                                  <input type="number" class="form-control nilai_rl" name="nilai_rl[]" value="" disabled>
+                                  <input type="hidden" class="form-control" name="id_mapel2[]" value="{{ $m->id }}" disabled>
+                                  <input type="number" class="form-control nilai_rl2" name="nilai_rl2[]" value="" disabled>
                                 </td>
-                                <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" disabled></td>
+                                <td><input type="number" class="form-control nilai_tp2" name="nilai_tp2[]" disabled></td>
                                 <td>
-                                  <input type="number" class="form-control nilai_as" name="nilai_as[]" disabled>
+                                  <input type="number" class="form-control nilai_as2" name="nilai_as2[]" disabled>
                                 </td>
                                 <td>
-                                  <textarea name="ket[]" class="form-control ket" disabled></textarea>
+                                  <textarea name="ket2[]" class="form-control ket2" disabled></textarea>
                                 </td>
                               </tr>
                             @endforeach
@@ -276,15 +280,15 @@
                                 <th scope="row">{{ $index+1 }}</th>
                                 <td>{{ $mb->nama_mapel }}</td>
                                 <td>
-                                  <input type="hidden" class="form-control" name="id_mapel[]" value="{{ $mb->id }}" required>
-                                  <input type="number" class="form-control nilai_rl" name="nilai_rl[]" value="" disabled>
+                                  <input type="hidden" class="form-control" name="id_mapel2[]" value="{{ $mb->id }}" required>
+                                  <input type="number" class="form-control nilai_rl2" name="nilai_rl[]" value="" disabled>
                                 </td>
-                                <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" disabled></td>
+                                <td><input type="number" class="form-control nilai_tp2" name="nilai_tp2[]" disabled></td>
                                 <td>
-                                  <input type="number" class="form-control nilai_as" name="nilai_as[]" disabled>
+                                  <input type="number" class="form-control nilai_as2" name="nilai_as2[]" disabled>
                                 </td>
                                 <td>
-                                  <textarea name="ket[]" class="form-control ket" disabled></textarea>
+                                  <textarea name="ket2[]" class="form-control ket2" disabled></textarea>
                                 </td>
                               </tr>
                             @endforeach
@@ -399,6 +403,33 @@
                     row.querySelector('.nilai_tp').value = matchingDetailNilai.nilai_tp;
                     row.querySelector('.nilai_as').value = matchingDetailNilai.nilai_as;
                     row.querySelector('.ket').value = matchingDetailNilai.ket;
+                }
+            }
+        });
+
+        //GET DATA NILAI MAPEL SMT2
+        var detailNilai2 = {!! json_encode($detail_nilai2) !!}; // Ambil data detail nilai dari PHP dan konversi menjadi JavaScript array
+        // Loop melalui setiap baris tabel
+        var rows2 = document.querySelectorAll("tr");
+        rows2.forEach(function(row2) {
+            // Temukan elemen input dengan nama 'id_mapel2[]' dalam setiap baris
+            var idMapelInput2 = row2.querySelector('input[name="id_mapel2[]"]');
+            
+            // Periksa apakah elemen input ditemukan
+            if (idMapelInput2) {
+                var idMapel2 = idMapelInput2.value; // Ambil nilai dari elemen input
+                
+                // Cari nilai detail nilai yang cocok dengan id_mapel saat ini
+                var matchingDetailNilai2 = detailNilai2.find(function(detail2) {
+                    return detail2.id_mapel == idMapel2;
+                });
+                
+                // Jika ditemukan nilai detail nilai yang cocok, atur nilai-nilai input
+                if (matchingDetailNilai2) {
+                    row2.querySelector('.nilai_rl2').value = matchingDetailNilai2.nilai_rl;
+                    row2.querySelector('.nilai_tp2').value = matchingDetailNilai2.nilai_tp;
+                    row2.querySelector('.nilai_as2').value = matchingDetailNilai2.nilai_as;
+                    row2.querySelector('.ket2').value = matchingDetailNilai2.ket;
                 }
             }
         });

@@ -11,6 +11,7 @@ use App\Models\Mapel;
 use App\Models\GuruMapel;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class GuruController extends Controller
 {
@@ -88,6 +89,12 @@ class GuruController extends Controller
      */
     public function store(StoreGuruRequest $request)
     {
+        //Mapel Guru
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|email|unique:guru,email',
+            'options.*' => 'required', 
+        ]);
+
         if($request->walikelas == 1){
             $wali = "Ya";
         }else{
@@ -106,10 +113,6 @@ class GuruController extends Controller
             'no_telp' => $request->no_telp,
         ]);
 
-         //Mapel Guru
-         $request->validate([
-            'options.*' => 'required', // Setidaknya satu opsi harus dipilih
-        ]);
         // Proses menyimpan data
         $options = $request->options ?? [];
         // Simpan data ke dalam database atau lakukan sesuatu dengan data tersebut
@@ -118,6 +121,10 @@ class GuruController extends Controller
                 'id_guru' => $request->id_guru,
                 'id_mapel' => $option,
             ]);
+        }
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
         
         return redirect('/guru');
@@ -190,6 +197,11 @@ class GuruController extends Controller
      */
     public function update(UpdateGuruRequest $request, Guru $guru)
     {
+        $validator = Validator::make($request->all(),[
+            'email' => 'required|email|unique:guru,email',
+            'options.*' => 'required', 
+        ]);
+
         if($request->walikelas == 1){
             $wali = "Ya";
         }else{
@@ -205,11 +217,6 @@ class GuruController extends Controller
             'alamat_guru' => $request->alamat_guru,
             'no_telp' => $request->no_telp,
         ]);
-        
-        // Tabel GuruMapel
-        $request->validate([
-            'options.*' => 'nullable', // Karena tidak semua checkbox harus dipilih
-        ]);
 
         $options = $request->options ?? [];
 
@@ -224,6 +231,10 @@ class GuruController extends Controller
             GuruMapel::where('id_guru', $request->kode_guru)->whereNotIn('id_mapel', $options)->delete();
         } else {
             GuruMapel::where('id_guru', $request->kode_guru)->delete();
+        }
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         return redirect('/guru');
