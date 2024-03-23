@@ -29,14 +29,20 @@
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-md-9">
-                    <h5 class="card-title">Nilai Siswa</h5>
-                  </div>
-                </div>
                 <div class="tab-content pt-2" id="myTabContent">
                   <div class="tab-pane fade show active" id="pills-smt1" role="tabpanel" aria-labelledby="smt1-tab">
                     <!-- Vertical Form -->
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h5 class="card-title">Nilai Siswa</h5>
+                      </div>
+                      <div class="col-md-2">
+                        <a href="/print_nilai/smt1/{{ $siswa->id }}" class="btn btn-primary">
+                          <i class="bi bi-printer me-1"></i>
+                          Print
+                        </a>
+                      </div>
+                    </div>
                     <form class="row g-3" action="/nilai/store" method="post">
                       {{ csrf_field() }}
                       <div class="row">
@@ -202,6 +208,17 @@
                   </div>
 
                   <div class="tab-pane fade" id="pills-smt2" role="tabpanel" aria-labelledby="smt2-tab">
+                    <div class="row">
+                      <div class="col-md-10">
+                        <h5 class="card-title">Nilai Siswa</h5>
+                      </div>
+                      <div class="col-md-2">
+                        <a href="/print_nilai/smt2/{{ $siswa->id }}" class="btn btn-primary">
+                          <i class="bi bi-printer me-1"></i>
+                          Print
+                        </a>
+                      </div>
+                    </div>
                     <!-- Vertical Form -->
                     @if (!is_null($nilai2))
                     <form class="row g-3" action="/nilai/store" method="post">

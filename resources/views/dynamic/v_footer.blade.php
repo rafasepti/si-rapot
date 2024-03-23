@@ -25,6 +25,9 @@
   <script src="{{asset('template')}}/assets/vendor/php-email-form/validate.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js "></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 
   <!-- Template Main JS File -->
   <script src="{{asset('template')}}/assets/js/main.js"></script>

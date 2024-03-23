@@ -12,6 +12,7 @@ use App\Models\Mapel;
 use App\Models\Siswa;
 use App\Models\TahunAjaran;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;
 
 class NilaiController extends Controller
 {
@@ -159,6 +160,39 @@ class NilaiController extends Controller
         return redirect('/kelaswali');
     }
 
+    public function generatePDF1($id)
+    {
+        $siswa = DB::table('siswa as s')
+        ->join('kelas as k', 'k.id', '=', 's.id_kelas')
+        ->select([
+            's.id as id_siswa',
+            's.*',
+            'k.id as id_k',
+            DB::raw("CONCAT(k.tingkat, ' - ', k.kelas) as kel"),
+        ])
+        ->where('s.id', $id)
+        ->first();
+        $mapel = Mapel::where('kategori', '1')->get();
+        $mapelb = Mapel::where('kategori', '2')->get();
+        $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
+        $nilai1 = Nilai::getNilai1($siswa->id_siswa,$siswa->id_kelas);
+        if ($nilai1 !== null) {
+            $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
+        } else {
+            $detail_nilai1 = collect();
+        }
+
+        // Render view PDF dan data
+        return view('pdf/nilai', compact(
+            'siswa', 
+            'mapel', 
+            'mapelb', 
+            'nilai1', 
+            'detail_nilai1',
+            'thn_ajaran'
+        ));
+    }
+
     /**
      * Display the specified resource.
      */
@@ -222,6 +256,8 @@ class NilaiController extends Controller
             );
         }
     }
+
+    
 
     /**
      * Show the form for editing the specified resource.

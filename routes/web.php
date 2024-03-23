@@ -125,6 +125,9 @@ Route::middleware(['checkRole:Guru'])->group(function () {
     Route::get('/nilai/tambah/{id}',[NilaiController::class, 'create']);
     Route::post('/nilai/store',[NilaiController::class, 'store']);
     Route::get('/nilai/detail/{id}',[NilaiController::class, 'show']);
+
+    Route::get('/print_nilai/smt1/{id}', [NilaiController::class, 'generatePDF1']);
+    Route::get('/print_nilai/smt2/{id}', [NilaiController::class, 'generatePDF']);
 });
 
 require __DIR__.'/auth.php';
