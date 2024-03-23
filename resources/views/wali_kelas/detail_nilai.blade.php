@@ -122,6 +122,7 @@
                           </tbody>
                         </table>
 
+                        @if(!is_null($nilai1))
                         <table class="table table-striped table-bordered">
                           <thead>
                             <tr>
@@ -188,6 +189,8 @@
                             </tr>
                           </tbody>
                         </table>
+                        @else
+                        @endif
                       </div>
                     </form><!-- Vertical Form -->
                   </div>
@@ -196,7 +199,8 @@
                 <div class="tab-content pt-2">
                   <div class="tab-pane fade show active smt2" id="smt2">
                     <!-- Vertical Form -->
-                    {{-- <form class="row g-3" action="/nilai/store" method="post">
+                    @if (!is_null($nilai2))
+                    <form class="row g-3" action="/nilai/store" method="post">
                       {{ csrf_field() }}
                       <div class="row">
                           <input type="hidden" class="form-control" name="id_siswa" id="id_siswa" value="{{ $siswa->id }}">
@@ -354,7 +358,10 @@
                           </tbody>
                         </table>
                       </div>
-                    </form><!-- Vertical Form --> --}}
+                    </form><!-- Vertical Form -->
+                    @else
+                        <p>Belum Ada data</p>
+                    @endif
                   </div>
                 </div>
               </div>
@@ -370,33 +377,6 @@
   
   <script>
     document.addEventListener("DOMContentLoaded", function() {
-        //HITUNG NAS OTOMATIS
-        const nilaiRlInputs = document.querySelectorAll(".nilai_rl");
-        const nilaiTpInputs = document.querySelectorAll(".nilai_tp");
-        const nilaiAsInputs = document.querySelectorAll(".nilai_as");
-
-        // Fungsi untuk menghitung nilai AS
-        function hitungNilaiAs(rl, tp) {
-            return (parseInt(rl) + parseInt(tp)) / 2;
-        }
-
-        // Tambahkan event listener untuk setiap input nilai RL dan TP
-        nilaiRlInputs.forEach(function(input, index) {
-            input.addEventListener("input", function() {
-                const rlValue = this.value;
-                const tpValue = nilaiTpInputs[index].value;
-                nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
-            });
-        });
-
-        nilaiTpInputs.forEach(function(input, index) {
-            input.addEventListener("input", function() {
-                const tpValue = this.value;
-                const rlValue = nilaiRlInputs[index].value;
-                nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
-            });
-        });
-
         //GET DATA NILAI MAPEL
         var detailNilai = {!! json_encode($detail_nilai1) !!}; // Ambil data detail nilai dari PHP dan konversi menjadi JavaScript array
         // Loop melalui setiap baris tabel

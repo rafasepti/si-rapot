@@ -106,7 +106,7 @@
                             </td>
                             <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" required></td>
                             <td>
-                              <input type="number" class="form-control nilai_as" name="nilai_as[]" disabled>
+                              <input type="number" class="form-control nilai_as" name="nilai_as[]" required>
                             </td>
                             <td>
                               <textarea name="ket[]" class="form-control" required></textarea>
@@ -198,37 +198,6 @@
 
   @include('dynamic/v_footer');
 
-  
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const nilaiRlInputs = document.querySelectorAll(".nilai_rl");
-        const nilaiTpInputs = document.querySelectorAll(".nilai_tp");
-        const nilaiAsInputs = document.querySelectorAll(".nilai_as");
-
-        // Fungsi untuk menghitung nilai AS
-        function hitungNilaiAs(rl, tp) {
-            return (parseInt(rl) + parseInt(tp)) / 2;
-        }
-
-        // Tambahkan event listener untuk setiap input nilai RL dan TP
-        nilaiRlInputs.forEach(function(input, index) {
-            input.addEventListener("input", function() {
-                const rlValue = this.value;
-                const tpValue = nilaiTpInputs[index].value;
-                nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
-            });
-        });
-
-        nilaiTpInputs.forEach(function(input, index) {
-            input.addEventListener("input", function() {
-                const tpValue = this.value;
-                const rlValue = nilaiRlInputs[index].value;
-                nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
-            });
-        });
-    });
-</script>
-    
 
 </body>
 </html>

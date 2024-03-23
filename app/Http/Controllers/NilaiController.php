@@ -143,23 +143,21 @@ class NilaiController extends Controller
                 ->first();
     
                 if($nilai_siswa){
-                    $nilai_as = ($request->nilai_rl[$key]+$request->nilai_tp[$key])/2;
                     $guruKelas = new DetailNilai();
                     $guruKelas->id_nilai = $nilai_siswa->kode_nilai;
                     $guruKelas->id_mapel = $request->id_mapel; 
                     $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
                     $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
-                    $guruKelas->nilai_as = $nilai_as; 
+                    $guruKelas->nilai_as = $request->nilai_as[$key]; 
                     $guruKelas->ket = $request->ket[$key]; 
                     $guruKelas->save();
                 }else{
-                    $nilai_as = ($request->nilai_rl[$key]+$request->nilai_tp[$key])/2;
                     $guruKelas = new DetailNilai();
                     $guruKelas->id_nilai = Nilai::getkdNilai();
                     $guruKelas->id_mapel = $request->id_mapel; 
                     $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
                     $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
-                    $guruKelas->nilai_as = $nilai_as; 
+                    $guruKelas->nilai_as = $request->nilai_as[$key]; 
                     $guruKelas->ket = $request->ket[$key]; 
                     $guruKelas->save();
     
@@ -205,15 +203,19 @@ class NilaiController extends Controller
             $mapel = Mapel::where('kategori', '1')->get();
             $mapelb = Mapel::where('kategori', '2')->get();
             $nilai1 = Nilai::getNilai1($siswa->id_siswa,$siswa->id_kelas);
-            $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
+            $nilai2 = Nilai::getNilai2($siswa->id_siswa,$siswa->id_kelas);
 
-            // $nilai2 = Nilai::getNilai2($siswa->id_siswa,$siswa->id_kelas);
-            // if ($nilai2 === null) {
-            //     $nilai2 = Nilai::getNilai2(0,0);
-            //     $detail_nilai2 = DetailNilai::where('id_nilai', 0)->get();
-            // }else{
-            //     $detail_nilai2 = DetailNilai::where('id_nilai', $nilai2->kode_nilai)->get();
-            // }
+            if ($nilai1 !== null) {
+                $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
+            } else {
+                $detail_nilai1 = collect();
+            }
+
+            if ($nilai2 !== null) {
+                $detail_nilai2 = DetailNilai::where('id_nilai', $nilai2->kode_nilai)->get();
+            } else {
+                $detail_nilai2 = collect();
+            }
             
             return view('wali_kelas/detail_nilai',
                 [
@@ -223,8 +225,8 @@ class NilaiController extends Controller
                     'mapelb' => $mapelb,
                     'nilai1' => $nilai1,
                     'detail_nilai1' => $detail_nilai1,
-                    // 'nilai2' => $nilai2,
-                    // 'detail_nilai2' => $detail_nilai2,
+                    'nilai2' => $nilai2,
+                    'detail_nilai2' => $detail_nilai2,
                 ]
             );
         }else{
