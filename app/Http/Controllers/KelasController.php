@@ -90,10 +90,15 @@ class KelasController extends Controller
             where('jabatan', "Guru")
             ->where('walikelas', "Ya")
             ->get();
+        $guruBelumWaliKelas = Guru::whereDoesntHave('kelas')
+            ->where('jabatan', "Guru")
+            ->where('walikelas', "Ya")
+            ->get();
         return view('kelas/edit_kelas',
         [
             'kelas' => $kelas,
             'guru' => $guru,
+            'guruBelumWaliKelas' => $guruBelumWaliKelas,
             'waliKelasSaatIni' => $waliKelasSaatIni,
         ]);
     }

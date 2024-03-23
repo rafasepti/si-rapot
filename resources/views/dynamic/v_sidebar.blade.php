@@ -106,12 +106,12 @@
 
       <!-- Menu Guru -->
       @if (Session::get('hak_akses')=='Guru')
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link {{ Request::is('nilai') ? '' : 'collapsed' }}" href="/nilai">
           <i class="bi bi-award"></i>
           <span>Nilai</span>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-item">
         <a class="nav-link {{ Request::is('kelaswali') ? '' : 'collapsed' }}" href="/kelaswali">
           <i class="bi bi-people"></i>

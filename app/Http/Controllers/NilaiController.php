@@ -203,16 +203,28 @@ class NilaiController extends Controller
             ->where('s.id', $id)
             ->first();
             $mapel = Mapel::where('kategori', '1')->get();
+            $mapelb = Mapel::where('kategori', '2')->get();
             $nilai1 = Nilai::getNilai1($siswa->id_siswa,$siswa->id_kelas);
             $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
 
+            // $nilai2 = Nilai::getNilai2($siswa->id_siswa,$siswa->id_kelas);
+            // if ($nilai2 === null) {
+            //     $nilai2 = Nilai::getNilai2(0,0);
+            //     $detail_nilai2 = DetailNilai::where('id_nilai', 0)->get();
+            // }else{
+            //     $detail_nilai2 = DetailNilai::where('id_nilai', $nilai2->kode_nilai)->get();
+            // }
+            
             return view('wali_kelas/detail_nilai',
                 [
                     'siswa' => $siswa,
                     'thn_ajaran' => $thn_ajaran,
                     'mapel' => $mapel,
+                    'mapelb' => $mapelb,
                     'nilai1' => $nilai1,
                     'detail_nilai1' => $detail_nilai1,
+                    // 'nilai2' => $nilai2,
+                    // 'detail_nilai2' => $detail_nilai2,
                 ]
             );
         }else{

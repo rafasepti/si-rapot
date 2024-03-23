@@ -46,6 +46,11 @@
                             </option>
                             @endif
                         @endforeach
+                        @foreach ($guruBelumWaliKelas as $gb)
+                          <option value="{{ $gb->id }}" {{$gb->id == $m->id_walikelas  ? 'selected' : ''}}>
+                            {{ $gb->nuptk }} || {{ $gb->nama_guru }}
+                          </option>
+                        @endforeach
                         {{-- @foreach ($guru as $g)
                           <option value="{{ $g->id }}" {{$g->id == $m->id_walikelas  ? 'selected' : ''}}>{{ $g->nuptk }} || {{ $g->nama_guru }}</option>
                         @endforeach --}}

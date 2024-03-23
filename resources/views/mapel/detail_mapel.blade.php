@@ -30,8 +30,8 @@
                         <input type="text" class="form-control" id="nama_mapel" name="nama_mapel" value="{{ $m->nama_mapel }}" required readonly>
                     </div>
                     <div class="col-12">
-                      <label for="tingkat" class="form-label">Tingkat</label>
-                      <input type="number" class="form-control" id="tingkat" name="tingkat" value="{{ $m->tingkat }}" required readonly>
+                      <label for="tingkat" class="form-label">Kategori</label>
+                      <input type="text" class="form-control" id="kategori" name="kategori" value="{{ $m->kategori }} {{ $m->kategori == 1 ? 'Kelompok A' : 'Kelompok B' }}" required readonly>
                     </div>
                     <div class="col-12">
                         <label for="kkm" class="form-label">KKM</label>

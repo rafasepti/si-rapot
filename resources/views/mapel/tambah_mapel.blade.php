@@ -31,8 +31,8 @@
                       <label for="kategori" class="form-label">Kategori</label>
                       <select class="form-select" aria-label="Default select example" required name="kategori" id="kategori">
                         <option value="" selected>Pilih Kategori</option>
-                        <option>1</option>
-                        <option>2</option>
+                        <option value="1">1 Kelompok A</option>
+                        <option value="2">2 Kelompok B</option>
                       </select>
                     </div>
                     <div class="col-12">

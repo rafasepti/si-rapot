@@ -32,4 +32,12 @@ class Nilai extends Model
             ->first();
         return $sql;
     }
+
+    public static function getNilai2($id_siswa,$id_kelas){
+        $sql = Nilai::where('id_siswa', $id_siswa)
+            ->where('id_kelas', $id_kelas)
+            ->where('semester', 2)
+            ->first();
+        return $sql;
+    }
 }
