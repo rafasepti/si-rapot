@@ -122,7 +122,7 @@ Route::middleware(['checkRole:Guru'])->group(function () {
     Route::get('/kelaswali/edit/{id}', [WaliController::class, 'edit']);
     Route::post('/kelaswali/update', [WaliController::class, 'update']);
 
-    Route::get('/nilai/tambah/{id}',[SiswaController::class, 'nilai']);
+    Route::get('/nilai/tambah/{id}',[NilaiController::class, 'create']);
     Route::post('/nilai/store',[NilaiController::class, 'store']);
     Route::get('/nilai/detail/{id}',[NilaiController::class, 'show']);
 });

@@ -24,4 +24,12 @@ class Nilai extends Model
             $noakhir = 'N'.str_pad($noakhir,6,"0",STR_PAD_LEFT);
             return $noakhir;
     }
+
+    public static function getNilai1($id_siswa,$id_kelas){
+        $sql = Nilai::where('id_siswa', $id_siswa)
+            ->where('id_kelas', $id_kelas)
+            ->where('semester', 1)
+            ->first();
+        return $sql;
+    }
 }
