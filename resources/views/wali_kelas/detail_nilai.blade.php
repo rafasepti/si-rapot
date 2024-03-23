@@ -360,7 +360,6 @@
                       </div>
                     </form><!-- Vertical Form -->
                     @else
-                        <p>Belum Ada data</p>
                     @endif
                   </div>
                 </div>

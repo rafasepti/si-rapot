@@ -45,6 +45,10 @@ class NilaiController extends Controller
             $mapel2 = Mapel::where('kategori', '2')->get();
             $kd_nilai = Nilai::getkdNilai();
 
+            $nilai_siswa = Nilai::where('id_siswa', $id)
+                ->where('id_kelas', $siswa->id_k)
+                ->first();
+
             return view('wali_kelas/tambah_nilai',
                 [
                     'kelas' => $kelas,
