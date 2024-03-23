@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\GuruKelasController;
 use App\Http\Controllers\KelasController;
@@ -27,9 +28,8 @@ Route::get('/', function () {
     return view('auth/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['checkRole:Guru,Kepala Sekolah,Admin']);;
+Route::get('/dashboard', 
+[DashboardController::class, 'index'])->middleware(['checkRole:Guru,Kepala Sekolah,Admin']);;
 
 // Route::middleware('auth')->group(function () {
 //     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
