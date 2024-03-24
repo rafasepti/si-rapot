@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EkskulController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\GuruKelasController;
 use App\Http\Controllers\KelasController;
@@ -91,6 +92,14 @@ Route::middleware(['checkRole:Admin'])->group(function () {
     Route::get('/tahunajaran/aktif/{id}', [TahunAjaranController::class, 'aktif']);
     Route::post('/tahunajaran/update', [TahunAjaranController::class, 'update']);
     Route::get('/tahunajaran/hapus/{id}', [TahunAjaranController::class, 'destroy']);
+
+    Route::get('/ekskul', [EkskulController::class, 'index']);
+    Route::get('/ekskul/list', [EkskulController::class, 'ekskulGet']);
+    Route::get('/ekskul/tambah', [EkskulController::class, 'create']);
+    Route::post('/ekskul/store', [EkskulController::class, 'store']);
+    Route::get('/ekskul/edit/{id}', [EkskulController::class, 'edit']);
+    Route::post('/ekskul/update', [EkskulController::class, 'update']);
+    Route::get('/ekskul/hapus/{id}', [EkskulController::class, 'destroy']);
 
     //guru kelas
     Route::get('/guru_kelas', [GuruKelasController::class, 'index']);

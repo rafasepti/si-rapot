@@ -27,6 +27,14 @@
         </a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('ekskul') ? '' : 'collapsed' }}" href="/ekskul">
+          <i class="bi bi-award"></i>
+          <span>Extrakurikuler</span>
+        </a>
+      </li>
+
+
       {{-- <li class="nav-item">
         <a class="nav-link {{ Request::is('guru') ? '' : 'collapsed' }}" href="/guru">
           <i class="bi bi-people"></i>
