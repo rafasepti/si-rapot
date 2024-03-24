@@ -104,7 +104,11 @@
                         <i class="bi bi-emoji-laughing"></i>
                       </div>
                       <div class="ps-3">
-                        <h6>$3,264</h6>
+                        @if ($ekskul === null)
+                        <h6>-</h6>
+                        @else
+                        <h6>{{ $ekskul->nama_ekskul }}</h6>
+                        @endif
                       </div>
                     </div>
                   </div>

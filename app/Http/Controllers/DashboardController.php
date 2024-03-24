@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ekskul;
 use App\Models\Guru;
 use App\Models\GuruKelas;
 use App\Models\Kelas;
@@ -21,6 +22,8 @@ class DashboardController extends Controller
         $countKelas = Kelas::count();
         $kepsek = Guru::where('jabatan', 'Kepala Sekolah')->first();
         $kelas_ajar = GuruKelas::getKelasDiajar($id_user);
+
+        $ekskul = Ekskul::where('id_guru', session('id'))->first();
         
         if(session('walikelas')== "Ya"){
             return view('admin/v_admin',
@@ -30,6 +33,7 @@ class DashboardController extends Controller
                 'countGuru' => $countGuru,
                 'countKelas' => $countKelas,
                 'kepsek' => $kepsek,
+                'ekskul' => $ekskul,
                 'kelas_ajar' => $kelas_ajar,
             ]);
         }else{
