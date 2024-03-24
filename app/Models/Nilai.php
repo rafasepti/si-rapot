@@ -40,4 +40,11 @@ class Nilai extends Model
             ->first();
         return $sql;
     }
+
+    public static function getJoinDetail(){
+        $sql = Nilai::join('detail_nilai as dn', 'dn.id_nilai','=', 'nilai.kode_nilai')
+        ->join('siswa as s', 's.id','=', 'nilai.id_siswa')
+        ->select('nilai.*', 'nilai.id as idn', 'dn.*', 's.id as ids', 's.nama_siswa');
+        return $sql;
+    }
 }

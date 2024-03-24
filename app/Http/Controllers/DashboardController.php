@@ -42,6 +42,7 @@ class DashboardController extends Controller
                 'countGuru' => $countGuru,
                 'countKelas' => $countKelas,
                 'kepsek' => $kepsek,
+                'ekskul' => $ekskul,
                 'kelas_ajar' => $kelas_ajar,
             ]);
         }
