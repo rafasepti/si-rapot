@@ -36,6 +36,15 @@
                 </div>
                 <!-- Vertical Form -->
                 <form class="row g-3" action="/nilai/store" method="post">
+                  @if($errors->any())
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+                  @endif
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
@@ -98,7 +107,7 @@
                             </td>
                             <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" required></td>
                             <td>
-                              <input type="number" class="form-control nilai_as" name="nilai_as[]" disabled>
+                              <input type="number" class="form-control nilai_as" name="nilai_as[]" required>
                             </td>
                             <td>
                               <textarea name="ket[]" class="form-control" required></textarea>
@@ -125,33 +134,33 @@
 
   
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const nilaiRlInputs = document.querySelectorAll(".nilai_rl");
-        const nilaiTpInputs = document.querySelectorAll(".nilai_tp");
-        const nilaiAsInputs = document.querySelectorAll(".nilai_as");
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     const nilaiRlInputs = document.querySelectorAll(".nilai_rl");
+    //     const nilaiTpInputs = document.querySelectorAll(".nilai_tp");
+    //     const nilaiAsInputs = document.querySelectorAll(".nilai_as");
 
-        // Fungsi untuk menghitung nilai AS
-        function hitungNilaiAs(rl, tp) {
-            return (parseInt(rl) + parseInt(tp)) / 2;
-        }
+    //     // Fungsi untuk menghitung nilai AS
+    //     function hitungNilaiAs(rl, tp) {
+    //         return (parseInt(rl) + parseInt(tp)) / 2;
+    //     }
 
-        // Tambahkan event listener untuk setiap input nilai RL dan TP
-        nilaiRlInputs.forEach(function(input, index) {
-            input.addEventListener("input", function() {
-                const rlValue = this.value;
-                const tpValue = nilaiTpInputs[index].value;
-                nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
-            });
-        });
+    //     // Tambahkan event listener untuk setiap input nilai RL dan TP
+    //     nilaiRlInputs.forEach(function(input, index) {
+    //         input.addEventListener("input", function() {
+    //             const rlValue = this.value;
+    //             const tpValue = nilaiTpInputs[index].value;
+    //             nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
+    //         });
+    //     });
 
-        nilaiTpInputs.forEach(function(input, index) {
-            input.addEventListener("input", function() {
-                const tpValue = this.value;
-                const rlValue = nilaiRlInputs[index].value;
-                nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
-            });
-        });
-    });
+    //     nilaiTpInputs.forEach(function(input, index) {
+    //         input.addEventListener("input", function() {
+    //             const tpValue = this.value;
+    //             const rlValue = nilaiRlInputs[index].value;
+    //             nilaiAsInputs[index].value = hitungNilaiAs(rlValue, tpValue);
+    //         });
+    //     });
+    // });
 </script>
     
 

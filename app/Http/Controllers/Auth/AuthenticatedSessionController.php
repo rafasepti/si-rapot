@@ -35,6 +35,7 @@ class AuthenticatedSessionController extends Controller
             $hak_akses = $a->jabatan;
             $kode_guru = $a->kode_guru;
             $nama = $a->nama_guru;
+            $nuptk = $a->nuptk;
             $walikelas = $a->walikelas;
         endforeach;
 
@@ -43,6 +44,7 @@ class AuthenticatedSessionController extends Controller
             'id_user' => $id_user,
             'kode_guru' => $kode_guru,
             'nama' => $nama,
+            'nuptk' => $nuptk,
             'walikelas' => $walikelas,
         ]);
 

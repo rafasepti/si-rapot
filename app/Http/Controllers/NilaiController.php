@@ -6,6 +6,7 @@ use App\Models\Nilai;
 use App\Http\Requests\StoreNilaiRequest;
 use App\Http\Requests\UpdateNilaiRequest;
 use App\Models\DetailNilai;
+use App\Models\Guru;
 use App\Models\GuruMapel;
 use App\Models\Kelas;
 use App\Models\Mapel;
@@ -121,7 +122,7 @@ class NilaiController extends Controller
                 ->where('semester',$request->semester)
                 ->where('id_kelas', $request->id_kelas)
                 ->first();
-                
+
                 $nilai_akhir = ($request->nilai_rl[$key] + ($request->nilai_tp[$key]*2) + ($request->nilai_as[$key]*2))/5;
                 if($nilai_siswa){
                     $guruKelas = new DetailNilai();
@@ -210,6 +211,7 @@ class NilaiController extends Controller
         ])
         ->where('s.id', $id)
         ->first();
+        $kepsek = Guru::where('jabatan', 'Kepala Sekolah')->first();
         $mapel = Mapel::where('kategori', '1')->get();
         $mapelb = Mapel::where('kategori', '2')->get();
         $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
@@ -223,6 +225,7 @@ class NilaiController extends Controller
         // Render view PDF dan data
         return view('pdf/nilai2', compact(
             'siswa', 
+            'kepsek', 
             'mapel', 
             'mapelb', 
             'nilai1', 

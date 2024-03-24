@@ -45,7 +45,7 @@
                               @endforeach
                           </ul>
                       </div>
-                  @endif
+                    @endif
 
                     <div class="row">
                         <input type="hidden" class="form-control" name="id_siswa" id="id_siswa" value="{{ $siswa->id }}">

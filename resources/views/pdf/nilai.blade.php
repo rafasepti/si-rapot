@@ -47,14 +47,14 @@
                       <div class="row">
                           <input type="hidden" class="form-control" name="id_siswa" id="id_siswa" value="{{ $siswa->id }}">
                           <div class="col-sm-6">
-                            <div class="row mb-3">
+                            <div class="row mb-1">
                                 <label for="inputText" class="col-sm-4 col-form-label col-form-label-sm">Nama Siswa</label>
                                 <div class="col-sm-1">:</div>
                                 <div class="col-sm-7">
                                   {{ $siswa->nama_siswa }}
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mb-1">
                                 <label for="inputText" class="col-sm-4 col-form-label col-form-label-sm">NISN</label>
                                 <div class="col-sm-1">:</div>
                                 <div class="col-sm-7">
@@ -63,7 +63,7 @@
                             </div>
                           </div>
                           <div class="col-sm-6">
-                            <div class="row mb-3">
+                            <div class="row mb-1">
                                 <label for="inputText" class="col-sm-4 col-form-label col-form-label-sm">Kelas</label>
                                 <div class="col-sm-1">:</div>
                                 <div class="col-sm-7">
@@ -71,14 +71,14 @@
                                     <input type="hidden" class="form-control" name="id_kelas" id="id_kelas" value="{{ $siswa->id_kelas }}">
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mb-1">
                                 <label for="inputText" class="col-sm-4 col-form-label col-form-label-sm">Thn Ajaran</label>
                                 <div class="col-sm-1">:</div>
                                 <div class="col-sm-7">
                                     {{ $thn_ajaran->nama_tahun }}
                                 </div>
                             </div>
-                            <div class="row mb-3">
+                            <div class="row mb-1">
                               <label for="inputText" class="col-sm-4 col-form-label col-form-label-sm">Semester</label>
                                 <div class="col-sm-1">:</div>
                                 <div class="col-sm-7">
@@ -87,7 +87,7 @@
                             </div>
                           </div>
                       </div>
-                      <div class="mb-3"></div>
+                      <div class="mb-1"></div>
                       <div class="row">
                         <table class="table table-striped table-bordered">
                           <thead>
@@ -106,7 +106,7 @@
                               <tr>
                                 <th scope="row">{{ $index+1 }}</th>
                                 <td>{{ $m->nama_mapel }}</td>
-                                <td>
+                                <td class="text-center">
                                   <input type="hidden" class="form-control" name="id_mapel[]" value="{{ $m->id }}" required>
                                   <input type="number" class="form-control nilai_akhir" name="nilai_akhir[]" value="" disabled>
                                 </td>
@@ -184,7 +184,6 @@
                         @endif
                       </div>
                     </form><!-- Vertical Form -->
-                    <div class="container">
                       <div class="row">
                           <div class="col-sm-6">
                               <p class="mt-4" style="margin-bottom: 80px;">Orang Tua/Wali,</p>
@@ -193,10 +192,10 @@
                           <div class="col-sm-6 ms-auto text-end">
                               <p class="mb-1">{{ date('d M Y') }}</p>
                               <p style="margin-bottom: 80px;">Wali Kelas,</p>
-                              <p>{{ Session::get('nama') }}</p>
+                              <p class="mb-0">{{ Session::get('nama') }}</p>
+                              <p class="mt-0">NIP. {{ Session::get('nuptk') }}</p>
                           </div>
                       </div>
-              </div>
             </div>
         </div><!-- End col-md -->
       </div>

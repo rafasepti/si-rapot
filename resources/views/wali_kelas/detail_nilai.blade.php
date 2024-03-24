@@ -208,6 +208,8 @@
                   </div>
 
                   <div class="tab-pane fade" id="pills-smt2" role="tabpanel" aria-labelledby="smt2-tab">
+                    <!-- Vertical Form -->
+                    @if (!is_null($nilai2))
                     <div class="row">
                       <div class="col-md-10">
                         <h5 class="card-title">Nilai Siswa</h5>
@@ -219,8 +221,6 @@
                         </a>
                       </div>
                     </div>
-                    <!-- Vertical Form -->
-                    @if (!is_null($nilai2))
                     <form class="row g-3" action="/nilai/store" method="post">
                       {{ csrf_field() }}
                       <div class="row">
