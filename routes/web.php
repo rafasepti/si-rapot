@@ -37,10 +37,6 @@ Route::get('/dashboard',
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-Route::get('/dashboard', function () {
-    return view('admin/v_admin');
-});
-
 Route::middleware(['checkRole:Kepala Sekolah,Admin'])->group(function () {
     //siswa
     Route::get('/siswa', [SiswaController::class, 'index']);
