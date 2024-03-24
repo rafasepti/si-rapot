@@ -349,15 +349,17 @@ class NilaiController extends Controller
             ->orderBy('nama_siswa', 'asc')
             ->get();
         $mapel2 = GuruMapel::getJoinMapelId(session('kode_guru'));
+        $mapelG = GuruMapel::where('id_guru',session('kode_guru'))->first();
 
         $nilai1 = Nilai::getJoinDetail()
             ->where('nilai.id_kelas',$id)
             ->where('nilai.semester', 1)
+            ->where('dn.id_mapel', $mapelG->id_mapel)
             ->get();
         $nilai2 = Nilai::getJoinDetail()
             ->where('nilai.id_kelas',$id)
             ->where('nilai.semester', 2)
-            ->distinct()
+            ->where('dn.id_mapel', $mapelG->id_mapel)
             ->get();
 
          if ($nilai1 === null) {
