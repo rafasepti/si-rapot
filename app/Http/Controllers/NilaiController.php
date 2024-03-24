@@ -90,12 +90,14 @@ class NilaiController extends Controller
                 $validatedData = $request->validated();
                 foreach ($request->id_mapel as $key => $id_mapel) {
                     // Jika data ditemukan, simpan ID guru_mapel ke dalam tabel guru_kelas
+                    $nilai_akhir = ($request->nilai_rl[$key] + ($request->nilai_tp[$key]*2) + ($request->nilai_as[$key]*2))/5;
                     $guruKelas = new DetailNilai();
                     $guruKelas->id_nilai = $request->id_nilai;
                     $guruKelas->id_mapel = $id_mapel; 
                     $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
                     $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
                     $guruKelas->nilai_as = $request->nilai_as[$key];
+                    $guruKelas->nilai_akhir = $nilai_akhir;
                     $guruKelas->ket = $request->ket[$key]; 
                     $guruKelas->save();
                 }
@@ -119,7 +121,8 @@ class NilaiController extends Controller
                 ->where('semester',$request->semester)
                 ->where('id_kelas', $request->id_kelas)
                 ->first();
-    
+                
+                $nilai_akhir = ($request->nilai_rl[$key] + ($request->nilai_tp[$key]*2) + ($request->nilai_as[$key]*2))/5;
                 if($nilai_siswa){
                     $guruKelas = new DetailNilai();
                     $guruKelas->id_nilai = $nilai_siswa->kode_nilai;
@@ -127,6 +130,7 @@ class NilaiController extends Controller
                     $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
                     $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
                     $guruKelas->nilai_as = $request->nilai_as[$key]; 
+                    $guruKelas->nilai_akhir = $nilai_akhir;
                     $guruKelas->ket = $request->ket[$key]; 
                     $guruKelas->save();
                 }else{
@@ -135,7 +139,8 @@ class NilaiController extends Controller
                     $guruKelas->id_mapel = $request->id_mapel; 
                     $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
                     $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
-                    $guruKelas->nilai_as = $request->nilai_as[$key]; 
+                    $guruKelas->nilai_as = $request->nilai_as[$key];
+                    $guruKelas->nilai_akhir = $nilai_akhir; 
                     $guruKelas->ket = $request->ket[$key]; 
                     $guruKelas->save();
     
@@ -184,6 +189,39 @@ class NilaiController extends Controller
 
         // Render view PDF dan data
         return view('pdf/nilai', compact(
+            'siswa', 
+            'mapel', 
+            'mapelb', 
+            'nilai1', 
+            'detail_nilai1',
+            'thn_ajaran'
+        ));
+    }
+
+    public function generatePDF2($id)
+    {
+        $siswa = DB::table('siswa as s')
+        ->join('kelas as k', 'k.id', '=', 's.id_kelas')
+        ->select([
+            's.id as id_siswa',
+            's.*',
+            'k.id as id_k',
+            DB::raw("CONCAT(k.tingkat, ' - ', k.kelas) as kel"),
+        ])
+        ->where('s.id', $id)
+        ->first();
+        $mapel = Mapel::where('kategori', '1')->get();
+        $mapelb = Mapel::where('kategori', '2')->get();
+        $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
+        $nilai1 = Nilai::getNilai2($siswa->id_siswa,$siswa->id_kelas);
+        if ($nilai1 !== null) {
+            $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
+        } else {
+            $detail_nilai1 = collect();
+        }
+
+        // Render view PDF dan data
+        return view('pdf/nilai2', compact(
             'siswa', 
             'mapel', 
             'mapelb', 

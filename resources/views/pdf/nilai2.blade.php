@@ -81,9 +81,7 @@
                             <div class="row mb-3">
                               <label for="inputText" class="col-sm-4 col-form-label col-form-label-sm">Semester</label>
                                 <div class="col-sm-1">:</div>
-                                <div class="col-sm-7">
-                                  1
-                              </div>
+                                <div class="col-sm-7">2</div>
                             </div>
                           </div>
                       </div>
@@ -184,17 +182,18 @@
                         @endif
                       </div>
                     </form><!-- Vertical Form -->
+                    <p class="mb-4">Naik ke kelas/Tinggal di kelas *) : .................(.................)</p>
                     <div class="container">
                       <div class="row">
-                          <div class="col-sm-6">
-                              <p class="mt-4" style="margin-bottom: 80px;">Orang Tua/Wali,</p>
-                              <p>(________________________)</p>
-                          </div>
-                          <div class="col-sm-6 ms-auto text-end">
-                              <p class="mb-1">{{ date('d M Y') }}</p>
-                              <p style="margin-bottom: 80px;">Wali Kelas,</p>
-                              <p>{{ Session::get('nama') }}</p>
-                          </div>
+                        <div class="col-sm-6">
+                            <p class="mt-4" style="margin-bottom: 80px;">Orang Tua/Wali,</p>
+                            <p>(________________________)</p>
+                        </div>
+                        <div class="col-sm-6 ms-auto text-end">
+                            <p class="mb-1">{{ date('d M Y') }}</p>
+                            <p style="margin-bottom: 80px;">Wali Kelas,</p>
+                            <p>{{ Session::get('nama') }}</p>
+                        </div>
                       </div>
               </div>
             </div>
