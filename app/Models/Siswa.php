@@ -22,6 +22,7 @@ class Siswa extends Model
                 ->select([
                     's.id as id_siswa',
                     's.*',
+                    'k.id as idk',
                     DB::raw("CONCAT(k.tingkat, ' - ', k.kelas) as kel"),
                 ]);
         return $sql;
@@ -34,7 +35,8 @@ class Siswa extends Model
                     's.id as id_siswa',
                     's.*',
                     'k.*',
-                    'k.id as id_kelas'
+                    'k.id as id_kelas',
+                    DB::raw("CONCAT(k.tingkat, ' - ', k.kelas) as kel")
                 ])
                 ->where('k.id_walikelas', $id_user)
                 ->orderBy('nama_siswa', 'asc');

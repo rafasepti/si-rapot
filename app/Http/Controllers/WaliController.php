@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Wali;
 use App\Http\Requests\StoreWaliRequest;
 use App\Http\Requests\UpdateWaliRequest;
+use App\Models\Ekskul;
 use App\Models\GuruKelas;
+use App\Models\GuruMapel;
 use App\Models\Kelas;
 use App\Models\Nilai;
 use Illuminate\Http\Request;
 //use DataTables;
 use App\Models\Siswa;
+use App\Models\TahunAjaran;
 use Illuminate\Contracts\Session\Session;
 use Yajra\DataTables\DataTables as DataTables;
 
@@ -35,9 +38,31 @@ class WaliController extends Controller
         }
     }
 
-    public function indexGuru()
+    public function ekskul()
     {
-        
+            $ekskul = Ekskul::where('id_guru', auth()->id())->first();
+            $siswa = Siswa::getJoinKelas()->where('id_ekskul',$ekskul->id)
+                ->orderBy('nama_siswa', 'asc')
+                ->get();
+            $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
+            $mapel2 = GuruMapel::getJoinMapelId(session('kode_guru'));
+            $kd_nilai = Nilai::getkdNilai();
+
+            return view('wali_kelas/data_ekskul',
+            [
+                'ekskul' => $ekskul,
+                'siswa' => $siswa,
+                'thn_ajaran' => $thn_ajaran,
+                'mapel2' => $mapel2,
+                'kd_nilai' => $kd_nilai,
+            ]);
+
+        // $ekskul = Ekskul::where('id_guru', auth()->id())->first();
+        // if($ekskul == ""){
+        //         $ekskul = "";
+        // }
+        // return view('wali_kelas/data_ekskul',
+        // compact('ekskul'));
     }
 
     public function siswaGet(Request $request)
@@ -62,6 +87,33 @@ class WaliController extends Controller
                 ->make(true);
         }
     }
+
+    public function ekskulGet(Request $request)
+    {
+        if ($request->ajax()) {
+            $id_user = session('id_user');
+            $ekskul = Ekskul::where('id_guru', $id_user)->first();
+            $siswa = Siswa::getJoinKelas()
+                ->where('id_ekskul', $ekskul->id)
+                ->get();
+            return DataTables::of($siswa)
+                ->addIndexColumn()
+                ->addColumn('action', function($b){
+                    $actionBtn = '
+                        <a href="/nilai/tambah_ekskul/'.$b->id_siswa.'" class="btn btn-success">
+                            <i class="bi bi-plus-lg"></i>
+                        </a>
+                        <a href="/nilai/detail_ekskul/'.$b->id_siswa.'" class="btn btn-primary">
+                            <i class="bi bi-info-lg"></i>
+                        </a>
+                        ';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
+
 
     public function kelasGet(Request $request)
     {

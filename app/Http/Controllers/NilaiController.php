@@ -6,6 +6,7 @@ use App\Models\Nilai;
 use App\Http\Requests\StoreNilaiRequest;
 use App\Http\Requests\UpdateNilaiRequest;
 use App\Models\DetailNilai;
+use App\Models\Ekskul;
 use App\Models\Guru;
 use App\Models\GuruKelas;
 use App\Models\GuruMapel;
@@ -82,6 +83,25 @@ class NilaiController extends Controller
                 ]
             );
         }
+    }
+
+    public function createEks($id){
+            $ekskul = Ekskul::where('id_guru', auth()->id())->first();
+            $siswa = Siswa::where('id_ekskul',$ekskul->id)
+                ->orderBy('nama_siswa', 'asc')
+                ->get();
+            $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
+            $mapel2 = GuruMapel::getJoinMapelId(session('kode_guru'));
+            $kd_nilai = Nilai::getkdNilai();
+
+            return view('wali_kelas/tambah_nilai_sw',
+            [
+                'ekskul' => $ekskul,
+                'siswa' => $siswa,
+                'thn_ajaran' => $thn_ajaran,
+                'mapel2' => $mapel2,
+                'kd_nilai' => $kd_nilai,
+            ]);
     }
 
     public function update($id)
@@ -230,11 +250,35 @@ class NilaiController extends Controller
         return redirect('/kelaswali');
     }
 
-    public function storeSiswa(StoreNilaiRequest $request)
+    public function storeEks(StoreNilaiRequest $request)
     {
-        
-
-        return redirect('/kelaswali');
+        foreach ($request->id_siswa as $key => $id_siswa) {
+            $nilai_siswa = Nilai::where('id_siswa', $id_siswa)
+            ->where('semester',$request->semester)
+            ->where('id_kelas', $request->id_kelas[$key])
+            ->first();
+            if($nilai_siswa){
+                DB::table('nilai')->where('kode_nilai', $nilai_siswa->kode_nilai)
+                    ->update([
+                    'nilai_eks' => $request->nilai_eks[$key],
+                    'id_ekskul' => $request->id_ekskul,
+                    'ket_eks' => $request->ket_eks[$key],
+                ]);
+            }else{
+                DB::table('nilai')->insert([
+                    'id_siswa' => $request->id_siswa[$key],
+                    'id_kelas' => $request->id_kelas[$key],
+                    'kode_nilai' => Nilai::getkdNilai(),
+                    'id_thn_ajaran' => $request->id_thn_ajaran,
+                    'semester' => $request->semester,
+                    'nilai_eks' => $request->nilai_eks[$key],
+                    'id_ekskul' => $request->id_ekskul,
+                    'ket_eks' => $request->ket_eks[$key],
+                    'tgl_penilaian' => date('y-m-d'),
+                ]);
+            }
+        }
+        return redirect('/ekskul_guru');
     }
 
     public function generatePDF1($id)

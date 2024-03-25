@@ -129,6 +129,12 @@
           <span>Kelas</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link {{ Request::is('ekskul_guru') ? '' : 'collapsed' }}" href="/ekskul_guru">
+          <i class="bi bi-award"></i>
+          <span>Extrakurikuler</span>
+        </a>
+      </li>
       @endif
       <!-- END Menu Guru -->
     </ul>
