@@ -48,29 +48,14 @@ class WaliController extends Controller
             return DataTables::of($siswa)
                 ->addIndexColumn()
                 ->addColumn('action', function($b){
-                    $cek_rapot1 = Nilai::getNilai1($b->id_siswa,$b->id_kelas);
-                    $cek_rapot2 = Nilai::getNilai2($b->id_siswa,$b->id_kelas);
-                    if($cek_rapot1 != null && $cek_rapot2 != null){
-                        $actionBtn = 
-                        '
-                            <a href="/nilai/edit/'.$b->id_siswa.'" class="btn btn-success">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                            <a href="/nilai/detail/'.$b->id_siswa.'" class="btn btn-primary">
-                                <i class="bi bi-info-lg"></i>
-                            </a>
+                    $actionBtn = '
+                        <a href="/nilai/tambah/'.$b->id_siswa.'" class="btn btn-success">
+                            <i class="bi bi-plus-lg"></i>
+                        </a>
+                        <a href="/nilai/detail/'.$b->id_siswa.'" class="btn btn-primary">
+                            <i class="bi bi-info-lg"></i>
+                        </a>
                         ';
-                    }else{
-                        $actionBtn = 
-                        '
-                            <a href="/nilai/tambah/'.$b->id_siswa.'" class="btn btn-success">
-                                <i class="bi bi-plus-lg"></i>
-                            </a>
-                            <a href="/nilai/detail/'.$b->id_siswa.'" class="btn btn-primary">
-                                <i class="bi bi-info-lg"></i>
-                            </a>
-                        ';
-                    }
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
