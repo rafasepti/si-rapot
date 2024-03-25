@@ -115,6 +115,8 @@
                                 </td>
                               </tr>
                             @endforeach
+                      </table>
+                      <table class="table table-striped table-bordered">
                             <tr>
                               <th colspan="6">Kelompok B</th>
                             </tr>
