@@ -176,7 +176,7 @@
                                                 <input type="number" class="form-control nilai_as2" name="nilai_as2[]" value="{{ $nilai2[$index]->nilai_as ?? '' }}" readonly>
                                             </td>
                                             <td>
-                                                <textarea name="ket2[]" class="form-control" readonly>{{ $nila2[$index]->ket ?? '' }}</textarea>
+                                                <textarea name="ket2[]" class="form-control" readonly>{{ $nilai2[$index]->ket ?? '' }}</textarea>
                                             </td>
                                             </tr>
                                             @endforeach

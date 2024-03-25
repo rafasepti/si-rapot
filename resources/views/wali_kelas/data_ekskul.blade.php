@@ -21,6 +21,7 @@
                   </div>
                 </div>
                 <!-- Vertical Form -->
+                @if($siswa != "")
                 <form class="row g-3" action="/nilai/store_ekskul" method="post">
                   @if($errors->any())
                   <div class="alert alert-danger">
@@ -96,6 +97,9 @@
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
                 </form><!-- Vertical Form -->
+                @else
+                <div>Tidak Ada ekskul yang diajar</div>
+                @endif
               </div>
             </div>
         </div><!-- End col-md -->

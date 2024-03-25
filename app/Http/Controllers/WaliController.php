@@ -41,9 +41,13 @@ class WaliController extends Controller
     public function ekskul()
     {
             $ekskul = Ekskul::where('id_guru', auth()->id())->first();
-            $siswa = Siswa::getJoinKelas()->where('id_ekskul',$ekskul->id)
+            if($ekskul){
+                $siswa = Siswa::getJoinKelas()->where('id_ekskul',$ekskul->id)
                 ->orderBy('nama_siswa', 'asc')
                 ->get();
+            }else{
+                $siswa = "";
+            }
             $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
             $mapel2 = GuruMapel::getJoinMapelId(session('kode_guru'));
             $kd_nilai = Nilai::getkdNilai();
