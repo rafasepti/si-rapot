@@ -150,36 +150,71 @@
                           </tbody>
                         </table>
 
-                        <table class="table table-striped table-bordered">
-                          <thead>
-                            <tr>
-                              <th class="col-sm-5" colspan="3">Ketidakhadiran</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Sakit</td>
-                              <td class="text-center">:</td>
-                              <td>
-                                {{ $nilai1->kehadiran_sakit }} Hari
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Izin</td>
-                              <td class="text-center">:</td>
-                              <td>
-                                {{ $nilai1->kehadiran_izin }} Hari
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Tanpa Keterangan</td>
-                              <td class="text-center">:</td>
-                              <td>
-                                {{ $nilai1->kehadiran_tanpa_ket }} Hari
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <table class="table table-sm table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th class="col-sm-5" colspan="4">Kegiatan Ekstrakurikuler </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th><span class="small">Nama Extrakurikuler</span></th>
+                                  <th>:</th>
+                                  <th class="text-center">
+                                    <span class="small">Nilai</span>
+                                  </th>
+                                  <th class="text-center">
+                                    <span class="small">Keterangan</span>
+                                  </th>
+                                </tr>
+                                <tr>
+                                  <td><span class="small">{{ $ekskul ? $ekskul->nama_ekskul : '-'; }}</span></td>
+                                  <td>:</td>
+                                  <td class="text-center">
+                                    <span class="small">{{ $nilai1->nilai_eks }}</span>
+                                  </td>
+                                  <td class="text-center">
+                                    <span class="small">{{ $nilai1->ket_eks }}</span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="col-sm-6">
+                            <table class="table table-sm table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th class="col-sm-5" colspan="3">Ketidakhadiran</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="col-sm-2"><span class="small">Sakit</span></td>
+                                  <td>:</td>
+                                  <td>
+                                    <span class="small">{{ $nilai1->kehadiran_sakit }}&nbsp;Hari</span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="col-sm-2"><span class="small">Izin</span></td>
+                                  <td>:</td>
+                                  <td>
+                                    <span class="small">{{ $nilai1->kehadiran_izin }}&nbsp;Hari</span>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="col-sm-2"><span class="small">Tanpa Keterangan</span></td>
+                                  <td>:</td>
+                                  <td>
+                                    <span class="small">{{ $nilai1->kehadiran_tanpa_ket }}&nbsp;Hari</span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
                         @else
                         @endif
                       </div>

@@ -298,6 +298,7 @@ class NilaiController extends Controller
         $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
         $nilai1 = Nilai::getNilai1($siswa->id_siswa,$siswa->id_kelas);
         if ($nilai1 !== null) {
+            $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
             $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
         } else {
             $detail_nilai1 = collect();
@@ -307,6 +308,7 @@ class NilaiController extends Controller
         return view('pdf/nilai', compact(
             'siswa', 
             'mapel', 
+            'ekskul', 
             'mapelb', 
             'nilai1', 
             'detail_nilai1',
@@ -332,6 +334,7 @@ class NilaiController extends Controller
         $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
         $nilai1 = Nilai::getNilai2($siswa->id_siswa,$siswa->id_kelas);
         if ($nilai1 !== null) {
+            $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
             $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
         } else {
             $detail_nilai1 = collect();
@@ -342,6 +345,7 @@ class NilaiController extends Controller
             'siswa', 
             'kepsek', 
             'mapel', 
+            'ekskul', 
             'mapelb', 
             'nilai1', 
             'detail_nilai1',
@@ -374,12 +378,14 @@ class NilaiController extends Controller
 
             if ($nilai1 !== null) {
                 $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
+                $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
             } else {
                 $detail_nilai1 = collect();
             }
 
             if ($nilai2 !== null) {
                 $detail_nilai2 = DetailNilai::where('id_nilai', $nilai2->kode_nilai)->get();
+                $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
             } else {
                 $detail_nilai2 = collect();
             }
@@ -390,6 +396,7 @@ class NilaiController extends Controller
                     'thn_ajaran' => $thn_ajaran,
                     'mapel' => $mapel,
                     'mapelb' => $mapelb,
+                    'ekskul' => $ekskul,
                     'nilai1' => $nilai1,
                     'detail_nilai1' => $detail_nilai1,
                     'nilai2' => $nilai2,

@@ -150,57 +150,92 @@
                           </tbody>
                         </table>
 
-                        <table class="table table-striped table-bordered">
-                          <thead>
-                            <tr>
-                              <th class="col-sm-5" colspan="3">Ketidakhadiran</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Sakit</td>
-                              <td>:</td>
-                              <td class="text-center">
-                                <div class="row">
-                                  <div class="col-md-4">
-                                    <input type="number" class="form-control" name="kehadiran_sakit" disabled value="{{ $nilai1->kehadiran_sakit }}">
-                                  </div>
-                                  <div class="col-md-2">
-                                    Hari
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Izin</td>
-                              <td>:</td>
-                              <td class="text-center">
-                                  <div class="row">
-                                    <div class="col-md-4">
-                                      <input type="number" class="form-control" name="kehadiran_izin" disabled value="{{ $nilai1->kehadiran_izin }}">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <table class="table table-sm table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th class="col-sm-5" colspan="4">Kegiatan Ekstrakurikuler </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th><span class="small">Nama Extrakurikuler</span></th>
+                                  <th>:</th>
+                                  <th class="text-center">
+                                    <span class="small">Nilai</span>
+                                  </th>
+                                  <th class="text-center">
+                                    <span class="small">Keterangan</span>
+                                  </th>
+                                </tr>
+                                <tr>
+                                  <td><span class="small">{{ $ekskul ? $ekskul->nama_ekskul : '-'; }}</span></td>
+                                  <td>:</td>
+                                  <td class="text-center">
+                                    <span class="small">{{ $nilai1->nilai_eks }}</span>
+                                  </td>
+                                  <td class="text-center">
+                                    <span class="small">{{ $nilai1->ket_eks }}</span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="col-sm-6">
+                            <table class="table table-sm table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th class="col-sm-5" colspan="3">Ketidakhadiran</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="col-md-2"><span class="small">Sakit</span></td>
+                                  <td>:</td>
+                                  <td class="text-center">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <span class="small">{{ $nilai1->kehadiran_sakit }}</span>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <span class="small">Hari</span>
+                                      </div>
                                     </div>
-                                    <div class="col-md-2">
-                                      Hari
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="col-md-2"><span class="small">Izin</span></td>
+                                  <td>:</td>
+                                  <td class="text-center">
+                                      <div class="row">
+                                        <div class="col-md-4">
+                                          <span class="small">{{ $nilai1->kehadiran_izin }}</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <span class="small">Hari</span>
+                                        </div>
+                                      </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="col-md-2"><span class="small">Tanpa Keterangan</span></td>
+                                  <td>:</td>
+                                  <td class="text-center">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <span class="small">{{ $nilai1->kehadiran_tanpa_ket }}</span>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <span class="small">Hari</span>
+                                      </div>
                                     </div>
-                                  </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Tanpa Keterangan</td>
-                              <td>:</td>
-                              <td class="text-center">
-                                <div class="row">
-                                  <div class="col-md-4">
-                                    <input type="number" class="form-control" name="kehadiran_tanpa_ket" disabled value="{{ $nilai1->kehadiran_tanpa_ket }}">
-                                  </div>
-                                  <div class="col-md-2">
-                                    Hari
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
                         @else
                         @endif
                       </div>
@@ -327,57 +362,92 @@
                           </tbody>
                         </table>
 
-                        <table class="table table-striped table-bordered">
-                          <thead>
-                            <tr>
-                              <th class="col-sm-5" colspan="3">Ketidakhadiran</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Sakit</td>
-                              <td>:</td>
-                              <td class="text-center">
-                                <div class="row">
-                                  <div class="col-md-4">
-                                    <input type="number" class="form-control" name="kehadiran_sakit" disabled value="{{ $nilai2->kehadiran_sakit }}">
-                                  </div>
-                                  <div class="col-md-2">
-                                    Hari
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Izin</td>
-                              <td>:</td>
-                              <td class="text-center">
-                                  <div class="row">
-                                    <div class="col-md-4">
-                                      <input type="number" class="form-control" name="kehadiran_izin" disabled value="{{ $nilai2->kehadiran_izin }}">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <table class="table table-sm table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th class="col-sm-5" colspan="4">Kegiatan Ekstrakurikuler </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <th><span class="small">Nama Extrakurikuler</span></th>
+                                  <th>:</th>
+                                  <th class="text-center">
+                                    <span class="small">Nilai</span>
+                                  </th>
+                                  <th class="text-center">
+                                    <span class="small">Keterangan</span>
+                                  </th>
+                                </tr>
+                                <tr>
+                                  <td><span class="small">{{ $ekskul ? $ekskul->nama_ekskul : '-'; }}</span></td>
+                                  <td>:</td>
+                                  <td class="text-center">
+                                    <span class="small">{{ $nilai2->nilai_eks }}</span>
+                                  </td>
+                                  <td class="text-center">
+                                    <span class="small">{{ $nilai2->ket_eks }}</span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <div class="col-sm-6">
+                            <table class="table table-sm table-striped table-bordered">
+                              <thead>
+                                <tr>
+                                  <th class="col-sm-5" colspan="3">Ketidakhadiran</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td class="col-md-2"><span class="small">Sakit</span></td>
+                                  <td>:</td>
+                                  <td class="text-center">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <span class="small">{{ $nilai2->kehadiran_sakit }}</span>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <span class="small">Hari</span>
+                                      </div>
                                     </div>
-                                    <div class="col-md-2">
-                                      Hari
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="col-md-2"><span class="small">Izin</span></td>
+                                  <td>:</td>
+                                  <td class="text-center">
+                                      <div class="row">
+                                        <div class="col-md-4">
+                                          <span class="small">{{ $nilai2->kehadiran_izin }}</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                          <span class="small">Hari</span>
+                                        </div>
+                                      </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td class="col-md-2"><span class="small">Tanpa Keterangan</span></td>
+                                  <td>:</td>
+                                  <td class="text-center">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <span class="small">{{ $nilai2->kehadiran_tanpa_ket }}</span>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <span class="small">Hari</span>
+                                      </div>
                                     </div>
-                                  </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>Tanpa Keterangan</td>
-                              <td>:</td>
-                              <td class="text-center">
-                                <div class="row">
-                                  <div class="col-md-4">
-                                    <input type="number" class="form-control" name="kehadiran_tanpa_ket" disabled value="{{ $nilai2->kehadiran_tanpa_ket }}">
-                                  </div>
-                                  <div class="col-md-2">
-                                    Hari
-                                  </div>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
                       </div>
                     </form><!-- Vertical Form -->
                     @else
