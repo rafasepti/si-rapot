@@ -14,9 +14,9 @@
       <li class="nav-heading">Data Master</li>
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('siswa') ? '' : 'collapsed' }}" href="/siswa">
-          <i class="bi bi-person"></i>
-          <span>Siswa</span>
+        <a class="nav-link {{ Request::is('tahunajaran') ? '' : 'collapsed' }}" href="/tahunajaran">
+          <i class="bi bi-calendar-week"></i>
+          <span>Tahun Ajaran</span>
         </a>
       </li>
 
@@ -28,20 +28,13 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('ekskul') ? '' : 'collapsed' }}" href="/ekskul">
-          <i class="bi bi-award"></i>
-          <span>Extrakurikuler</span>
+        <a class="nav-link {{ Request::is('kepsek') ? '' : 'collapsed' }}" href="/kepsek">
+          <i class="bi bi-person-plus"></i>
+          <span>Kepala Sekolah</span>
         </a>
       </li>
 
-
-      {{-- <li class="nav-item">
-        <a class="nav-link {{ Request::is('guru') ? '' : 'collapsed' }}" href="/guru">
-          <i class="bi bi-people"></i>
-          <span>Data Guru</span>
-        </a>
-      </li> --}}
-
+      <li class="nav-heading">Data Sekolah</li>
 
       <li class="nav-item">
         <a class="nav-link {{ Request::is('guru') ||  Request::is('guru_kelas')  ? '' : 'collapsed' }}" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -62,12 +55,21 @@
         </ul>
       </li><!-- End Tables Nav -->
 
+
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('kepsek') ? '' : 'collapsed' }}" href="/kepsek">
-          <i class="bi bi-person-plus"></i>
-          <span>Kepala Sekolah</span>
+        <a class="nav-link {{ Request::is('ekskul') ? '' : 'collapsed' }}" href="/ekskul">
+          <i class="bi bi-award"></i>
+          <span>Extrakurikuler</span>
         </a>
       </li>
+
+
+      {{-- <li class="nav-item">
+        <a class="nav-link {{ Request::is('guru') ? '' : 'collapsed' }}" href="/guru">
+          <i class="bi bi-people"></i>
+          <span>Data Guru</span>
+        </a>
+      </li> --}}
 
       <li class="nav-item">
         <a class="nav-link {{ Request::is('kelas') ? '' : 'collapsed' }}" href="/kelas">
@@ -77,11 +79,12 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link {{ Request::is('tahunajaran') ? '' : 'collapsed' }}" href="/tahunajaran">
-          <i class="bi bi-calendar-week"></i>
-          <span>Tahun Ajaran</span>
+        <a class="nav-link {{ Request::is('siswa') ? '' : 'collapsed' }}" href="/siswa">
+          <i class="bi bi-person"></i>
+          <span>Siswa</span>
         </a>
       </li>
+
       @endif
       <!-- END Menu Admin -->
 
