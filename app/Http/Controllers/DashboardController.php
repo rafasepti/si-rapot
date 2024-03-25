@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $kepsek = Guru::where('jabatan', 'Kepala Sekolah')->first();
         $kelas_ajar = GuruKelas::getKelasDiajar($id_user);
 
-        $ekskul = Ekskul::where('id_guru', session('id'))->first();
+        $ekskul = Ekskul::where('id_guru', auth()->id())->first();
         
         if(session('walikelas')== "Ya"){
             return view('admin/v_admin',
