@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Nilai;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -35,7 +36,8 @@ class StoreNilaiRequest extends FormRequest
                     Rule::unique('nilai')->where(function ($query) {
                         return $query->where('id_siswa', $this->id_siswa)
                                     ->where('id_kelas', $this->id_kelas)
-                                    ->where('semester', $this->semester);
+                                    ->where('semester', $this->semester)
+                                    ->whereNotNull('kehadiran_sakit');
                     }),
                 ],
             ];
@@ -47,6 +49,15 @@ class StoreNilaiRequest extends FormRequest
                 'id_siswa' => 'required',
                 'id_kelas' => 'required',
                 'semester' => 'required',
+                // Validasi untuk memastikan bahwa tidak ada entri dengan id_user, id_kelas, dan semester yang sama
+                'semester' => [
+                    Rule::unique('nilai')->where(function ($query) {
+                        return $query->where('id_siswa', $this->id_siswa)
+                                    ->where('id_kelas', $this->id_kelas)
+                                    ->where('semester', $this->semester)
+                                    ->whereNull('kehadiran_sakit');
+                    }),
+                ],
             ];
         }
     }

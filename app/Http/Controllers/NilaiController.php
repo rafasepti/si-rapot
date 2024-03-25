@@ -144,44 +144,60 @@ class NilaiController extends Controller
     public function store(StoreNilaiRequest $request)
     {
         if(session('walikelas')=="Ya"){
-                $validatedData = $request->validated();
+            $validatedData = $request->validated();
+            $nilai_siswa = Nilai::where('id_siswa', $request->id_siswa)
+                    ->where('semester',$request->semester)
+                    ->where('id_kelas', $request->id_kelas)
+                    ->first();
                 foreach ($request->id_mapel as $key => $id_mapel) {
-                    // Jika data ditemukan, simpan ID guru_mapel ke dalam tabel guru_kelas
                     $nilai_akhir = ($request->nilai_rl[$key] + ($request->nilai_tp[$key]*2) + ($request->nilai_as[$key]*2))/5;
                     $guruKelas = new DetailNilai();
-                    $guruKelas->id_nilai = $request->id_nilai;
-                    $guruKelas->id_mapel = $id_mapel; 
-                    $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
-                    $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
-                    $guruKelas->nilai_as = $request->nilai_as[$key];
-                    $guruKelas->nilai_akhir = $nilai_akhir;
-                    $guruKelas->ket = $request->ket[$key]; 
-                    $guruKelas->save();
+                    if($nilai_siswa){
+                        $guruKelas->id_nilai = $nilai_siswa->kode_nilai;
+                    }else{
+                        $guruKelas->id_nilai = $request->id_nilai;
+                    }
+                        $guruKelas->id_mapel = $id_mapel; 
+                        $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
+                        $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
+                        $guruKelas->nilai_as = $request->nilai_as[$key];
+                        $guruKelas->nilai_akhir = $nilai_akhir;
+                        $guruKelas->ket = $request->ket[$key]; 
+                        $guruKelas->save();
                 }
                 
-                DB::table('nilai')->insert([
-                    'id_siswa' => $request->id_siswa,
-                    'id_kelas' => $request->id_kelas,
-                    'kode_nilai' => $request->id_nilai,
-                    'id_thn_ajaran' => $request->id_thn_ajaran,
-                    'semester' => $request->semester,
-                    'kehadiran_izin' => $request->kehadiran_izin,
-                    'kehadiran_sakit' => $request->kehadiran_sakit,
-                    'kehadiran_tanpa_ket' => $request->kehadiran_tanpa_ket,
-                    'tgl_penilaian' => date('y-m-d'),
-                    'catatan' => $request->catatan,
-                ]);
-            
+                if($nilai_siswa){
+                    DB::table('nilai')->where('kode_nilai', $nilai_siswa->kode_nilai)
+                        ->update([
+                        'kehadiran_izin' => $request->kehadiran_izin,
+                        'kehadiran_sakit' => $request->kehadiran_sakit,
+                        'kehadiran_tanpa_ket' => $request->kehadiran_tanpa_ket,
+                        'tgl_penilaian' => date('y-m-d'),
+                        'catatan' => $request->catatan,
+                    ]);
+                }else{
+                    DB::table('nilai')->insert([
+                        'id_siswa' => $request->id_siswa,
+                        'id_kelas' => $request->id_kelas,
+                        'kode_nilai' => $request->id_nilai,
+                        'id_thn_ajaran' => $request->id_thn_ajaran,
+                        'semester' => $request->semester,
+                        'kehadiran_izin' => $request->kehadiran_izin,
+                        'kehadiran_sakit' => $request->kehadiran_sakit,
+                        'kehadiran_tanpa_ket' => $request->kehadiran_tanpa_ket,
+                        'tgl_penilaian' => date('y-m-d'),
+                        'catatan' => $request->catatan,
+                    ]);
+                }
         }else{
             foreach ($request->id_siswa as $key => $id_siswa) {
                 $nilai_siswa = Nilai::where('id_siswa', $id_siswa)
                 ->where('semester',$request->semester)
                 ->where('id_kelas', $request->id_kelas)
                 ->first();
-
                 $nilai_akhir = ($request->nilai_rl[$key] + ($request->nilai_tp[$key]*2) + ($request->nilai_as[$key]*2))/5;
+                $guruKelas = new DetailNilai();
                 if($nilai_siswa){
-                    $guruKelas = new DetailNilai();
                     $guruKelas->id_nilai = $nilai_siswa->kode_nilai;
                     $guruKelas->id_mapel = $request->id_mapel; 
                     $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
@@ -191,16 +207,15 @@ class NilaiController extends Controller
                     $guruKelas->ket = $request->ket[$key]; 
                     $guruKelas->save();
                 }else{
-                    $guruKelas = new DetailNilai();
                     $guruKelas->id_nilai = Nilai::getkdNilai();
                     $guruKelas->id_mapel = $request->id_mapel; 
                     $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
                     $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
-                    $guruKelas->nilai_as = $request->nilai_as[$key];
-                    $guruKelas->nilai_akhir = $nilai_akhir; 
+                    $guruKelas->nilai_as = $request->nilai_as[$key]; 
+                    $guruKelas->nilai_akhir = $nilai_akhir;
                     $guruKelas->ket = $request->ket[$key]; 
                     $guruKelas->save();
-    
+
                     DB::table('nilai')->insert([
                         'id_siswa' => $request->id_siswa[$key],
                         'id_kelas' => $request->id_kelas,

@@ -103,14 +103,14 @@
                             <td>{{ $s->nama_siswa }}</td>
                             <td>
                               <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
-                              <input type="number" class="form-control nilai_rl" name="nilai_rl[]" required>
+                              <input type="number" class="form-control nilai_rl" name="nilai_rl[]" value="{{ old('nilai_rl.'.$index) }}" required>
                             </td>
-                            <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" required></td>
+                            <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" value="{{ old('nilai_tp.'.$index) }}" required></td>
                             <td>
-                              <input type="number" class="form-control nilai_as" name="nilai_as[]" required>
+                              <input type="number" class="form-control nilai_as" name="nilai_as[]" value="{{ old('nilai_as.'.$index) }}" required>
                             </td>
                             <td>
-                              <textarea name="ket[]" class="form-control" required></textarea>
+                              <textarea name="ket[]" class="form-control" required>{{ old('ket.'.$index) }}</textarea>
                             </td>
                           </tr>
                           @endforeach
