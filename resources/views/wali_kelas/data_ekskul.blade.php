@@ -37,9 +37,10 @@
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
                             <div class="col-sm-9">
-                              <select class="form-select" aria-label="Default select example" required name="semester">
-                                <option>1</option>
-                                <option>2</option>
+                              <select class="form-select" aria-label="Default select example" required name="semester" id="semesterSelect">
+                                <option value="">Pilih Semester</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
                               </select>
                             </div>
                         </div>
@@ -80,10 +81,10 @@
                             <td>
                               <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
                               <input type="hidden" class="form-control" name="id_kelas[]" value="{{ $s->idk }}" required>
-                              <input type="number" class="form-control nilai_eks" name="nilai_eks[]" value="{{ old('nilai_eks.'.$index) }}" required>
+                              <input type="number" class="form-control nilai_eks_{{ $s->id }}_{{ $s->idk }}" name="nilai_eks[]" value="{{ old('nilai_eks.'.$index) }}" required>
                             </td>
                             <td>
-                              <textarea name="ket_eks[]" class="form-control" required>{{ old('ket.'.$index) }}</textarea>
+                              <textarea name="ket_eks[]" class="form-control ket_eks_{{ $s->id }}_{{ $s->idk }}" required>{{ old('ket_eks.'.$index) }}</textarea>
                             </td>
                           </tr>
                           @endforeach
@@ -134,6 +135,36 @@
     //         });
     //     });
     // });
+</script>
+
+<script>
+  document.getElementById("semesterSelect").addEventListener("change", function() {
+    // Mendapatkan nilai semester yang dipilih
+    var semester = $(this).val();
+    console.log("Nilai semester yang dipilih:", semester);
+    $.ajax({
+        url: '/filter_ekskul',
+        method: 'POST',
+        data: { semester: semester },
+        success: function(response) {
+          if (response.length > 0) {
+            $.each(response, function(index, nilai) {
+                // Temukan input field berdasarkan id siswa dan isi dengan nilai yang sesuai
+                var idSiswa = nilai.id_siswa;
+                var idKelas = nilai.id_kelas;
+                $('.nilai_eks_' + idSiswa +'_'+ idKelas).val(nilai.nilai_eks);
+                $('.ket_eks_' + idSiswa +'_'+ idKelas).val(nilai.ket_eks);
+              });
+            } else {
+              $('input[name^="nilai_eks"]').val('');
+              $('textarea[name^="ket_eks"]').val('');
+            }
+        },
+        error: function(xhr, status, error) {
+            // Tangani kesalahan jika ada
+        }
+    });
+  });
 </script>
     
 

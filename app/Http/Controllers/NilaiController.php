@@ -278,7 +278,19 @@ class NilaiController extends Controller
                 ]);
             }
         }
-        return redirect('/ekskul_guru');
+        return redirect()->back()->with('success', 'Data berhasil disimpan.');
+    }
+
+    public function filter(Request $request)
+    {
+        // Ambil nilai dari database berdasarkan semester yang diberikan
+        $ekskul = Ekskul::where('id_guru', auth()->id())->first();
+        $nilai = Nilai::where('semester', $request->semester)
+            ->where('id_ekskul', $ekskul->id)
+            ->get();
+
+        // Jika data tersedia, kirimkan data nilai ke browser
+        return response()->json($nilai, 200);
     }
 
     public function generatePDF1($id)
