@@ -22,7 +22,14 @@ class StoreMapelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'kkm' => 'required|numeric|min:0|max:100',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'kkm.between' => 'Nilai harus berada di antara 0 dan 100.',
         ];
     }
 }

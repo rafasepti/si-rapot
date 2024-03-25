@@ -20,6 +20,15 @@
                     <h5 class="card-title">Tambah Guru</h5>
                   </div>
                 </div>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <!-- Vertical Form -->
                 <form class="row g-3" action="/guru/store" method="post">
                     {{ csrf_field() }}
@@ -121,7 +130,6 @@
             mapelCheckboxes.forEach(function(checkbox) {
                 checkbox.disabled = true;
                 checkbox.checked = false;
-                checkbox.value = "";
             });
         } else {
             // Aktifkan kembali semua checkbox "Mapel"

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateGuruRequest extends FormRequest
 {
@@ -21,8 +22,15 @@ class UpdateGuruRequest extends FormRequest
      */
     public function rules(): array
     {
+        $kodeGuru = $this->route('kode_guru');
         return [
-            //
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('guru')->where(function ($query) use ($kodeGuru) {
+                    return $query->where('kode_guru', $kodeGuru);
+                })->ignore($kodeGuru),
+            ],
         ];
     }
 }

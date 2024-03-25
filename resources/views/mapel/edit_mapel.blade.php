@@ -20,10 +20,17 @@
                     <h5 class="card-title">Edit Mata Pelajaran</h5>
                   </div>
                 </div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <!-- Vertical Form -->
                 @foreach ($mapel as $m)
-                    
-                @endforeach
                 <form class="row g-3" action="/mapel/update" method="post">
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="{{ $m->id }}">
@@ -56,6 +63,7 @@
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
                 </form><!-- Vertical Form -->
+                @endforeach
               </div>
             </div>
         </div><!-- End col-md -->

@@ -22,7 +22,14 @@ class StoreGuruRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'email' => 'required|email|unique:guru,email',
+            'options.*' => 'required', 
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'email.unique' => 'Email Sudah ada yang sama!',
         ];
     }
 }
