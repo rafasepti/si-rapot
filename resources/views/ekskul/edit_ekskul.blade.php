@@ -26,7 +26,7 @@
                     {{ csrf_field() }}
                     <input type="hidden" class="form-control" id="id" name="id" value="{{ $t->id }}">
                     <div class="col-12">
-                        <label for="nama_ekskul" class="form-label">Nama Tahun</label>
+                        <label for="nama_ekskul" class="form-label">Nama Ekskul</label>
                         <input type="text" class="form-control" id="nama_ekskul" name="nama_ekskul" required value="{{ $t->nama_ekskul }}" placeholder=" cth : 2020/2021">
                     </div>
                     <div class="col-12">
@@ -34,7 +34,16 @@
                       <select class="form-select" aria-label="Default select example" required name="id_guru">
                         <option value="" selected>Pilih Guru</option>
                         @foreach ($guru as $g)
-                        <option value="{{ $g->id }}" {{$g->id == $t->id_guru  ? 'selected' : ''}}>{{ $g->nuptk }} || {{ $g->nama_guru }}</option>
+                            @if (optional($guruSaatIni)->is($g))
+                            <option value="{{ $g->id }}" {{$g->id == $t->id_guru  ? 'selected' : ''}}>
+                              {{ $g->nuptk }} || {{ $g->nama_guru }}
+                            </option>
+                            @endif
+                        @endforeach
+                        @foreach ($guruBelumWaliKelas as $gb)
+                          <option value="{{ $gb->id }}" {{$gb->id == $t->id_guru  ? 'selected' : ''}}>
+                            {{ $gb->nuptk }} || {{ $gb->nama_guru }}
+                          </option>
                         @endforeach
                       </select>
                     </div>

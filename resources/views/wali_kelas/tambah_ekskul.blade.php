@@ -56,7 +56,7 @@
                               <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Ekskul</label>
                               <div class="col-sm-9">
                                 <input type="hidden" class="form-control" name="id_ekskul" value="{{ $ekskul->id }}">
-                                <input type="text" class="form-control" name="nama_ekskul" value="{{ $nama_ekskul->nama_tahun }}" disabled>
+                                <input type="text" class="form-control" name="nama_ekskul" value="{{ $ekskul->nama_ekskul }}" disabled>
                               </div>
                           </div>
                     </div>
@@ -64,10 +64,11 @@
                       <table class="table table-striped table-bordered">
                         <thead>
                           <tr>
-                            <th class=" text-center">No.</th>
+                            <th class=" text-center col-md-1">No.</th>
                             <th class="col-sm-3 text-center">Nama Siswa</th>
+                            <th class="col-sm-2 text-center">Kelas</th>
                             <th class="col-sm-2 text-center">Nilai</th>
-                            <th class="col-sm-3 text-center">Keterangan</th>
+                            <th class="col-sm-4 text-center">Keterangan</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -75,8 +76,10 @@
                           <tr>
                             <th scope="row">{{ $index+1 }}</th>
                             <td>{{ $s->nama_siswa }}</td>
+                            <td>{{ $s->kel }}</td>
                             <td>
                               <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
+                              <input type="hidden" class="form-control" name="id_kelas[]" value="{{ $s->idk }}" required>
                               <input type="number" class="form-control nilai_eks" name="nilai_eks[]" value="{{ old('nilai_eks.'.$index) }}" required>
                             </td>
                             <td>

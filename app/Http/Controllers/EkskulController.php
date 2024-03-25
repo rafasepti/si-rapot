@@ -51,7 +51,10 @@ class EkskulController extends Controller
      */
     public function create()
     {
-        $guru = Guru::where('jabatan', 'Guru')->get();
+        $guru = Guru::whereDoesntHave('ekskul')
+            ->where('jabatan', "Guru")
+            ->get();
+        //$guru = Guru::where('jabatan', 'Guru')->get();
         return view('ekskul/tambah_ekskul', compact('guru'));
     }
 
@@ -71,12 +74,18 @@ class EkskulController extends Controller
      */
     public function edit($id)
     {
+        $guruSaatIni = Ekskul::findOrFail($id)->guru;
         $ekskul = DB::table('ekskul')->where('id',$id)->get();
         $guru = Guru::where('jabatan', 'Guru')->get();
+        $guruBelumWaliKelas = Guru::whereDoesntHave('kelas')
+            ->where('jabatan', "Guru")
+            ->get();
         return view('ekskul/edit_ekskul',
         [
             'ekskul' => $ekskul,
             'guru' => $guru,
+            'guruSaatIni' => $guruSaatIni,
+            'guruBelumWaliKelas' => $guruBelumWaliKelas,
         ]);
     }
 

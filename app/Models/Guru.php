@@ -35,6 +35,11 @@ class Guru extends Authenticatable
         return $this->hasOne(Kelas::class, 'id_walikelas');
     }
 
+    public function ekskul()
+    {
+        return $this->hasOne(Ekskul::class, 'id_guru');
+    }
+
     public static function getJoinMapel(){
         $sql = DB::table('guru as g')
                 ->join('mapel as m', 'm.id', '=', 'g.id_mapel')

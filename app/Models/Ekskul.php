@@ -9,4 +9,9 @@ class Ekskul extends Model
 {
     use HasFactory;
     protected $table = "ekskul";
+
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class, 'id_guru');
+    }
 }
