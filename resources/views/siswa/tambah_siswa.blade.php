@@ -97,7 +97,16 @@
                         <div class="col-12">
                           <label for="thn_angkatan" class="form-label">Tahun angkatan</label>
                           <input type="number" class="form-control" id="thn_angkatan" name="thn_angkatan" required>
-                        </div>    
+                        </div>   
+                        <div class="col-12">
+                          <label for="id_ekskul" class="form-label">Ekstrakurikuler</label>
+                          <select class="form-select" aria-label="Default select example" required name="id_ekskul" id="id_ekskul">
+                            <option value="" selected>Pilih Ekskul</option>
+                            @foreach ($ekskul as $e)
+                              <option value="{{ $e->id }}">{{ $e->nama_ekskul }}</option>
+                            @endforeach
+                          </select>
+                        </div> 
                         <div class="text-center">
                           <button type="submit" id="saveSiswa" class="btn btn-primary">Submit</button>
                           <button type="reset" id="resetSiswa" class="btn btn-secondary">Reset</button>

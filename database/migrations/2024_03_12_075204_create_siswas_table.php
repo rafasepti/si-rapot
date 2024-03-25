@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('kode_siswa',20);
             $table->string('nisn',20);
             $table->integer('id_kelas');
+            $table->integer('id_ekskul');
             $table->string('nama_siswa',100);
             $table->string('tempat_lahir',100);
             $table->date('tgl_lahir');

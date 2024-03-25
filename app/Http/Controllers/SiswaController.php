@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Siswa;
 use App\Http\Requests\StoreSiswaRequest;
 use App\Http\Requests\UpdateSiswaRequest;
+use App\Models\Ekskul;
 use App\Models\GuruMapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -94,9 +95,11 @@ class SiswaController extends Controller
     public function create()
     {
         $kelas = Kelas::all();
+        $ekskul = Ekskul::all();
         $kode_siswa = Siswa::getIdSiswa();
         return view('siswa/tambah_siswa',[
             'kelas' => $kelas,
+            'ekskul' => $ekskul,
             'kode_siswa' => $kode_siswa
         ]);
     }
@@ -112,6 +115,7 @@ class SiswaController extends Controller
                 'nama_siswa' => $request->nama_siswa,
                 'nisn' => $request->nisn,
                 'id_kelas' => $request->id_kelas,
+                'id_ekskul' => $request->id_ekskul,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tgl_lahir' => date('y-m-d', strtotime($request->tgl_lahir)),
                 'jk' => $request->jk,
@@ -160,10 +164,12 @@ class SiswaController extends Controller
         $kelas = Kelas::all();
         $kode_siswa = $id;
         $countWali = Wali::getCountWali($id);
+        $ekskul = Ekskul::all();
         //dd($countWali);
         return view('siswa/edit_siswa',
         [
             'siswa' => $siswa,
+            'ekskul' => $ekskul,
             'wali' => $wali,
             'kelas' => $kelas,
             'kode_siswa' => $kode_siswa,
@@ -180,6 +186,7 @@ class SiswaController extends Controller
             $siswa = DB::table('siswa')->where('kode_siswa',$request->kode_siswa)->update([
                 'nisn' => $request->nisn,
                 'id_kelas' => $request->id_kelas,
+                'id_ekskul' => $request->id_ekskul,
                 'tempat_lahir' => $request->tempat_lahir,
                 'tgl_lahir' => date('y-m-d', strtotime($request->tgl_lahir)),
                 'jk' => $request->jk,
@@ -232,8 +239,10 @@ class SiswaController extends Controller
         $wali = DB::table('wali')
                 ->where('id_siswa', $id)
                 ->get();
+        $ekskul = Ekskul::all();
         return view('siswa/detail_siswa',
         [
+            'ekskul' => $ekskul,
             'siswa' => $siswa,
             'wali' => $wali,
         ]);
