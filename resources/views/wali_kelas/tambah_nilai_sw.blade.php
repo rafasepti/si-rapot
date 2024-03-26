@@ -1,19 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<style>
-@media (max-width: 768px) { /* use the max to specify at each container level */
-    .specifictd {    
-        width:360px;  /* adjust to desired wrapping */
-        display:table;
-        white-space: pre-wrap; /* css-3 */
-        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-        white-space: -pre-wrap; /* Opera 4-6 */
-        white-space: -o-pre-wrap; /* Opera 7 */
-        word-wrap: break-word; /* Internet Explorer 5.5+ */
-    }
-}
-</style>
   
 <body>
   @include('dynamic/v_header');
@@ -58,9 +44,10 @@
                         <div class="row mb-3">
                             <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
                             <div class="col-sm-9">
-                              <select class="form-select" aria-label="Default select example" required name="semester">
-                                <option>1</option>
-                                <option>2</option>
+                              <select class="form-select" aria-label="Default select example" required name="semester" id="semesterSelect">
+                                <option value="">Pilih Semester</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
                               </select>
                             </div>
                         </div>
@@ -103,14 +90,14 @@
                             <td>{{ $s->nama_siswa }}</td>
                             <td>
                               <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
-                              <input type="number" class="form-control nilai_rl" name="nilai_rl[]" value="{{ old('nilai_rl.'.$index) }}" required>
+                              <input type="number" class="form-control nilai_rl_{{ $s->id }}_{{ $kelas->id }}" name="nilai_rl[]" value="{{ old('nilai_rl.'.$index) }}" required>
                             </td>
-                            <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" value="{{ old('nilai_tp.'.$index) }}" required></td>
+                            <td><input type="number" class="form-control nilai_tp_{{ $s->id }}_{{ $kelas->id }}" name="nilai_tp[]" value="{{ old('nilai_tp.'.$index) }}" required></td>
                             <td>
-                              <input type="number" class="form-control nilai_as" name="nilai_as[]" value="{{ old('nilai_as.'.$index) }}" required>
+                              <input type="number" class="form-control nilai_as_{{ $s->id }}_{{ $kelas->id }}" name="nilai_as[]" value="{{ old('nilai_as.'.$index) }}" required>
                             </td>
                             <td>
-                              <textarea name="ket[]" class="form-control" required>{{ old('ket.'.$index) }}</textarea>
+                              <textarea name="ket[]" class="form-control ket_{{ $s->id }}_{{ $kelas->id }}" required>{{ old('ket.'.$index) }}</textarea>
                             </td>
                           </tr>
                           @endforeach
@@ -131,6 +118,40 @@
   </main><!-- End #main -->
 
   @include('dynamic/v_footer');
+
+  <script>
+    document.getElementById("semesterSelect").addEventListener("change", function() {
+      // Mendapatkan nilai semester yang dipilih
+      var semester = $(this).val();
+      console.log("Nilai semester yang dipilih:", semester);
+      $.ajax({
+          url: '/filter_sw',
+          method: 'POST',
+          data: { semester: semester },
+          success: function(response) {
+            if (response.length > 0) {
+              $.each(response, function(index, nilai) {
+                  // Temukan input field berdasarkan id siswa dan isi dengan nilai yang sesuai
+                  var idSiswa = nilai.id_siswa;
+                  var idKelas = nilai.id_kelas;
+                  $('.nilai_rl_' + idSiswa +'_'+ idKelas).val(nilai.nilai_rl);
+                  $('.nilai_tp_' + idSiswa +'_'+ idKelas).val(nilai.nilai_tp);
+                  $('.nilai_as_' + idSiswa +'_'+ idKelas).val(nilai.nilai_as);
+                  $('.ket_' + idSiswa +'_'+ idKelas).val(nilai.ket);
+                });
+              } else {
+                $('input[name^="nilai_rl"]').val('');
+                $('input[name^="nilai_tp"]').val('');
+                $('input[name^="nilai_as"]').val('');
+                $('textarea[name^="ket"]').val('');
+              }
+          },
+          error: function(xhr, status, error) {
+              // Tangani kesalahan jika ada
+          }
+      });
+    });
+  </script>
 
   
   <script>

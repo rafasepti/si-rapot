@@ -130,6 +130,7 @@ Route::middleware(['checkRole:Guru'])->group(function () {
     Route::get('/ekskul_guru', [WaliController::class, 'ekskul']);    
     Route::get('/ekskul_guru/list', [WaliController::class, 'ekskulGet']);
     Route::get('/filter_ekskul', [NilaiController::class, 'filter']);
+    Route::get('/filter_sw', [NilaiController::class, 'filter_sw']);
     Route::get('/nilai/tambah_ekskul/{id}',[NilaiController::class, 'createEks']);
     Route::post('/nilai/store_ekskul',[NilaiController::class, 'storeEks']);
     Route::get('/nilai/detail_ekskul/{id}',[NilaiController::class, 'showEks']);

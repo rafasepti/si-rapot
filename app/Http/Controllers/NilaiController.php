@@ -293,6 +293,18 @@ class NilaiController extends Controller
         return response()->json($nilai, 200);
     }
 
+    public function filter_sw(Request $request)
+    {
+        $mapelG = GuruMapel::where('id_guru',session('kode_guru'))->first();
+        $nilai = Nilai::getJoinDetail()
+            ->where('nilai.semester', $request->semester)
+            ->where('dn.id_mapel', $mapelG->id_mapel)
+            ->get();
+
+        // Jika data tersedia, kirimkan data nilai ke browser
+        return response()->json($nilai, 200);
+    }
+
     public function generatePDF1($id)
     {
         $siswa = DB::table('siswa as s')
