@@ -16,7 +16,12 @@ class DashboardController extends Controller
         $id_user = session('id_user');
         if(session('walikelas')== "Ya"){
             $siswa_kel = Siswa::getJoinKId($id_user)->first();
-            $countSiswa = Siswa::where('id_kelas', $siswa_kel->id_kelas)->count();
+            if($siswa_kel == null){
+                $siswa_kel = Kelas::where('id_walikelas', $id_user)->first();
+                $countSiswa = 0;
+            }else{
+                $countSiswa = Siswa::where('id_kelas', $siswa_kel->id_kelas)->count();
+            }
         }
         $countGuru = Guru::where('jabatan', "Guru")->count();
         $countKelas = Kelas::count();
