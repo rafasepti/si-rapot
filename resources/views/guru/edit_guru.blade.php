@@ -68,7 +68,7 @@
                       <label for="id_mapel" class="form-label">Mata Pelajaran</label>
                         @foreach ($mapel as $mp)
                         <div class="form-check">
-                          <input class="form-check-input" data-mapel-checkbox type="checkbox" id="gridCheck{{ $mp->id }}" name="options[]" value="{{ $mp->id }}" {{ in_array($mp->id, $gurum->pluck('id_mapel')->toArray()) ? 'checked' : '' }}>
+                          <input class="form-check-input" data-mapel-checkbox type="radio" id="gridCheck{{ $mp->id }}" name="options[]" value="{{ $mp->id }}" {{ in_array($mp->id, $gurum->pluck('id_mapel')->toArray()) ? 'checked' : '' }}>
                           <label class="form-check-label" for="gridCheck{{ $mp->id }}">
                             {{ $mp->nama_mapel }}
                           </label>

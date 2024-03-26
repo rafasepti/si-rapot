@@ -74,7 +74,7 @@
                       <label for="id_mapel" class="form-label">Mata Pelajaran</label>
                         @foreach ($mapel as $mp)
                         <div class="form-check">
-                          <input class="form-check-input" type="checkbox" id="gridCheck{{ $mp->id }}" name="options[]" value="{{ $mp->id }}" data-mapel-checkbox>
+                          <input class="form-check-input" type="radio" id="gridCheck{{ $mp->id }}" name="options[]" value="{{ $mp->id }}" data-mapel-checkbox>
                           <label class="form-check-label" for="gridCheck{{ $mp->id }}">
                             {{ $mp->nama_mapel }}
                           </label>
