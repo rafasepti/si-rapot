@@ -305,6 +305,28 @@ class NilaiController extends Controller
         return response()->json($nilai, 200);
     }
 
+    public function filter_n(Request $request)
+    {
+        $nilai_detail = Nilai::getJoinDetail()
+            ->where('nilai.semester', $request->semester)
+            ->where('nilai.id_siswa', $request->id_siswa)
+            ->where('nilai.id_kelas', $request->id_kelas)
+            ->get();
+        $nilai = Nilai::where('semester',$request->semester )
+            ->where('id_siswa', $request->id_siswa)
+            ->where('id_kelas', $request->id_kelas)
+            ->first();
+
+        // Menyatukan data dalam satu array asosiatif
+        $response = [
+            'nilai' => $nilai,
+            'nilai_detail' => $nilai_detail
+        ];
+
+        // Mengirim respons JSON dengan data yang disatukan
+        return response()->json($response, 200);
+    }
+
     public function generatePDF1($id)
     {
         $siswa = DB::table('siswa as s')

@@ -75,9 +75,10 @@
                           <div class="row mb-3">
                               <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
                               <div class="col-sm-9">
-                                <select class="form-select" aria-label="Default select example" required name="semester">
-                                  <option>1</option>
-                                  <option>2</option>
+                                <select class="form-select" aria-label="Default select example" required name="semester" id="semesterSelect">
+                                  <option value="">Pilih Semester</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
                                 </select>
                               </div>
                           </div>
@@ -112,14 +113,14 @@
                             <td>{{ $m->nama_mapel }}</td>
                             <td>
                               <input type="hidden" class="form-control" name="id_mapel[]" value="{{ $m->id }}" required>
-                              <input type="number" class="form-control nilai_rl" name="nilai_rl[]" value="{{ old('nilai_rl.'.$index) }}" required>
+                              <input type="number" class="form-control  nilai_rl_{{ $m->id }}" name="nilai_rl[]" value="{{ old('nilai_rl.'.$index) }}" required>
                             </td>
-                            <td><input type="number" class="form-control nilai_tp" name="nilai_tp[]" value="{{  old('nilai_tp.'.$index) }}"  required></td>
+                            <td><input type="number" class="form-control nilai_tp_{{ $m->id }}" name="nilai_tp[]" value="{{  old('nilai_tp.'.$index) }}"  required></td>
                             <td>
-                              <input type="number" class="form-control nilai_as" name="nilai_as[]" value="{{ old('nilai_as.'.$index) }}" required>
+                              <input type="number" class="form-control nilai_as_{{ $m->id }}" name="nilai_as[]" value="{{ old('nilai_as.'.$index) }}" required>
                             </td>
                             <td>
-                              <textarea name="ket[]" class="form-control" required>{{ old('ket.'.$index) }}</textarea>
+                              <textarea name="ket[]" class="form-control ket_{{ $m->id }}" required>{{ old('ket.'.$index) }}</textarea>
                             </td>
                           </tr>
                           @endforeach
@@ -135,7 +136,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <textarea class="form-control" style="height: 100px" name="catatan" required>{{ old('catatan') }}</textarea>
+                              <textarea class="form-control catatan" style="height: 100px" name="catatan" required>{{ old('catatan') }}</textarea>
                             </td>
                           </tr>
                         </tbody>
@@ -154,7 +155,7 @@
                             <td class="text-center">
                               <div class="row">
                                 <div class="col-md-4">
-                                  <input type="number" class="form-control" name="kehadiran_sakit" value="{{ old('kehadiran_sakit') }}" required>
+                                  <input type="number" class="form-control kehadiran_sakit" name="kehadiran_sakit" value="{{ old('kehadiran_sakit') }}" required>
                                 </div>
                                 <div class="col-md-2">
                                   Hari
@@ -168,7 +169,7 @@
                             <td class="text-center">
                                 <div class="row">
                                   <div class="col-md-4">
-                                    <input type="number" class="form-control" name="kehadiran_izin" value="{{ old('kehadiran_izin') }}" required>
+                                    <input type="number" class="form-control kehadiran_izin" name="kehadiran_izin" value="{{ old('kehadiran_izin') }}" required>
                                   </div>
                                   <div class="col-md-2">
                                     Hari
@@ -182,7 +183,7 @@
                             <td class="text-center">
                               <div class="row">
                                 <div class="col-md-4">
-                                  <input type="number" class="form-control" name="kehadiran_tanpa_ket" value="{{ old('kehadiran_tanpa_ket') }}" required>
+                                  <input type="number" class="form-control kehadiran_tanpa_ket" name="kehadiran_tanpa_ket" value="{{ old('kehadiran_tanpa_ket') }}" required>
                                 </div>
                                 <div class="col-md-2">
                                   Hari
@@ -208,6 +209,52 @@
 
   @include('dynamic/v_footer');
 
+  <script>
+    document.getElementById("semesterSelect").addEventListener("change", function() {
+      var semester = $(this).val();
+      var idSiswa = document.getElementById("id_siswa").value;
+      var idKelas = document.getElementById("id_kelas").value;
+
+      console.log("Nilai semester yang dipilih:", semester);
+      $.ajax({
+          url: '/filter_n',
+          method: 'POST',
+          data: { semester: semester, id_siswa: idSiswa, id_kelas : idKelas },
+          success: function(response) {
+              if (response.nilai_detail.length > 0) {
+              $.each(response.nilai_detail, function(index, nilai_detail) {
+                  // Temukan input field berdasarkan id siswa dan isi dengan nilai yang sesuai
+                  var idMapel = nilai_detail.id_mapel;
+                  $('.nilai_rl_' + idMapel).val(nilai_detail.nilai_rl);
+                  $('.nilai_tp_' + idMapel).val(nilai_detail.nilai_tp);
+                  $('.nilai_as_' + idMapel).val(nilai_detail.nilai_as);
+                  $('.ket_' + idMapel).val(nilai_detail.ket);
+                });
+              } else {
+                $('input[name^="nilai_rl"]').val('');
+                $('input[name^="nilai_tp"]').val('');
+                $('input[name^="nilai_as"]').val('');
+                $('textarea[name^="ket"]').val('');
+              }
+
+              if (response.nilai) {
+                $('.catatan').val(response.nilai.catatan);
+                $('.kehadiran_izin').val(response.nilai.kehadiran_izin);
+                $('.kehadiran_sakit').val(response.nilai.kehadiran_sakit);
+                $('.kehadiran_tanpa_ket').val(response.nilai.kehadiran_tanpa_ket);
+              }else{
+                $('.catatan').val('');
+                $('.kehadiran_izin').val('');
+                $('.kehadiran_sakit').val('');
+                $('.kehadiran_tanpa_ket').val('');
+              }
+          },
+          error: function(xhr, status, error) {
+              // Tangani kesalahan jika ada
+          }
+      });
+    });
+  </script>
 
 </body>
 </html>
