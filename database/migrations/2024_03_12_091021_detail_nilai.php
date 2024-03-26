@@ -18,6 +18,9 @@ return new class extends Migration
             $table->integer('nilai_rl');
             $table->integer('nilai_tp');
             $table->integer('nilai_as');
+            $table->integer('k_izin');
+            $table->integer('k_sakit');
+            $table->integer('k_tanpa_ket');
             $table->text('ket');
             $table->timestamps();
         });

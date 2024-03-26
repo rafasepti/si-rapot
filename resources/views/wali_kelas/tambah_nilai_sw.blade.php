@@ -72,22 +72,22 @@
                           </div>
                     </div>
                     <div class="row">
-                      <table class="table table-striped table-bordered">
-                        <thead>
+                      @foreach ($siswa as $index => $s)
+                        <table class="table table-striped table-bordered">
+                          <thead>
+                            <tr>
+                                <th class="col-sm-1 text-center">No.</th>
+                                <th class="col-sm-3 text-center">Nama Siswa</th>
+                                <th class="col-md-1 text-center">NRL</th>
+                                <th class="col-md-1 text-center">NTP</th>
+                                <th class="col-md-1 text-center">NAS</th>
+                                <th class="col-sm-3 text-center">Keterangan</th>
+                              </tr>
+                          </thead>
+                          <tbody>
                           <tr>
-                            <th class=" text-center">No.</th>
-                            <th class="col-sm-3 text-center">Nama Siswa</th>
-                            <th class="col-sm-2 text-center">NRL</th>
-                            <th class="col-sm-2 text-center">NTP</th>
-                            <th class="col-sm-2 text-center">NAS</th>
-                            <th class="col-sm-3 text-center">Keterangan</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach ($siswa as $index => $s)
-                          <tr>
-                            <th scope="row">{{ $index+1 }}</th>
-                            <td>{{ $s->nama_siswa }}</td>
+                            <th scope="row" rowspan="3">{{ $index+1 }}</th>
+                            <td rowspan="3">{{ $s->nama_siswa }}</td>
                             <td>
                               <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
                               <input type="number" class="form-control nilai_rl_{{ $s->id }}_{{ $kelas->id }}" name="nilai_rl[]" value="{{ old('nilai_rl.'.$index) }}" required>
@@ -96,13 +96,27 @@
                             <td>
                               <input type="number" class="form-control nilai_as_{{ $s->id }}_{{ $kelas->id }}" name="nilai_as[]" value="{{ old('nilai_as.'.$index) }}" required>
                             </td>
-                            <td>
-                              <textarea name="ket[]" class="form-control ket_{{ $s->id }}_{{ $kelas->id }}" required>{{ old('ket.'.$index) }}</textarea>
+                            <td rowspan="3">
+                              <textarea name="ket[]" class="form-control ket_{{ $s->id }}_{{ $kelas->id }}" required style="height: 130px">{{ old('ket.'.$index) }}</textarea>
                             </td>
                           </tr>
-                          @endforeach
+                          <tr>
+                            <th class="text-center">Sakit</th>
+                            <th class="text-center">Izin</th>
+                            <th class="text-center">Alpha</th>
+                          </tr>
+                          <tr>
+                            <td>
+                              <input type="number" class="form-control sakit_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit[]" value="{{ old('k_sakit.'.$index) }}" required>
+                            </td>
+                            <td><input type="number" class="form-control izin_{{ $s->id }}_{{ $kelas->id }}" name="k_izin[]" value="{{ old('k_izin.'.$index) }}" required></td>
+                            <td>
+                              <input type="number" class="form-control alpha_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket[]" value="{{ old('k_tanpa_ket.'.$index) }}" required>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
+                      @endforeach
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -138,6 +152,9 @@
                   $('.nilai_tp_' + idSiswa +'_'+ idKelas).val(nilai.nilai_tp);
                   $('.nilai_as_' + idSiswa +'_'+ idKelas).val(nilai.nilai_as);
                   $('.ket_' + idSiswa +'_'+ idKelas).val(nilai.ket);
+                  $('.sakit_' + idSiswa +'_'+ idKelas).val(nilai.k_sakit);
+                  $('.izin_' + idSiswa +'_'+ idKelas).val(nilai.k_izin);
+                  $('.alpha_' + idSiswa +'_'+ idKelas).val(nilai.k_tanpa_ket);
                 });
               } else {
                 $('input[name^="nilai_rl"]').val('');

@@ -74,22 +74,22 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <table class="table table-striped table-bordered">
+                                      @foreach ($nilai1 as $index => $s)
+                                      <table class="table table-striped table-bordered">
                                         <thead>
-                                            <tr>
-                                            <th class=" text-center">No.</th>
+                                          <tr>
+                                            <th class="col-sm-1 text-center">No.</th>
                                             <th class="col-sm-3 text-center">Nama Siswa</th>
-                                            <th class="col-sm-2 text-center">NRL</th>
-                                            <th class="col-sm-2 text-center">NTP</th>
-                                            <th class="col-sm-2 text-center">NAS</th>
+                                            <th class="col-md-1 text-center">NRL</th>
+                                            <th class="col-md-1 text-center">NTP</th>
+                                            <th class="col-md-1 text-center">NAS</th>
                                             <th class="col-sm-3 text-center">Keterangan</th>
-                                            </tr>
+                                          </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($nilai1 as $index => $s)
-                                            <tr>
-                                            <th scope="row">{{ $index+1 }}</th>
-                                            <td>{{ $s->nama_siswa }}</td>
+                                          <tr>
+                                            <th scope="row" rowspan="3">{{ $index+1 }}</th>
+                                            <td rowspan="3">{{ $s->nama_siswa }}</td>
                                             <td>
                                                 <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->ids }}" required>
                                                 <input type="number" class="form-control nilai_rl" name="nilai_rl[]" value="{{ $nilai1[$index]->nilai_rl ?? '' }}" readonly>
@@ -98,17 +98,32 @@
                                             <td>
                                                 <input type="number" class="form-control nilai_as" name="nilai_as[]" value="{{ $nilai1[$index]->nilai_as ?? '' }}" readonly>
                                             </td>
-                                            <td>
-                                                <textarea name="ket[]" class="form-control" readonly>{{ $nilai1[$index]->ket ?? '' }}</textarea>
+                                            <td rowspan="3">
+                                                <textarea name="ket[]" class="form-control" readonly style="height: 130px">{{ $nilai1[$index]->ket ?? '' }}</textarea>
                                             </td>
-                                            </tr>
-                                            @endforeach
+                                          </tr>
+                                          <tr>
+                                            <th class="text-center">Sakit</th>
+                                            <th class="text-center">Izin</th>
+                                            <th class="text-center">Alpha</th>
+                                          </tr>
+                                          <tr>
+                                            <td>
+                                              <input type="number" class="form-control sakit_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit[]" value="{{ $nilai1[$index]->k_sakit ?? '' }}" required>
+                                            </td>
+                                            <td><input type="number" class="form-control izin_{{ $s->id }}_{{ $kelas->id }}" name="k_izin[]" value="{{ $nilai1[$index]->k_izin ?? '' }}" required></td>
+                                            <td>
+                                              <input type="number" class="form-control alpha_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket[]" value="{{ $nilai1[$index]->k_tanpa_ket ?? '' }}" required>
+                                            </td>
+                                          </tr>
                                         </tbody>
-                                        </table>
+                                      </table>
+                                      @endforeach
                                     </div>
                                 </div>
                           </form><!-- Vertical Form -->
                     </div>
+                    {{-- -------------------------------------------------SEMESTER 2 --}}
                     <div class="tab-pane fade" id="bordered-profile" role="tabpanel" aria-labelledby="profile-tab">
                         <form class="row g-3" action="/nilai/store" method="post">
                             @if($errors->any())
@@ -151,37 +166,51 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <table class="table table-striped table-bordered">
+                                      @foreach ($nilai2 as $index => $s)
+                                      <table class="table table-striped table-bordered">
                                         <thead>
-                                            <tr>
-                                            <th class=" text-center">No.</th>
+                                          <tr>
+                                            <th class="col-sm-1 text-center">No.</th>
                                             <th class="col-sm-3 text-center">Nama Siswa</th>
-                                            <th class="col-sm-2 text-center">NRL</th>
-                                            <th class="col-sm-2 text-center">NTP</th>
-                                            <th class="col-sm-2 text-center">NAS</th>
+                                            <th class="col-md-1 text-center">NRL</th>
+                                            <th class="col-md-1 text-center">NTP</th>
+                                            <th class="col-md-1 text-center">NAS</th>
                                             <th class="col-sm-3 text-center">Keterangan</th>
-                                            </tr>
+                                          </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($nilai2 as $index => $s)
                                             <tr>
-                                            <th scope="row">{{ $index+1 }}</th>
-                                            <td>{{ $s->nama_siswa }}</td>
-                                            <td>
-                                                <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->ids }}" required>
-                                                <input type="number" class="form-control nilai_rl2" name="nilai_rl2[]" value="{{ $nilai2[$index]->nilai_rl ?? '' }}" readonly>
-                                            </td>
-                                            <td><input type="number" class="form-control nilai_tp2" name="nilai_tp2[]" value="{{ $nilai2[$index]->nilai_tp ?? '' }}"  readonly></td>
-                                            <td>
-                                                <input type="number" class="form-control nilai_as2" name="nilai_as2[]" value="{{ $nilai2[$index]->nilai_as ?? '' }}" readonly>
-                                            </td>
-                                            <td>
-                                                <textarea name="ket2[]" class="form-control" readonly>{{ $nilai2[$index]->ket ?? '' }}</textarea>
-                                            </td>
+                                              <th scope="row" rowspan="3">{{ $index+1 }}</th>
+                                              <td rowspan="3">{{ $s->nama_siswa }}</td>
+                                              <td>
+                                                  <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->ids }}" required>
+                                                  <input type="number" class="form-control nilai_rl2" name="nilai_rl2[]" value="{{ $nilai2[$index]->nilai_rl ?? '' }}" readonly>
+                                              </td>
+                                              <td><input type="number" class="form-control nilai_tp2" name="nilai_tp2[]" value="{{ $nilai2[$index]->nilai_tp ?? '' }}"  readonly></td>
+                                              <td>
+                                                  <input type="number" class="form-control nilai_as2" name="nilai_as2[]" value="{{ $nilai2[$index]->nilai_as ?? '' }}" readonly>
+                                              </td>
+                                              <td rowspan="3">
+                                                  <textarea name="ket2[]" class="form-control" readonly style="height: 130px">{{ $nilai2[$index]->ket ?? '' }}</textarea>
+                                              </td>
                                             </tr>
-                                            @endforeach
+                                            <tr>
+                                              <th class="text-center">Sakit</th>
+                                              <th class="text-center">Izin</th>
+                                              <th class="text-center">Alpha</th>
+                                            </tr>
+                                            <tr>
+                                              <td>
+                                                <input type="number" class="form-control sakit2_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit2[]" value="{{ $nilai1[$index]->k_sakit ?? '' }}" required>
+                                              </td>
+                                              <td><input type="number" class="form-control izin2_{{ $s->id }}_{{ $kelas->id }}" name="k_izin2[]" value="{{ $nilai1[$index]->k_izin ?? '' }}" required></td>
+                                              <td>
+                                                <input type="number" class="form-control alpha2_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket2[]" value="{{ $nilai1[$index]->k_tanpa_ket ?? '' }}" required>
+                                              </td>
+                                            </tr>
                                         </tbody>
-                                        </table>
+                                      </table>
+                                      @endforeach
                                     </div>
                                 </div>
                           </form><!-- Vertical Form -->

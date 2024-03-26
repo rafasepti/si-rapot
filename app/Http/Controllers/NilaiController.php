@@ -219,22 +219,8 @@ class NilaiController extends Controller
                 $guruKelas = new DetailNilai();
                 if($nilai_siswa){
                     $guruKelas->id_nilai = $nilai_siswa->kode_nilai;
-                    $guruKelas->id_mapel = $request->id_mapel; 
-                    $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
-                    $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
-                    $guruKelas->nilai_as = $request->nilai_as[$key]; 
-                    $guruKelas->nilai_akhir = $nilai_akhir;
-                    $guruKelas->ket = $request->ket[$key]; 
-                    $guruKelas->save();
                 }else{
                     $guruKelas->id_nilai = Nilai::getkdNilai();
-                    $guruKelas->id_mapel = $request->id_mapel; 
-                    $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
-                    $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
-                    $guruKelas->nilai_as = $request->nilai_as[$key]; 
-                    $guruKelas->nilai_akhir = $nilai_akhir;
-                    $guruKelas->ket = $request->ket[$key]; 
-                    $guruKelas->save();
 
                     DB::table('nilai')->insert([
                         'id_siswa' => $request->id_siswa[$key],
@@ -245,6 +231,16 @@ class NilaiController extends Controller
                         'tgl_penilaian' => date('y-m-d'),
                     ]);
                 }
+                    $guruKelas->id_mapel = $request->id_mapel; 
+                    $guruKelas->nilai_rl = $request->nilai_rl[$key]; 
+                    $guruKelas->nilai_tp = $request->nilai_tp[$key]; 
+                    $guruKelas->nilai_as = $request->nilai_as[$key]; 
+                    $guruKelas->nilai_akhir = $nilai_akhir;
+                    $guruKelas->ket = $request->ket[$key]; 
+                    $guruKelas->k_izin = $request->k_izin[$key]; 
+                    $guruKelas->k_sakit = $request->k_sakit[$key]; 
+                    $guruKelas->k_tanpa_ket = $request->k_tanpa_ket[$key]; 
+                    $guruKelas->save();
             }
         }
         return redirect('/kelaswali');
