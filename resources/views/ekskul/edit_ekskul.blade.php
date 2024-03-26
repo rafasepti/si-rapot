@@ -26,7 +26,7 @@
                     {{ csrf_field() }}
                     <input type="hidden" class="form-control" id="id" name="id" value="{{ $t->id }}">
                     <div class="col-12">
-                        <label for="nama_ekskul" class="form-label">Nama Ekskul</label>
+                        <label for="nama_ekskul" class="form-label">Nama Extrakurikuler</label>
                         <input type="text" class="form-control" id="nama_ekskul" name="nama_ekskul" required value="{{ $t->nama_ekskul }}" placeholder=" cth : 2020/2021">
                     </div>
                     <div class="col-12">

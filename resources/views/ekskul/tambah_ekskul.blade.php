@@ -24,7 +24,7 @@
                 <form class="row g-3" action="/ekskul/store" method="post">
                     {{ csrf_field() }}
                     <div class="col-12">
-                        <label for="nama_ekskul" class="form-label">Nama Tahun</label>
+                        <label for="nama_ekskul" class="form-label">Nama Extrakurikuler</label>
                         <input type="text" class="form-control" id="nama_ekskul" name="nama_ekskul" required>
                     </div>
                     <div class="col-12">
