@@ -201,11 +201,11 @@
                                             </tr>
                                             <tr>
                                               <td>
-                                                <input type="number" class="form-control sakit2_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit2[]" value="{{ $nilai1[$index]->k_sakit ?? '' }}" readonly>
+                                                <input type="number" class="form-control sakit2_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit2[]" value="{{ $nilai2[$index]->k_sakit ?? '' }}" readonly>
                                               </td>
-                                              <td><input type="number" class="form-control izin2_{{ $s->id }}_{{ $kelas->id }}" name="k_izin2[]" value="{{ $nilai1[$index]->k_izin ?? '' }}" readonly></td>
+                                              <td><input type="number" class="form-control izin2_{{ $s->id }}_{{ $kelas->id }}" name="k_izin2[]" value="{{ $nilai2[$index]->k_izin ?? '' }}" readonly></td>
                                               <td>
-                                                <input type="number" class="form-control alpha2_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket2[]" value="{{ $nilai1[$index]->k_tanpa_ket ?? '' }}" readonly>
+                                                <input type="number" class="form-control alpha2_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket2[]" value="{{ $nilai2[$index]->k_tanpa_ket ?? '' }}" readonly>
                                               </td>
                                             </tr>
                                         </tbody>

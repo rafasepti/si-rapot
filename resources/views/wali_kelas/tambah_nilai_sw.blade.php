@@ -161,6 +161,9 @@
                 $('input[name^="nilai_tp"]').val('');
                 $('input[name^="nilai_as"]').val('');
                 $('textarea[name^="ket"]').val('');
+                $('input[name^="k_sakit"]').val('');
+                $('input[name^="k_izin"]').val('');
+                $('input[name^="k_tanpa_ket"]').val('');
               }
           },
           error: function(xhr, status, error) {

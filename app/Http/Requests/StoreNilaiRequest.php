@@ -32,14 +32,14 @@ class StoreNilaiRequest extends FormRequest
                 'id_kelas' => 'required',
                 'semester' => 'required',
                 // Validasi untuk memastikan bahwa tidak ada entri dengan id_user, id_kelas, dan semester yang sama
-                'semester' => [
-                    Rule::unique('nilai')->where(function ($query) {
-                        return $query->where('id_siswa', $this->id_siswa)
-                                    ->where('id_kelas', $this->id_kelas)
-                                    ->where('semester', $this->semester)
-                                    ->whereNotNull('kehadiran_sakit');
-                    }),
-                ],
+                // 'semester' => [
+                //     Rule::unique('nilai')->where(function ($query) {
+                //         return $query->where('id_siswa', $this->id_siswa)
+                //                     ->where('id_kelas', $this->id_kelas)
+                //                     ->where('semester', $this->semester)
+                //                     ->whereNotNull('kehadiran_sakit');
+                //     }),
+                // ],
             ];
         }else{
             return [
@@ -50,22 +50,22 @@ class StoreNilaiRequest extends FormRequest
                 'id_kelas' => 'required',
                 'semester' => 'required',
                 // Validasi untuk memastikan bahwa tidak ada entri dengan id_user, id_kelas, dan semester yang sama
-                'semester' => [
-                    Rule::unique('nilai')->where(function ($query) {
-                        return $query->where('id_siswa', $this->id_siswa)
-                                    ->where('id_kelas', $this->id_kelas)
-                                    ->where('semester', $this->semester)
-                                    ->whereNull('kehadiran_sakit');
-                    }),
-                ],
+                // 'semester' => [
+                //     Rule::unique('nilai')->where(function ($query) {
+                //         return $query->where('id_siswa', $this->id_siswa)
+                //                     ->where('id_kelas', $this->id_kelas)
+                //                     ->where('semester', $this->semester)
+                //                     ->whereNull('kehadiran_sakit');
+                //     }),
+                // ],
             ];
         }
     }
 
-    public function messages()
-    {
-        return [
-            'semester.unique' => 'Data sudah ada untuk user ini, kelas ini, dan semester ini.',
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         'semester.unique' => 'Data sudah ada untuk user ini, kelas ini, dan semester ini.',
+    //     ];
+    // }
 }
