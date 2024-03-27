@@ -170,7 +170,7 @@
                                   </th>
                                 </tr>
                                 <tr>
-                                  <td><span class="small">{{ $ekskul ? $ekskul->nama_ekskul : '-'; }}</span></td>
+                                  <td><span class="small">{{ $ekskul1 ? $ekskul1->nama_ekskul : '-'; }}</span></td>
                                   <td>:</td>
                                   <td class="text-center">
                                     <span class="small">{{ $nilai1->nilai_eks }}</span>
@@ -196,7 +196,7 @@
                                   <td class="text-center">
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <span class="small">{{ $nilai1->kehadiran_sakit }}</span>
+                                        <span class="small">{{ $totalSakit1 }}</span>
                                       </div>
                                       <div class="col-md-4">
                                         <span class="small">Hari</span>
@@ -210,7 +210,7 @@
                                   <td class="text-center">
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <span class="small">{{ $nilai1->kehadiran_izin }}</span>
+                                          <span class="small">{{ $totalIzin1 }}</span>
                                         </div>
                                         <div class="col-md-4">
                                           <span class="small">Hari</span>
@@ -224,7 +224,7 @@
                                   <td class="text-center">
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <span class="small">{{ $nilai1->kehadiran_tanpa_ket }}</span>
+                                        <span class="small">{{ $totalAlpha1 }}</span>
                                       </div>
                                       <div class="col-md-4">
                                         <span class="small">Hari</span>
@@ -382,7 +382,7 @@
                                   </th>
                                 </tr>
                                 <tr>
-                                  <td><span class="small">{{ $ekskul ? $ekskul->nama_ekskul : '-'; }}</span></td>
+                                  <td><span class="small">{{ $ekskul2 ? $ekskul2->nama_ekskul : '-'; }}</span></td>
                                   <td>:</td>
                                   <td class="text-center">
                                     <span class="small">{{ $nilai2->nilai_eks }}</span>
@@ -408,7 +408,7 @@
                                   <td class="text-center">
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <span class="small">{{ $nilai2->kehadiran_sakit }}</span>
+                                        <span class="small">{{ $totalSakit2 }}</span>
                                       </div>
                                       <div class="col-md-4">
                                         <span class="small">Hari</span>
@@ -422,7 +422,7 @@
                                   <td class="text-center">
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <span class="small">{{ $nilai2->kehadiran_izin }}</span>
+                                          <span class="small">{{ $totalIzin2 }}</span>
                                         </div>
                                         <div class="col-md-4">
                                           <span class="small">Hari</span>
@@ -436,7 +436,7 @@
                                   <td class="text-center">
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <span class="small">{{ $nilai2->kehadiran_tanpa_ket }}</span>
+                                        <span class="small">{{ $totalAlpha2 }}</span>
                                       </div>
                                       <div class="col-md-4">
                                         <span class="small">Hari</span>

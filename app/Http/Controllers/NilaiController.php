@@ -342,8 +342,21 @@ class NilaiController extends Controller
         if ($nilai1 !== null) {
             $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
             $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
+            $totalIzin1 = $nilai1->kehadiran_izin;
+            $totalSakit1 = $nilai1->kehadiran_sakit;
+            $totalAlpha1 = $nilai1->kehadiran_tanpa_ket;
+
+            foreach ($detail_nilai1 as $detail) {
+                $totalSakit1 += $detail->k_sakit;
+                $totalIzin1 += $detail->k_izin;
+                $totalAlpha1 += $detail->k_tanpa_ket;
+            }
         } else {
             $detail_nilai1 = collect();
+            $ekskul = "";
+            $totalSakit1 = 0;
+            $totalIzin1 = 0;
+            $totalAlpha1 = 0;
         }
 
         // Render view PDF dan data
@@ -354,7 +367,10 @@ class NilaiController extends Controller
             'mapelb', 
             'nilai1', 
             'detail_nilai1',
-            'thn_ajaran'
+            'thn_ajaran',
+            'totalSakit1',
+            'totalIzin1',
+            'totalAlpha1',
         ));
     }
 
@@ -378,8 +394,22 @@ class NilaiController extends Controller
         if ($nilai1 !== null) {
             $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
             $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
+
+            $totalIzin1 = $nilai1->kehadiran_izin;
+            $totalSakit1 = $nilai1->kehadiran_sakit;
+            $totalAlpha1 = $nilai1->kehadiran_tanpa_ket;
+
+            foreach ($detail_nilai1 as $detail) {
+                $totalSakit1 += $detail->k_sakit;
+                $totalIzin1 += $detail->k_izin;
+                $totalAlpha1 += $detail->k_tanpa_ket;
+            }
         } else {
             $detail_nilai1 = collect();
+            $ekskul = "";
+            $totalSakit1 = 0;
+            $totalIzin1 = 0;
+            $totalAlpha1 = 0;
         }
 
         // Render view PDF dan data
@@ -391,7 +421,10 @@ class NilaiController extends Controller
             'mapelb', 
             'nilai1', 
             'detail_nilai1',
-            'thn_ajaran'
+            'thn_ajaran',
+            'totalSakit1',
+            'totalIzin1',
+            'totalAlpha1',
         ));
     }
 
@@ -418,19 +451,51 @@ class NilaiController extends Controller
             $nilai1 = Nilai::getNilai1($siswa->id_siswa,$siswa->id_kelas);
             $nilai2 = Nilai::getNilai2($siswa->id_siswa,$siswa->id_kelas);
 
+            //-----TAMPIL NILAI SMT 1 dan 2
             if ($nilai1 !== null) {
                 $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
-                $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
+                $ekskul1 = Ekskul::where('id', $nilai1->id_ekskul)->first();
+                // Inisialisasi total absensi untuk setiap jenis absen
+                $totalIzin1 = $nilai1->kehadiran_izin;
+                $totalSakit1 = $nilai1->kehadiran_sakit;
+                $totalAlpha1 = $nilai1->kehadiran_tanpa_ket;
+
+                // Jumlahkan absensi dari detail nilai
+                foreach ($detail_nilai1 as $detail) {
+                    $totalSakit1 += $detail->k_sakit;
+                    $totalIzin1 += $detail->k_izin;
+                    $totalAlpha1 += $detail->k_tanpa_ket;
+                }
             } else {
                 $detail_nilai1 = collect();
+                $ekskul1 = "";
+                $totalSakit2 = 0;
+                $totalIzin2 = 0;
+                $totalAlpha2 = 0;
             }
 
             if ($nilai2 !== null) {
                 $detail_nilai2 = DetailNilai::where('id_nilai', $nilai2->kode_nilai)->get();
-                $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
+                $ekskul2 = Ekskul::where('id', $nilai2->id_ekskul)->first();
+                $totalIzin2 = $nilai2->kehadiran_izin;
+                $totalSakit2 = $nilai2->kehadiran_sakit;
+                $totalAlpha2 = $nilai2->kehadiran_tanpa_ket;
+
+                // Jumlahkan absensi dari detail nilai
+                foreach ($detail_nilai2 as $detail) {
+                    $totalSakit2 += $detail->k_sakit;
+                    $totalIzin2 += $detail->k_izin;
+                    $totalAlpha2 += $detail->k_tanpa_ket;
+                }
             } else {
                 $detail_nilai2 = collect();
+                $ekskul2 = $ekskul1;
+                $totalSakit2 = 0;
+                $totalIzin2 = 0;
+                $totalAlpha2 = 0;
             }
+
+
             
             return view('wali_kelas/detail_nilai',
                 [
@@ -438,11 +503,19 @@ class NilaiController extends Controller
                     'thn_ajaran' => $thn_ajaran,
                     'mapel' => $mapel,
                     'mapelb' => $mapelb,
-                    'ekskul' => $ekskul,
+                    'ekskul1' => $ekskul1,
+                    'ekskul2' => $ekskul2,
                     'nilai1' => $nilai1,
                     'detail_nilai1' => $detail_nilai1,
                     'nilai2' => $nilai2,
                     'detail_nilai2' => $detail_nilai2,
+
+                    'totalSakit2' => $totalSakit2,
+                    'totalSakit1' => $totalSakit1,
+                    'totalIzin2' => $totalIzin2,
+                    'totalIzin1' => $totalIzin1,
+                    'totalAlpha2' => $totalAlpha2,
+                    'totalAlpha1' => $totalAlpha1,
                 ]
             );
         }else{

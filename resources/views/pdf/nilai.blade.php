@@ -122,13 +122,13 @@
                             </tr>
                             @foreach ($mapelb as $index => $mb)
                               <tr>
-                                <th scope="row">{{ $index+1 }}</th>
-                                <td>{{ $mb->nama_mapel }}</td>
-                                <td>
+                                <th scope="row" class="col-sm-1">{{ $index+1 }}</th>
+                                <td class="col-sm-4">{{ $mb->nama_mapel }}</td>
+                                <td class="col-sm-2 text-center">
                                   <input type="hidden" class="form-control" name="id_mapel[]" value="{{ $mb->id }}" required>
                                   <input type="number" class="form-control nilai_akhir" name="nilai_akhir[]" value="" disabled>
                                 </td>
-                                <td>
+                                <td class="col-sm-5">
                                   <textarea name="ket[]" class="form-control ket" disabled></textarea>
                                 </td>
                               </tr>
@@ -196,21 +196,21 @@
                                   <td class="col-sm-2"><span class="small">Sakit</span></td>
                                   <td>:</td>
                                   <td>
-                                    <span class="small">{{ $nilai1->kehadiran_sakit }}&nbsp;Hari</span>
+                                    <span class="small">{{ $totalSakit1 }}&nbsp;Hari</span>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td class="col-sm-2"><span class="small">Izin</span></td>
                                   <td>:</td>
                                   <td>
-                                    <span class="small">{{ $nilai1->kehadiran_izin }}&nbsp;Hari</span>
+                                    <span class="small">{{ $totalIzin1 }}&nbsp;Hari</span>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td class="col-sm-2"><span class="small">Tanpa Keterangan</span></td>
                                   <td>:</td>
                                   <td>
-                                    <span class="small">{{ $nilai1->kehadiran_tanpa_ket }}&nbsp;Hari</span>
+                                    <span class="small">{{ $totalAlpha1 }}&nbsp;Hari</span>
                                   </td>
                                 </tr>
                               </tbody>

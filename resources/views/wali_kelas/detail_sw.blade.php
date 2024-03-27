@@ -109,11 +109,11 @@
                                           </tr>
                                           <tr>
                                             <td>
-                                              <input type="number" class="form-control sakit_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit[]" value="{{ $nilai1[$index]->k_sakit ?? '' }}" required>
+                                              <input type="number" class="form-control sakit_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit[]" value="{{ $nilai1[$index]->k_sakit ?? '' }}" readonly>
                                             </td>
-                                            <td><input type="number" class="form-control izin_{{ $s->id }}_{{ $kelas->id }}" name="k_izin[]" value="{{ $nilai1[$index]->k_izin ?? '' }}" required></td>
+                                            <td><input type="number" class="form-control izin_{{ $s->id }}_{{ $kelas->id }}" name="k_izin[]" value="{{ $nilai1[$index]->k_izin ?? '' }}" readonly></td>
                                             <td>
-                                              <input type="number" class="form-control alpha_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket[]" value="{{ $nilai1[$index]->k_tanpa_ket ?? '' }}" required>
+                                              <input type="number" class="form-control alpha_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket[]" value="{{ $nilai1[$index]->k_tanpa_ket ?? '' }}" readonly>
                                             </td>
                                           </tr>
                                         </tbody>
@@ -201,11 +201,11 @@
                                             </tr>
                                             <tr>
                                               <td>
-                                                <input type="number" class="form-control sakit2_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit2[]" value="{{ $nilai1[$index]->k_sakit ?? '' }}" required>
+                                                <input type="number" class="form-control sakit2_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit2[]" value="{{ $nilai1[$index]->k_sakit ?? '' }}" readonly>
                                               </td>
-                                              <td><input type="number" class="form-control izin2_{{ $s->id }}_{{ $kelas->id }}" name="k_izin2[]" value="{{ $nilai1[$index]->k_izin ?? '' }}" required></td>
+                                              <td><input type="number" class="form-control izin2_{{ $s->id }}_{{ $kelas->id }}" name="k_izin2[]" value="{{ $nilai1[$index]->k_izin ?? '' }}" readonly></td>
                                               <td>
-                                                <input type="number" class="form-control alpha2_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket2[]" value="{{ $nilai1[$index]->k_tanpa_ket ?? '' }}" required>
+                                                <input type="number" class="form-control alpha2_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket2[]" value="{{ $nilai1[$index]->k_tanpa_ket ?? '' }}" readonly>
                                               </td>
                                             </tr>
                                         </tbody>

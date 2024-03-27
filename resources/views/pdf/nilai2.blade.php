@@ -194,21 +194,21 @@
                                   <td class="col-sm-2"><span class="small">Sakit</span></td>
                                   <td>:</td>
                                   <td>
-                                    <span class="small">{{ $nilai1->kehadiran_sakit }}&nbsp;Hari</span>
+                                    <span class="small">{{ $totalSakit1 }}&nbsp;Hari</span>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td class="col-sm-2"><span class="small">Izin</span></td>
                                   <td>:</td>
                                   <td>
-                                    <span class="small">{{ $nilai1->kehadiran_izin }}&nbsp;Hari</span>
+                                    <span class="small">{{ $totalIzin1 }}&nbsp;Hari</span>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td class="col-sm-2"><span class="small">Tanpa Keterangan</span></td>
                                   <td>:</td>
                                   <td>
-                                    <span class="small">{{ $nilai1->kehadiran_tanpa_ket }}&nbsp;Hari</span>
+                                    <span class="small">{{ $totalAlpha1 }}&nbsp;Hari</span>
                                   </td>
                                 </tr>
                               </tbody>

@@ -90,11 +90,11 @@
                             <td rowspan="3">{{ $s->nama_siswa }}</td>
                             <td>
                               <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
-                              <input type="number" class="form-control nilai_rl_{{ $s->id }}_{{ $kelas->id }}" name="nilai_rl[]" value="{{ old('nilai_rl.'.$index) }}" required>
+                              <input type="number" min="0" max="100" class="form-control nilai_rl_{{ $s->id }}_{{ $kelas->id }}" name="nilai_rl[]" value="{{ old('nilai_rl.'.$index) }}" required>
                             </td>
-                            <td><input type="number" class="form-control nilai_tp_{{ $s->id }}_{{ $kelas->id }}" name="nilai_tp[]" value="{{ old('nilai_tp.'.$index) }}" required></td>
+                            <td><input type="number" min="0" max="100" class="form-control nilai_tp_{{ $s->id }}_{{ $kelas->id }}" name="nilai_tp[]" value="{{ old('nilai_tp.'.$index) }}" required></td>
                             <td>
-                              <input type="number" class="form-control nilai_as_{{ $s->id }}_{{ $kelas->id }}" name="nilai_as[]" value="{{ old('nilai_as.'.$index) }}" required>
+                              <input type="number" min="0" max="100" class="form-control nilai_as_{{ $s->id }}_{{ $kelas->id }}" name="nilai_as[]" value="{{ old('nilai_as.'.$index) }}" required>
                             </td>
                             <td rowspan="3">
                               <textarea name="ket[]" class="form-control ket_{{ $s->id }}_{{ $kelas->id }}" required style="height: 130px">{{ old('ket.'.$index) }}</textarea>
@@ -107,11 +107,11 @@
                           </tr>
                           <tr>
                             <td>
-                              <input type="number" class="form-control sakit_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit[]" value="{{ old('k_sakit.'.$index) }}" required>
+                              <input type="number" min="0" class="form-control sakit_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit[]" value="{{ old('k_sakit.'.$index) }}" required>
                             </td>
-                            <td><input type="number" class="form-control izin_{{ $s->id }}_{{ $kelas->id }}" name="k_izin[]" value="{{ old('k_izin.'.$index) }}" required></td>
+                            <td><input type="number" min="0" class="form-control izin_{{ $s->id }}_{{ $kelas->id }}" name="k_izin[]" value="{{ old('k_izin.'.$index) }}" required></td>
                             <td>
-                              <input type="number" class="form-control alpha_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket[]" value="{{ old('k_tanpa_ket.'.$index) }}" required>
+                              <input type="number" min="0" class="form-control alpha_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket[]" value="{{ old('k_tanpa_ket.'.$index) }}" required>
                             </td>
                           </tr>
                         </tbody>
