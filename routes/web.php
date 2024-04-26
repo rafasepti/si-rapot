@@ -148,6 +148,7 @@ Route::middleware(['checkRole:Guru'])->group(function () {
     Route::get('/print_nilai/smt2/{id}', [NilaiController::class, 'generatePDF2']);
 
     Route::get('/absen-wali',[AbsenController::class, 'index']);
+    Route::get('/absen-wali/siswa',[AbsenController::class, 'absenWali']);
 });
 
 require __DIR__.'/auth.php';
