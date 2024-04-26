@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsenController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EkskulController;
 use App\Http\Controllers\GuruController;
@@ -145,6 +146,8 @@ Route::middleware(['checkRole:Guru'])->group(function () {
 
     Route::get('/print_nilai/smt1/{id}', [NilaiController::class, 'generatePDF1']);
     Route::get('/print_nilai/smt2/{id}', [NilaiController::class, 'generatePDF2']);
+
+    Route::get('/absen-wali',[AbsenController::class, 'index']);
 });
 
 require __DIR__.'/auth.php';

@@ -129,6 +129,21 @@
           <span>Kelas</span>
         </a>
       </li>
+      @if (Session::get('walikelas')=='Ya')
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('absen-wali') ? '' : 'collapsed' }}" href="/absen-wali">
+            <i class="bi bi-calendar2-check"></i>
+            <span>Absen</span>
+          </a>
+        </li>
+      @else
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('absen-guru') ? '' : 'collapsed' }}" href="/absen-guru">
+            <i class="bi bi-calendar2-check"></i>
+            <span>Absen</span>
+          </a>
+        </li>
+      @endif
       <li class="nav-item">
         <a class="nav-link {{ Request::is('ekskul_guru') ? '' : 'collapsed' }}" href="/ekskul_guru">
           <i class="bi bi-award"></i>
