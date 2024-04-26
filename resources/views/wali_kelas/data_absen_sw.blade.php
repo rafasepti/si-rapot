@@ -67,39 +67,60 @@
                                 </select>
                               </div>
                           </div>
+                          <div class="row mb-3">
+                            <label for="inputText" class="col-sm-3 col-form-label col-form-label-sm">Semester</label>
+                            <div class="col-sm-9">
+                              <select class="form-select" aria-label="Default select example" required name="semester" id="semesterSelect">
+                                <option value="">Pilih Semester</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                              </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
-                      @foreach ($siswa as $index => $s)
                         <table class="table table-striped table-bordered">
                           <thead>
                             <tr>
                                 <th class="col-sm-1 text-center">No.</th>
-                                <th class="col-sm-3 text-center">Nama Siswa</th>
-                                <th class="text-center">Hadir</th>
-                                <th class="text-center">Sakit</th>
-                                <th class="text-center">Izin</th>
-                                <th class="text-center">Alpha</th>
+                                <th class="col-sm-5 text-center">Nama Siswa</th>
+                                <th class="col-sm-6 text-center" colspan="5">Absensi</th>
                               </tr>
                           </thead>
                           <tbody>
+                          @foreach ($siswa as $index => $s)
                           <tr>
-                            <th scope="row" rowspan="3">{{ $index+1 }}</th>
-                            <td rowspan="3">{{ $s->nama_siswa }}</td>
-                            <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
-                              <td>
-                                <input type="number" min="0" class="form-control hadir_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_hadir[]" value="{{ old('k_hadir.'.$index) }}" required>
+                            <th scope="row">{{ $index+1 }}</th>
+                            <td >{{ $s->nama_siswa }}</td>
+                              <td colspan="2">
+                                <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
+                                <label class="form-check">
+                                  <input type="radio" class="form-check-input hadir_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}_{{ $siswa_kel->id }}" value="hadir" {{ old('k_absen.'.$index) == 'hadir' ? 'checked' : '' }} required>
+                                  Hadir
+                                </label>
                               </td>
                               <td>
-                                <input type="number" min="0" class="form-control sakit_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_sakit[]" value="{{ old('k_sakit.'.$index) }}" required>
+                                <label class="form-check">
+                                  <input type="radio" class="form-check-input sakit_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}_{{ $siswa_kel->id }}" value="sakit" {{ old('k_absen.'.$index) == 'sakit' ? 'checked' : '' }} required>
+                                  Sakit
+                                </label>
                               </td>
-                              <td><input type="number" min="0" class="form-control izin_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_izin[]" value="{{ old('k_izin.'.$index) }}" required></td>
                               <td>
-                                <input type="number" min="0" class="form-control alpha_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_tanpa_ket[]" value="{{ old('k_tanpa_ket.'.$index) }}" required>
-                            </td>
+                                <label class="form-check">
+                                  <input type="radio" class="form-check-input izin_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}_{{ $siswa_kel->id }}" value="izin" {{ old('k_absen.'.$index) == 'izin' ? 'checked' : '' }} required>
+                                  Izin
+                              </label>
+                              </td>
+                              <td>
+                                <label class="form-check">
+                                  <input type="radio" class="form-check-input alpha_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}_{{ $siswa_kel->id }}" value="alpha" {{ old('k_absen.'.$index) == 'alpha' ? 'checked' : '' }} required>
+                                  Alpha
+                              </label>
+                              </td>
                           </tr>
+                          @endforeach
                         </tbody>
                       </table>
-                      @endforeach
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -117,43 +138,38 @@
   @include('dynamic/v_footer');
 
   <script>
-    document.getElementById("semesterSelect").addEventListener("change", function() {
-      // Mendapatkan nilai semester yang dipilih
-      var semester = $(this).val();
-      console.log("Nilai semester yang dipilih:", semester);
-      $.ajax({
-          url: '/filter_sw',
-          method: 'POST',
-          data: { semester: semester },
-          success: function(response) {
-            if (response.length > 0) {
-              $.each(response, function(index, nilai) {
-                  // Temukan input field berdasarkan id siswa dan isi dengan nilai yang sesuai
-                  var idSiswa = nilai.id_siswa;
-                  var idKelas = nilai.id_kelas;
-                  $('.nilai_rl_' + idSiswa +'_'+ idKelas).val(nilai.nilai_rl);
-                  $('.nilai_tp_' + idSiswa +'_'+ idKelas).val(nilai.nilai_tp);
-                  $('.nilai_as_' + idSiswa +'_'+ idKelas).val(nilai.nilai_as);
-                  $('.ket_' + idSiswa +'_'+ idKelas).val(nilai.ket);
-                  $('.sakit_' + idSiswa +'_'+ idKelas).val(nilai.k_sakit);
-                  $('.izin_' + idSiswa +'_'+ idKelas).val(nilai.k_izin);
-                  $('.alpha_' + idSiswa +'_'+ idKelas).val(nilai.k_tanpa_ket);
-                });
-              } else {
-                $('input[name^="nilai_rl"]').val('');
-                $('input[name^="nilai_tp"]').val('');
-                $('input[name^="nilai_as"]').val('');
-                $('textarea[name^="ket"]').val('');
-                $('input[name^="k_sakit"]').val('');
-                $('input[name^="k_izin"]').val('');
-                $('input[name^="k_tanpa_ket"]').val('');
-              }
-          },
-          error: function(xhr, status, error) {
-              // Tangani kesalahan jika ada
-          }
-      });
-    });
+    // document.getElementById("semesterSelect").addEventListener("change", function() {
+    //   // Mendapatkan nilai semester yang dipilih
+    //   var semester = $(this).val();
+    //   console.log("Nilai semester yang dipilih:", semester);
+    //   $.ajax({
+    //       url: '/filter_sw',
+    //       method: 'POST',
+    //       data: { semester: semester },
+    //       success: function(response) {
+    //         if (response.length > 0) {
+    //           $.each(response, function(index, nilai) {
+    //               // Temukan input field berdasarkan id siswa dan isi dengan nilai yang sesuai
+    //               var idSiswa = nilai.id_siswa;
+    //               var idKelas = nilai.id_kelas;
+                 
+    //               $('.hadir_' + idSiswa +'_'+ idKelas).val(nilai.k_hadir);
+    //               $('.sakit_' + idSiswa +'_'+ idKelas).val(nilai.k_sakit);
+    //               $('.izin_' + idSiswa +'_'+ idKelas).val(nilai.k_izin);
+    //               $('.alpha_' + idSiswa +'_'+ idKelas).val(nilai.k_tanpa_ket);
+    //             });
+    //           } else {
+    //             $('input[name^="k_hadir"]').val('');
+    //             $('input[name^="k_sakit"]').val('');
+    //             $('input[name^="k_izin"]').val('');
+    //             $('input[name^="k_tanpa_ket"]').val('');
+    //           }
+    //       },
+    //       error: function(xhr, status, error) {
+    //           // Tangani kesalahan jika ada
+    //       }
+    //   });
+    // });
   </script>
 
   
