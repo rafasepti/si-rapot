@@ -149,6 +149,7 @@ Route::middleware(['checkRole:Guru'])->group(function () {
 
     Route::get('/absen-wali',[AbsenController::class, 'index']);
     Route::get('/absen-wali/siswa',[AbsenController::class, 'absenWali']);
+    Route::post('/absen/store',[AbsenController::class, 'store']);
 });
 
 require __DIR__.'/auth.php';

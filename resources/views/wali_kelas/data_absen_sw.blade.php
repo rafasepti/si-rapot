@@ -21,7 +21,7 @@
                   </div>
                 </div>
                 <!-- Vertical Form -->
-                <form class="row g-3" action="/nilai/store" method="post">
+                <form class="row g-3" action="/absen/store" method="post">
                   @if($errors->any())
                   <div class="alert alert-danger">
                       <ul>
@@ -30,6 +30,11 @@
                           @endforeach
                       </ul>
                   </div>
+                  @endif
+                  @if(session('success'))
+                      <div class="alert alert-success">
+                          {{ session('success') }}
+                      </div>
                   @endif
                     {{ csrf_field() }}
                     <div class="row">
@@ -62,7 +67,7 @@
                                 <select class="form-select" aria-label="Default select example" required name="id_mapel">
                                     <option value="">Pilih Mapel</option>
                                     @foreach ($mapel2 as $m)
-                                    <option value="{{ $m->id_mp }}">{{ $m->nama_mapel }}</option>
+                                    <option value="{{ $m->id }}">{{ $m->nama_mapel }}</option>
                                   @endforeach
                                 </select>
                               </div>
@@ -95,25 +100,25 @@
                               <td colspan="2">
                                 <input type="hidden" class="form-control" name="id_siswa[]" value="{{ $s->id }}" required>
                                 <label class="form-check">
-                                  <input type="radio" class="form-check-input hadir_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}_{{ $siswa_kel->id }}" value="hadir" {{ old('k_absen.'.$index) == 'hadir' ? 'checked' : '' }} required>
+                                  <input type="radio" class="form-check-input hadir_{{ $s->id }}_{{ $siswa_kel->id }}"  name="k_absen_{{ $s->id }}" value="hadir" {{ old('k_absen.'.$index) == 'hadir' ? 'checked' : '' }} required>
                                   Hadir
                                 </label>
                               </td>
                               <td>
                                 <label class="form-check">
-                                  <input type="radio" class="form-check-input sakit_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}_{{ $siswa_kel->id }}" value="sakit" {{ old('k_absen.'.$index) == 'sakit' ? 'checked' : '' }} required>
+                                  <input type="radio" class="form-check-input sakit_{{ $s->id }}_{{ $siswa_kel->id }}"  name="k_absen_{{ $s->id }}" value="sakit" {{ old('k_absen.'.$index) == 'sakit' ? 'checked' : '' }} required>
                                   Sakit
                                 </label>
                               </td>
                               <td>
                                 <label class="form-check">
-                                  <input type="radio" class="form-check-input izin_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}_{{ $siswa_kel->id }}" value="izin" {{ old('k_absen.'.$index) == 'izin' ? 'checked' : '' }} required>
+                                  <input type="radio" class="form-check-input izin_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}" value="izin" {{ old('k_absen.'.$index) == 'izin' ? 'checked' : '' }} required>
                                   Izin
                               </label>
                               </td>
                               <td>
                                 <label class="form-check">
-                                  <input type="radio" class="form-check-input alpha_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}_{{ $siswa_kel->id }}" value="alpha" {{ old('k_absen.'.$index) == 'alpha' ? 'checked' : '' }} required>
+                                  <input type="radio" class="form-check-input alpha_{{ $s->id }}_{{ $siswa_kel->id }}" name="k_absen_{{ $s->id }}" value="alpa" {{ old('k_absen.'.$index) == 'alpha' ? 'checked' : '' }} required>
                                   Alpha
                               </label>
                               </td>
