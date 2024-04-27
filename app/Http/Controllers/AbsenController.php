@@ -62,6 +62,15 @@ class AbsenController extends Controller
 
     // Loop untuk menyimpan data absen dari setiap siswa
     foreach ($request->id_siswa as $index => $id_siswa) {
+        $absenHariIni = Absen::where('id_mapel', $request->id_mapel)
+                             ->whereDate('tanggal', Carbon::today())
+                             ->first();
+
+        // Jika entri absen sudah ada, berikan pesan kesalahan
+        if ($absenHariIni) {
+            return redirect()->back()->with('error', 'Absen untuk siswa ini sudah dilakukan hari ini.');
+        }
+
         $absen = new Absen();
         $absen->id_siswa = $id_siswa;
         $absen->id_mapel = $request->id_mapel;

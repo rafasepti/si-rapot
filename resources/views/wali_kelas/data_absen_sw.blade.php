@@ -36,6 +36,11 @@
                           {{ session('success') }}
                       </div>
                   @endif
+                  @if(session('error'))
+                      <div class="alert alert-danger">
+                          {{ session('error') }}
+                      </div>
+                  @endif
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-md-6">
