@@ -147,8 +147,9 @@ Route::middleware(['checkRole:Guru'])->group(function () {
     Route::get('/print_nilai/smt1/{id}', [NilaiController::class, 'generatePDF1']);
     Route::get('/print_nilai/smt2/{id}', [NilaiController::class, 'generatePDF2']);
 
-    Route::get('/absen-wali',[AbsenController::class, 'index']);
-    Route::get('/absen-wali/siswa',[AbsenController::class, 'absenWali']);
+    Route::get('/absen-wali',[AbsenController::class, 'absenWali']);
+    Route::get('/absen-guru',[AbsenController::class, 'index']);
+    Route::get('/absen-guru/siswa/{id}',[AbsenController::class, 'absenGuru']);
     Route::post('/absen/store',[AbsenController::class, 'store']);
 });
 

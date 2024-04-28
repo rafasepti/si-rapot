@@ -7,7 +7,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Nilai</h1>
+      <h1>Absensi</h1>
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
@@ -17,7 +17,7 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-9">
-                    <h5 class="card-title">Nilai Siswa</h5>
+                    <h5 class="card-title">Absensi Siswa</h5>
                   </div>
                 </div>
                 <!-- Vertical Form -->

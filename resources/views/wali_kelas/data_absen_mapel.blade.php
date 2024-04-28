@@ -17,26 +17,24 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-9">
-                    @if ($siswa_kel != "")
-                        <h5 class="card-title">Data Mapel Kelas {{ $siswa_kel->tingkat }}-{{ $siswa_kel->kelas }}</h5>           
-                    @else
-                        <h5 class="card-title">Data Mapel Kelas -</h5>           
-                    @endif
+                    <h5 class="card-title">Data Kelas</h5>   
                   </div>
                 </div>
                 <!-- Table with stripped rows -->
                 <table class="table table-striped table-bordered">
                     <thead>
                         <th>No.</th>
-                        <th>Nama Mapel</th>
+                        <th>Tingkat</th>
+                        <th>Kelas</th>
                         <th>Aksi</th>
                     </thead>
                     <tbody>
-                        @foreach ($mapel as $index => $m)
+                        @foreach ($kelas as $index => $k)
                             <tr>
                                 <td>{{ $index+1 }}</td>
-                                <td>{{ $m->nama_mapel }}</td>
-                                <td><a href="{{ url('absen-wali/siswa/') }}" class="btn btn-primary float-right" style="
+                                <td>{{ $k->tingkat }}</td>
+                                <td>{{ $k->kelas }}</td>
+                                <td><a  href="/absen-guru/siswa/{{ $k->ids_kelas }}" class="btn btn-primary float-right" style="
                                     margin-top: 15px; margin-left: 52px;">
                                     <i class="bi bi-plus"></i> Pilih
                                 </a></td>

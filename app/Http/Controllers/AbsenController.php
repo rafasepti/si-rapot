@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
+use App\Models\GuruKelas;
 use App\Models\GuruMapel;
 use App\Models\Kelas;
 use App\Models\Mapel;
@@ -26,7 +27,10 @@ class AbsenController extends Controller
                 compact('siswa_kel', 'mapel')
             );
         }else{
-            return view('wali_kelas/data_kls');
+            $kelas = GuruKelas::getKelasDiajar(session('id_user'));
+            return view('wali_kelas/data_absen_mapel',
+                compact('kelas')
+            );
         }
     }
     
@@ -37,6 +41,28 @@ class AbsenController extends Controller
             ->get();
         $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
         $mapel2 = Mapel::where('kategori', '1')->get();
+        $kd_nilai = Nilai::getkdNilai();
+        $today = Carbon::now()->format('d-m-Y');
+
+            return view('wali_kelas/data_absen_sw',
+                [
+                    'siswa_kel' => $siswa_kel,
+                    'siswa' => $siswa,
+                    'thn_ajaran' => $thn_ajaran,
+                    'mapel2' => $mapel2,
+                    'kd_nilai' => $kd_nilai,
+                    'today' => $today
+                ]
+            );
+    }
+
+    public function absenGuru($id){
+        $siswa_kel = Kelas::findOrFail($id);
+        $siswa = Siswa::where('id_kelas',$id)
+            ->orderBy('nama_siswa', 'asc')
+            ->get();
+        $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
+        $mapel2 = GuruMapel::getJoinMapelId(session('kode_guru'));
         $kd_nilai = Nilai::getkdNilai();
         $today = Carbon::now()->format('d-m-Y');
 
@@ -63,6 +89,7 @@ class AbsenController extends Controller
     // Loop untuk menyimpan data absen dari setiap siswa
     foreach ($request->id_siswa as $index => $id_siswa) {
         $absenHariIni = Absen::where('id_mapel', $request->id_mapel)
+                            ->where('id_siswa', $id_siswa)
                              ->whereDate('tanggal', Carbon::today())
                              ->first();
 
