@@ -192,27 +192,29 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                @foreach ($total_absen_per_siswa as $absen)
                                 <tr>
                                   <td class="col-sm-2"><span class="small">Sakit</span></td>
                                   <td>:</td>
                                   <td>
-                                    <span class="small">{{ $totalSakit1 }}&nbsp;Hari</span>
+                                    <span class="small">{{ $absen['sakit'] }}&nbsp;Hari</span>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td class="col-sm-2"><span class="small">Izin</span></td>
                                   <td>:</td>
                                   <td>
-                                    <span class="small">{{ $totalIzin1 }}&nbsp;Hari</span>
+                                    <span class="small">{{ $absen['izin'] }}&nbsp;Hari</span>
                                   </td>
                                 </tr>
                                 <tr>
                                   <td class="col-sm-2"><span class="small">Tanpa Keterangan</span></td>
                                   <td>:</td>
                                   <td>
-                                    <span class="small">{{ $totalAlpha1 }}&nbsp;Hari</span>
+                                    <span class="small">{{ $absen['alpha'] }}&nbsp;Hari</span>
                                   </td>
                                 </tr>
+                                @endforeach
                               </tbody>
                             </table>
                           </div>

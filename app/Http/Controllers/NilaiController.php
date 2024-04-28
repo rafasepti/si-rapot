@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Nilai;
 use App\Http\Requests\StoreNilaiRequest;
 use App\Http\Requests\UpdateNilaiRequest;
+use App\Models\Absen;
 use App\Models\DetailNilai;
 use App\Models\Ekskul;
 use App\Models\Guru;
@@ -382,24 +383,39 @@ class NilaiController extends Controller
         $mapelb = Mapel::where('kategori', '2')->get();
         $thn_ajaran = TahunAjaran::where('Aktif', 'Ya')->first();
         $nilai1 = Nilai::getNilai1($siswa->id_siswa,$siswa->id_kelas);
+        
         if ($nilai1 !== null) {
             $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
             $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
-            $totalIzin1 = $nilai1->kehadiran_izin;
-            $totalSakit1 = $nilai1->kehadiran_sakit;
-            $totalAlpha1 = $nilai1->kehadiran_tanpa_ket;
+            $absensi = Absen::where('id_siswa', $id)
+                ->where('semester', 1)
+                ->get();
 
-            foreach ($detail_nilai1 as $detail) {
-                $totalSakit1 += $detail->k_sakit;
-                $totalIzin1 += $detail->k_izin;
-                $totalAlpha1 += $detail->k_tanpa_ket;
+            // Lakukan pengelompokan berdasarkan ID siswa
+            $absensi_per_siswa = $absensi->groupBy('id_siswa');
+
+            // Inisialisasi array untuk menyimpan total absen per siswa
+            $total_absen_per_siswa = [];
+
+            // Hitung total absen untuk setiap siswa
+            foreach ($absensi_per_siswa as $id_siswa => $absen_per_siswa) {
+                $total_hadir = $absen_per_siswa->sum('k_hadir');
+                $total_sakit = $absen_per_siswa->sum('k_sakit');
+                $total_izin = $absen_per_siswa->sum('k_izin');
+                $total_alpha = $absen_per_siswa->sum('k_alpha');
+
+                // Simpan total absen ke dalam array
+                $total_absen_per_siswa[$id_siswa] = [
+                    'hadir' => $total_hadir,
+                    'sakit' => $total_sakit,
+                    'izin' => $total_izin,
+                    'alpha' => $total_alpha,
+                ];
             }
         } else {
             $detail_nilai1 = collect();
             $ekskul = "";
-            $totalSakit1 = 0;
-            $totalIzin1 = 0;
-            $totalAlpha1 = 0;
+            $total_absen_per_siswa = collect();
         }
 
         // Render view PDF dan data
@@ -411,9 +427,7 @@ class NilaiController extends Controller
             'nilai1', 
             'detail_nilai1',
             'thn_ajaran',
-            'totalSakit1',
-            'totalIzin1',
-            'totalAlpha1',
+            'total_absen_per_siswa'
         ));
     }
 
@@ -437,22 +451,35 @@ class NilaiController extends Controller
         if ($nilai1 !== null) {
             $ekskul = Ekskul::where('id', $nilai1->id_ekskul)->first();
             $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
+            $absensi = Absen::where('id_siswa', $id)
+                ->where('semester', 2)
+                ->get();
 
-            $totalIzin1 = $nilai1->kehadiran_izin;
-            $totalSakit1 = $nilai1->kehadiran_sakit;
-            $totalAlpha1 = $nilai1->kehadiran_tanpa_ket;
+            // Lakukan pengelompokan berdasarkan ID siswa
+            $absensi_per_siswa = $absensi->groupBy('id_siswa');
 
-            foreach ($detail_nilai1 as $detail) {
-                $totalSakit1 += $detail->k_sakit;
-                $totalIzin1 += $detail->k_izin;
-                $totalAlpha1 += $detail->k_tanpa_ket;
+            // Inisialisasi array untuk menyimpan total absen per siswa
+            $total_absen_per_siswa = [];
+
+            // Hitung total absen untuk setiap siswa
+            foreach ($absensi_per_siswa as $id_siswa => $absen_per_siswa) {
+                $total_hadir = $absen_per_siswa->sum('k_hadir');
+                $total_sakit = $absen_per_siswa->sum('k_sakit');
+                $total_izin = $absen_per_siswa->sum('k_izin');
+                $total_alpha = $absen_per_siswa->sum('k_alpha');
+
+                // Simpan total absen ke dalam array
+                $total_absen_per_siswa[$id_siswa] = [
+                    'hadir' => $total_hadir,
+                    'sakit' => $total_sakit,
+                    'izin' => $total_izin,
+                    'alpha' => $total_alpha,
+                ];
             }
         } else {
             $detail_nilai1 = collect();
             $ekskul = "";
-            $totalSakit1 = 0;
-            $totalIzin1 = 0;
-            $totalAlpha1 = 0;
+            $total_absen_per_siswa = collect();
         }
 
         // Render view PDF dan data
@@ -465,9 +492,7 @@ class NilaiController extends Controller
             'nilai1', 
             'detail_nilai1',
             'thn_ajaran',
-            'totalSakit1',
-            'totalIzin1',
-            'totalAlpha1',
+            'total_absen_per_siswa'
         ));
     }
 
@@ -496,49 +521,73 @@ class NilaiController extends Controller
 
             //-----TAMPIL NILAI SMT 1 dan 2
             if ($nilai1 !== null) {
+                $absensi = Absen::where('id_siswa', $id)
+                ->where('semester', 1)
+                ->get();
+
+                // Lakukan pengelompokan berdasarkan ID siswa
+                $absensi_per_siswa = $absensi->groupBy('id_siswa');
+
+                // Inisialisasi array untuk menyimpan total absen per siswa
+                $total_absen_per_siswa = [];
+
+                // Hitung total absen untuk setiap siswa
+                foreach ($absensi_per_siswa as $id_siswa => $absen_per_siswa) {
+                    $total_hadir = $absen_per_siswa->sum('k_hadir');
+                    $total_sakit = $absen_per_siswa->sum('k_sakit');
+                    $total_izin = $absen_per_siswa->sum('k_izin');
+                    $total_alpha = $absen_per_siswa->sum('k_alpha');
+
+                    // Simpan total absen ke dalam array
+                    $total_absen_per_siswa[$id_siswa] = [
+                        'hadir' => $total_hadir,
+                        'sakit' => $total_sakit,
+                        'izin' => $total_izin,
+                        'alpha' => $total_alpha,
+                    ];
+                }
                 $detail_nilai1 = DetailNilai::where('id_nilai', $nilai1->kode_nilai)->get();
                 $ekskul1 = Ekskul::where('id', $nilai1->id_ekskul)->first();
-                // Inisialisasi total absensi untuk setiap jenis absen
-                $totalIzin1 = $nilai1->kehadiran_izin;
-                $totalSakit1 = $nilai1->kehadiran_sakit;
-                $totalAlpha1 = $nilai1->kehadiran_tanpa_ket;
-
-                // Jumlahkan absensi dari detail nilai
-                foreach ($detail_nilai1 as $detail) {
-                    $totalSakit1 += $detail->k_sakit;
-                    $totalIzin1 += $detail->k_izin;
-                    $totalAlpha1 += $detail->k_tanpa_ket;
-                }
+                
             } else {
                 $detail_nilai1 = collect();
                 $ekskul1 = "";
-                $totalSakit1 = 0;
-                $totalIzin1 = 0;
-                $totalAlpha1 = 0;
+                $total_absen_per_siswa = collect();
             }
 
             if ($nilai2 !== null) {
                 $detail_nilai2 = DetailNilai::where('id_nilai', $nilai2->kode_nilai)->get();
                 $ekskul2 = Ekskul::where('id', $nilai2->id_ekskul)->first();
-                $totalIzin2 = $nilai2->kehadiran_izin;
-                $totalSakit2 = $nilai2->kehadiran_sakit;
-                $totalAlpha2 = $nilai2->kehadiran_tanpa_ket;
+                $absensi2 = Absen::where('id_siswa', $id)
+                ->where('semester', 2)
+                ->get();
 
-                // Jumlahkan absensi dari detail nilai
-                foreach ($detail_nilai2 as $detail) {
-                    $totalSakit2 += $detail->k_sakit;
-                    $totalIzin2 += $detail->k_izin;
-                    $totalAlpha2 += $detail->k_tanpa_ket;
+                // Lakukan pengelompokan berdasarkan ID siswa
+                $absensi_per_siswa2 = $absensi2->groupBy('id_siswa');
+
+                // Inisialisasi array untuk menyimpan total absen per siswa
+                $total_absen_per_siswa2 = [];
+
+                // Hitung total absen untuk setiap siswa
+                foreach ($absensi_per_siswa2 as $id_siswa => $absen_per_siswa) {
+                    $total_hadir2 = $absen_per_siswa->sum('k_hadir');
+                    $total_sakit2 = $absen_per_siswa->sum('k_sakit');
+                    $total_izin2 = $absen_per_siswa->sum('k_izin');
+                    $total_alpha2 = $absen_per_siswa->sum('k_alpha');
+
+                    // Simpan total absen ke dalam array
+                    $total_absen_per_siswa2[$id_siswa] = [
+                        'hadir' => $total_hadir2,
+                        'sakit' => $total_sakit2,
+                        'izin' => $total_izin2,
+                        'alpha' => $total_alpha2,
+                    ];
                 }
             } else {
                 $detail_nilai2 = collect();
                 $ekskul2 = $ekskul1;
-                $totalSakit2 = 0;
-                $totalIzin2 = 0;
-                $totalAlpha2 = 0;
+                $total_absen_per_siswa2 = collect();
             }
-
-
             
             return view('wali_kelas/detail_nilai',
                 [
@@ -552,13 +601,8 @@ class NilaiController extends Controller
                     'detail_nilai1' => $detail_nilai1,
                     'nilai2' => $nilai2,
                     'detail_nilai2' => $detail_nilai2,
-
-                    'totalSakit2' => $totalSakit2,
-                    'totalSakit1' => $totalSakit1,
-                    'totalIzin2' => $totalIzin2,
-                    'totalIzin1' => $totalIzin1,
-                    'totalAlpha2' => $totalAlpha2,
-                    'totalAlpha1' => $totalAlpha1,
+                    'total_absen_per_siswa' => $total_absen_per_siswa,
+                    'total_absen_per_siswa2' => $total_absen_per_siswa2,
                 ]
             );
         }else{

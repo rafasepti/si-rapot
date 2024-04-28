@@ -190,13 +190,14 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                @foreach ($total_absen_per_siswa as $absen)
                                 <tr>
                                   <td class="col-md-2"><span class="small">Sakit</span></td>
                                   <td>:</td>
                                   <td class="text-center">
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <span class="small">{{ $totalSakit1 }}</span>
+                                        <span class="small">{{ $absen['sakit'] }}</span>
                                       </div>
                                       <div class="col-md-4">
                                         <span class="small">Hari</span>
@@ -210,7 +211,7 @@
                                   <td class="text-center">
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <span class="small">{{ $totalIzin1 }}</span>
+                                          <span class="small">{{ $absen['izin'] }}</span>
                                         </div>
                                         <div class="col-md-4">
                                           <span class="small">Hari</span>
@@ -224,7 +225,7 @@
                                   <td class="text-center">
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <span class="small">{{ $totalAlpha1 }}</span>
+                                        <span class="small">{{ $absen['alpha'] }}</span>
                                       </div>
                                       <div class="col-md-4">
                                         <span class="small">Hari</span>
@@ -232,6 +233,7 @@
                                     </div>
                                   </td>
                                 </tr>
+                                @endforeach
                               </tbody>
                             </table>
                           </div>
@@ -402,13 +404,14 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                @foreach ($total_absen_per_siswa2 as $absen)
                                 <tr>
                                   <td class="col-md-2"><span class="small">Sakit</span></td>
                                   <td>:</td>
                                   <td class="text-center">
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <span class="small">{{ $totalSakit2 }}</span>
+                                        <span class="small">{{ $absen['sakit'] }}</span>
                                       </div>
                                       <div class="col-md-4">
                                         <span class="small">Hari</span>
@@ -417,12 +420,12 @@
                                   </td>
                                 </tr>
                                 <tr>
-                                  <td class="col-md-2"><span class="small">Izin</span></td>
+                                  <td class="col-md-2"><span class="small">{{ $absen['izin'] }}</span></td>
                                   <td>:</td>
                                   <td class="text-center">
                                       <div class="row">
                                         <div class="col-md-4">
-                                          <span class="small">{{ $totalIzin2 }}</span>
+                                          <span class="small">{{ $absen['izin'] }}</span>
                                         </div>
                                         <div class="col-md-4">
                                           <span class="small">Hari</span>
@@ -436,7 +439,7 @@
                                   <td class="text-center">
                                     <div class="row">
                                       <div class="col-md-4">
-                                        <span class="small">{{ $totalAlpha2 }}</span>
+                                        <span class="small">{{ $absen['alpha'] }}</span>
                                       </div>
                                       <div class="col-md-4">
                                         <span class="small">Hari</span>
@@ -444,6 +447,7 @@
                                     </div>
                                   </td>
                                 </tr>
+                                @endforeach
                               </tbody>
                             </table>
                           </div>

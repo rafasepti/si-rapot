@@ -142,7 +142,7 @@
                         </tbody>
                       </table>
 
-                      <table class="table table-striped table-bordered">
+                      {{-- <table class="table table-striped table-bordered">
                         <thead>
                           <tr>
                             <th class="col-sm-5" colspan="3">Ketidakhadiran</th>
@@ -193,7 +193,7 @@
                           </tr>
                         </tbody>
                       </table>
-                    </div>
+                    </div> --}}
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="reset" class="btn btn-secondary">Reset</button>

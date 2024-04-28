@@ -100,7 +100,7 @@
                               <textarea name="ket[]" class="form-control ket_{{ $s->id }}_{{ $kelas->id }}" required style="height: 130px">{{ old('ket.'.$index) }}</textarea>
                             </td>
                           </tr>
-                          <tr>
+                          {{-- <tr>
                             <th class="text-center">Sakit</th>
                             <th class="text-center">Izin</th>
                             <th class="text-center">Alpha</th>
@@ -113,7 +113,7 @@
                             <td>
                               <input type="number" min="0" class="form-control alpha_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket[]" value="{{ old('k_tanpa_ket.'.$index) }}" required>
                             </td>
-                          </tr>
+                          </tr> --}}
                         </tbody>
                       </table>
                       @endforeach
