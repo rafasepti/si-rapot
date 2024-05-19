@@ -72,8 +72,12 @@
                                 <select class="form-select" aria-label="Default select example" required name="id_mapel">
                                     <option value="">Pilih Mapel</option>
                                     @foreach ($mapel2 as $m)
-                                    <option value="{{ $m->id }}">{{ $m->nama_mapel }}</option>
-                                  @endforeach
+                                      @if (Session::get('walikelas')=='Ya')
+                                        <option value="{{ $m->id }}">{{ $m->nama_mapel }}</option>
+                                      @else
+                                        <option value="{{ $m->id_mapel }}">{{ $m->nama_mapel }}</option>
+                                      @endif
+                                    @endforeach
                                 </select>
                               </div>
                           </div>

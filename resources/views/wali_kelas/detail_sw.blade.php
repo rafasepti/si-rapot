@@ -109,11 +109,11 @@
                                           </tr>
                                           <tr>
                                             <td>
-                                              <input type="number" class="form-control sakit_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit[]" value="{{ $nilai1[$index]->k_sakit ?? '' }}" readonly>
+                                              <input type="number" class="form-control sakit_{{ $s->id }}_{{ $kelas->id }}" name="k_sakit[]" value="{{ $total_absen_per_siswa[$s->ids]['sakit'] ?? 0 }}" readonly>
                                             </td>
-                                            <td><input type="number" class="form-control izin_{{ $s->id }}_{{ $kelas->id }}" name="k_izin[]" value="{{ $nilai1[$index]->k_izin ?? '' }}" readonly></td>
+                                            <td><input type="number" class="form-control izin_{{ $s->id }}_{{ $kelas->id }}" name="k_izin[]" value="{{ $total_absen_per_siswa[$s->ids]['izin'] ?? 0 }}" readonly></td>
                                             <td>
-                                              <input type="number" class="form-control alpha_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket[]" value="{{ $nilai1[$index]->k_tanpa_ket ?? '' }}" readonly>
+                                              <input type="number" class="form-control alpha_{{ $s->id }}_{{ $kelas->id }}" name="k_tanpa_ket[]" value="{{ $total_absen_per_siswa[$s->ids]['alpha'] ?? 0 }}" readonly>
                                             </td>
                                           </tr>
                                         </tbody>

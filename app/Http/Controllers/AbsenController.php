@@ -100,6 +100,7 @@ class AbsenController extends Controller
 
         $absen = new Absen();
         $absen->id_siswa = $id_siswa;
+        $absen->id_thn_ajaran = $request->id_thn_ajaran;
         $absen->id_mapel = $request->id_mapel;
         $absen->tanggal = Carbon::now()->format('Y-m-d');
         $absen->id_kelas = $request->id_kelas;

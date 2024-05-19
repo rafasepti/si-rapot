@@ -243,9 +243,9 @@ class NilaiController extends Controller
                             $guruKelas->nilai_as = $request->nilai_as[$key]; 
                             $guruKelas->nilai_akhir = $nilai_akhir;
                             $guruKelas->ket = $request->ket[$key]; 
-                            $guruKelas->k_izin = $request->k_izin[$key]; 
-                            $guruKelas->k_sakit = $request->k_sakit[$key]; 
-                            $guruKelas->k_tanpa_ket = $request->k_tanpa_ket[$key]; 
+                            // $guruKelas->k_izin = $request->k_izin[$key]; 
+                            // $guruKelas->k_sakit = $request->k_sakit[$key]; 
+                            // $guruKelas->k_tanpa_ket = $request->k_tanpa_ket[$key]; 
                             $guruKelas->save();
                         } else {
                             // Buat detail nilai baru jika tidak ditemukan
@@ -257,9 +257,9 @@ class NilaiController extends Controller
                             $guruKelas->nilai_as = $request->nilai_as[$key]; 
                             $guruKelas->nilai_akhir = $nilai_akhir;
                             $guruKelas->ket = $request->ket[$key]; 
-                            $guruKelas->k_izin = $request->k_izin[$key]; 
-                            $guruKelas->k_sakit = $request->k_sakit[$key]; 
-                            $guruKelas->k_tanpa_ket = $request->k_tanpa_ket[$key]; 
+                            // $guruKelas->k_izin = $request->k_izin[$key]; 
+                            // $guruKelas->k_sakit = $request->k_sakit[$key]; 
+                            // $guruKelas->k_tanpa_ket = $request->k_tanpa_ket[$key]; 
                             $guruKelas->save();
                         }
                 }else{
@@ -271,9 +271,9 @@ class NilaiController extends Controller
                     $guruKelas->nilai_as = $request->nilai_as[$key]; 
                     $guruKelas->nilai_akhir = $nilai_akhir;
                     $guruKelas->ket = $request->ket[$key]; 
-                    $guruKelas->k_izin = $request->k_izin[$key]; 
-                    $guruKelas->k_sakit = $request->k_sakit[$key]; 
-                    $guruKelas->k_tanpa_ket = $request->k_tanpa_ket[$key]; 
+                    // $guruKelas->k_izin = $request->k_izin[$key]; 
+                    // $guruKelas->k_sakit = $request->k_sakit[$key]; 
+                    // $guruKelas->k_tanpa_ket = $request->k_tanpa_ket[$key]; 
                     $guruKelas->save();
 
                     DB::table('nilai')->insert([
@@ -523,6 +523,7 @@ class NilaiController extends Controller
             if ($nilai1 !== null) {
                 $absensi = Absen::where('id_siswa', $id)
                 ->where('semester', 1)
+                ->where('id_thn_ajaran', $thn_ajaran->id)
                 ->get();
 
                 // Lakukan pengelompokan berdasarkan ID siswa
@@ -560,6 +561,7 @@ class NilaiController extends Controller
                 $ekskul2 = Ekskul::where('id', $nilai2->id_ekskul)->first();
                 $absensi2 = Absen::where('id_siswa', $id)
                 ->where('semester', 2)
+                ->where('id_thn_ajaran', $thn_ajaran->id)
                 ->get();
 
                 // Lakukan pengelompokan berdasarkan ID siswa
@@ -632,6 +634,31 @@ class NilaiController extends Controller
 
          if ($nilai1 === null) {
             $nilai1 = collect();
+            $total_absen_per_siswa = collect();
+        }else{
+            $absensi = Absen::
+                where('semester', 1)
+                ->where('id_mapel', $mapelG->id_mapel)
+                ->where('id_thn_ajaran', $thn_ajaran->id)
+                ->get();
+
+            $absensi_per_siswa = $absensi->groupBy('id_siswa');
+
+            $total_absen_per_siswa = [];
+
+            foreach ($absensi_per_siswa as $id_siswa => $absen_per_siswa) {
+                $total_hadir = $absen_per_siswa->sum('k_hadir');
+                $total_sakit = $absen_per_siswa->sum('k_sakit');
+                $total_izin = $absen_per_siswa->sum('k_izin');
+                $total_alpha = $absen_per_siswa->sum('k_alpha');
+
+                $total_absen_per_siswa[$id_siswa] = [
+                    'hadir' => $total_hadir,
+                    'sakit' => $total_sakit,
+                    'izin' => $total_izin,
+                    'alpha' => $total_alpha,
+                ];
+            }
         }
 
         if ($nilai2 === null) {
@@ -645,6 +672,7 @@ class NilaiController extends Controller
                 'mapel2' => $mapel2,
                 'nilai1' => $nilai1,
                 'nilai2' => $nilai2,
+                'total_absen_per_siswa' => $total_absen_per_siswa
             ]);
     } 
 
